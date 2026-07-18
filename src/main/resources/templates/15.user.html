@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galaxy of Art - User Management</title>
+    <link rel="icon" href="pictures/bgnd/Art Gallery.jpg">
+
+    <!-- link bootstrap css file -->
+    <link rel="stylesheet" href="bootstrap-5.2.3/css/bootstrap.min.css">
+
+    <!-- link fontawesome css file -->
+    <link rel="stylesheet" href="fontawesome-free-7.2.0/fontawesome-free-7.2.0-web/css/all.min.css">
+
+    <!-- link commen css file -->
+    <link rel="stylesheet" href="comman.css">
+
+
+</head>
+
+
+
+
+<body>
+
+    <!-- top nav bar -->
+    <nav th:replace="topnavbar :: topNavbarFragment"></nav>
+
+    <div class="container-fluid">
+
+        <!-- title area -->
+        <div class="row m-3 p-2  div-title">
+            <div class="col text-center">
+                <h1>User Management</h1>
+            </div>
+        </div>
+
+        <!-- tab lesa -->
+        <div class="row mt-2 ">
+            <div class="col">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="form-tab" data-bs-toggle="tab"
+                            data-bs-target="#form-tab-pane" type="button" role="tab" aria-controls="form-tab-pane"
+                            aria-selected="true"><b> Employee Form </b></button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="table-tab" data-bs-toggle="tab" data-bs-target="#table-tab-pane"
+                            type="button" role="tab" aria-controls="table-tab-pane" aria-selected="false"> <b>Employee
+                                Table </b></button>
+                    </li>
+
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="form-tab-pane" role="tabpanel" aria-labelledby="form-tab"
+                        tabindex="0">
+
+                        <!-- form -->
+                        <div class="card div-form">
+                            <div class="card-body ">
+
+
+                                <form id="formUser" onsubmit="return false" class="p-3">
+
+                                    <!-- required penweemata -->
+                                    <div class="row mt-1">
+                                        <div class="col text-end">
+                                            <p>Required <span class="text-danger">*</span></p>
+                                        </div>
+                                    </div>
+
+                                    <!-- emp,user names -->
+                                    <div class="row mt-1">
+
+                                        <!-- Employee name -->
+                                        <div class="col">
+                                            <label for="selectEmployee" class="form-label fw-bold">Employee Name :
+                                                <span class="text-danger">*</span></label>
+                                            <select name="employee" required id="selectEmployee" class="form-select"
+                                                onchange="user.employee_table_id = JSON.parse(this.value); this.style.border = '2px solid green';">
+                                                <option value="" selected="selected" disabled="disabled="> Select
+                                                    Employee</option>
+
+                                            </select>
+                                        </div>
+
+                                        <!-- usr nme -->
+                                        <div class="col">
+                                            <label for="textUsername" class="form-label fw-bold"> Username :
+                                                <span class="text-danger">*</span></label>
+                                            <input type="text" id="textUsername" placeholder="Enter Username" required
+                                                class="form-control"
+                                                onkeyup="textValidator(this, '^[a-zA-Z]{1,}[a-zA-Z0-9]{0,}$',user, 'username')">
+                                        </div>
+                                    </div>
+
+                                    <!-- password -->
+                                    <div class="row mt-1">
+                                        <!-- paswrd -->
+                                        <div class="col">
+                                            <label for="textPassword" class="form-label fw-bold"> Password :
+                                                <span class="text-danger">*</span></label>
+                                            <input type="password" id="textPassword" placeholder="Enter Password"
+                                                required class="form-control"
+                                                onkeyup="textValidator(this, '^[a-zA-Z0-9\\#\\@\\*]{6,16}$',user, 'password')">
+                                        </div>
+
+                                        <!--  re enter paswrd -->
+                                        <div class="col">
+                                            <label for="textReTypePassword" class="form-label fw-bold"> Re-Type
+                                                Password :
+                                                <span class="text-danger">*</span></label>
+                                            <input type="password" id="textReTypePassword"
+                                                placeholder="Enter Password Again" required class="form-control"
+                                                onkeyup="textPasswordRetypeValidator(this, '^[a-zA-Z0-9\\#\\@\\*]{6,16}$',user, 'reenterPassword')">
+                                        </div>
+
+                                    </div>
+
+                                    <!-- role,mail,status-->
+                                    <div class="row mt-1">
+
+                                        <!-- Role -->
+                                        <div class="col" id="divRole">
+
+                                        </div>
+
+                                        <!-- mail -->
+                                        <div class="col">
+                                            <label for="textEmail" class="form-label fw-bold">Email: <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="email" required placeholder="Enter Email" id="textEmail"
+                                                class="form-control"
+                                                onkeyup="textValidator(this,'^([a-zA-Z0-9]{6,20}[@][a-z]{3,10}[.][a-z]{2,3})$' , user, 'useremail')">
+                                        </div>
+
+                                        <!-- status -->
+                                        <div class="col">
+                                            <label class="form-label fw-bold">Status :
+                                                <span class="text-danger">*</span></label>
+
+                                            <div class="border rounded px-3 py-2"
+                                                style="height: 38px; display: flex; align-items: center; background-color: rgb(255, 255, 255);">
+                                                <div class="form-check form-switch">
+                                                    <input type="checkbox" required id="checkUserStatus"
+                                                        class="form-check-input" onchange="if(this.checked){ 
+                                                        lblUserStatus.innerText='Active' ; 
+                                                        user.status=true;
+                                                    }else{
+                                                        lblUserStatus.innerText = 'In-Active';
+                                                        user.status = false;
+                                                    }">
+                                                    <label for="checkUserStatus" class="form-check-lable"
+                                                        id="lblUserStatus">In-Active</label>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+                                    <!-- note -->
+                                    <div class="row mt-1">
+
+                                        <div class="col">
+                                            <label for="note" class="form-label fw-bold">Note : <span
+                                                    class="text-danger"></span></label>
+                                            <textarea required placeholder="Enter Note" id="textNote"
+                                                class="form-control"
+                                                onkeyup="textValidator(this,'^[A-Za-z:/,. 0-9]{7,100}$' , user, 'note')">
+                                            </textarea>
+                                        </div>
+                                    </div>
+
+                                    <br>
+
+                                    <!-- buttons -->
+                                    <div class="row mt-1">
+                                        <div class="col-4">
+                                            <button class="btn clear " id="buttonClear" type="reset">
+                                                Clear</button>
+                                        </div>
+
+                                        <div class="col-8 text-end">
+                                            <button class="btn update" onclick="updateFormUser()" id="buttonUpdate"
+                                                type="submit">
+                                                Update</button>
+                                            <button class="btn submit" onclick="submitUser()" id="buttonSubmit"
+                                                type="button">
+                                                Submit</button>
+                                        </div>
+
+                                    </div>
+
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="tab-pane fade" id="table-tab-pane" role="tabpanel" aria-labelledby="table-tab" tabindex="0">
+
+                <!-- table -->
+                <div class="card div-table">
+                    <div class="card-body table-responsive">
+                        <table class=" table table-hover table-striped table-bordered" id="tableUser">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Employee Name</th>
+                                    <th>User Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                    <th>Modify/Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="tableBodyUser">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Employee Name</th>
+                                    <th>User Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                    <td>
+                                        <button class="btn print fa-solid fa-print" style="display: inline-block;"
+                                            id="buttonPrint" type="print"></button>
+                                        <button class="btn edit fa-solid fa-edit " style="display: inline-block;"
+                                            id="buttonEdit" type="edit"></button>
+                                        <button class="btn delete fa-solid fa-trash" style="display: inline-block;"
+                                            id="buttonDelete" type="delete">
+                                        </button>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- link sweet alert  -->
+    <script src="sweetalert.min.js"></script>
+
+    <!-- link js file -->
+    <script src="bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
+
+    <!-- link jquary file -->
+    <script src="js/jquery-4.0.0..min.js"></script>
+
+    <!-- link common js file -->
+    <script src="js/comman.js"></script>
+
+    <!-- link user js -->
+    <script src="js/15.user.js"></script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galaxy of Art - Production Management[Mug Printing] </title>
+    <link rel="icon" href="pictures/bgnd/Art Gallery.jpg">
+
+    <!-- link bootstrap css file -->
+    <link rel="stylesheet" href="bootstrap-5.2.3/css/bootstrap.min.css">
+
+    <!-- link fontawesome css file -->
+    <link rel="stylesheet" href="fontawesome-free-7.2.0/fontawesome-free-7.2.0-web/css/all.min.css">
+
+    <!-- link commen css file -->
+    <link rel="stylesheet" href="comman.css">
+</head>
+
+
+<body>
+    <!-- top nav bar -->
+    <nav th:replace="topnavbar :: topNavbarFragment"></nav>
+
+    <div class="container-fluid">
+
+        <!-- title area -->
+        <div class="row m-3 p-2 div-title">
+            <div class="col text-center ">
+                <h1> Production Management</h1>
+                <h5>[Mug Printing]</h5>
+            </div>
+        </div>
+
+        <!-- tab lesa -->
+        <div class="row mt-2 ">
+            <div class="col">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="form-tab" data-bs-toggle="tab"
+                            data-bs-target="#form-tab-pane" type="button" role="tab" aria-controls="form-tab-pane"
+                            aria-selected="true"> <B> Production Form </B></button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="table-tab" data-bs-toggle="tab" data-bs-target="#table-tab-pane"
+                            type="button" role="tab" aria-controls="table-tab-pane" aria-selected="false"> <b>
+                                Production Table </b></button>
+                    </li>
+
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="form-tab-pane" role="tabpanel" aria-labelledby="form-tab"
+                        tabindex="0">
+
+                        <div class="card div-form">
+                            <div class="card-body ">
+
+                                <form id="formProduction" onsubmit="return false">
+
+                                    <!-- required penweemata -->
+                                    <div class="row mt-1">
+                                        <div class="col text-end">
+                                            <p>Required <span class="text-danger">*</span></p>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- custmer , job info ...........................................-->
+                                    <div class="row mt-1">
+
+                                        <!-- customr info -->
+                                        <div class=" col">
+                                            <h4><i><b>|| Customer Information</b></i></h4>
+
+                                            <div class="row mt-1">
+
+                                                <div class="col">
+                                                    <label for="customerName" class="form-label fw-bold">Customer
+                                                        Name :
+                                                        <span class="text-danger">*</span></label>
+                                                    <input type="text" required placeholder="Enter Customer Name"
+                                                        id="customerName" class="form-control">
+                                                </div>
+
+                                                <div class="col">
+                                                    <label for="contact" class="form-label fw-bold">Contact
+                                                        No :
+                                                        <span class="text-danger">*</span></label>
+                                                    <input type="text" required placeholder="Enter Contact No"
+                                                        id="contact" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <!-- printj info -->
+                                        <div class=" col">
+                                            <h4><i><b>|| Printing Information</b></i></h4>
+
+                                            <!-- job id,status -->
+                                            <div class="row mt-1">
+
+                                                <div class="col">
+                                                    <label for="jobId" class="form-label fw-bold">Printing Job
+                                                        ID :</label>
+                                                    <input type="text" placeholder="Auto-generated after save" id="jobId" readonly
+                                                        class="form-control">
+                                                </div>
+
+                                                <div class="col">
+                                                    <label for="jobStatus" class="form-label fw-bold">
+                                                        Job Status :
+                                                        <span class="text-danger">*</span></label>
+                                                    <select id="jobStatus" class="form-select">
+                                                        <option value="" selected disabled>Select</option>
+                                                        <option value="Pending">Pending</option>
+                                                        <option value="Printing">Printing</option>
+                                                        <option value="Completed">Completed</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <!-- dates-->
+                                            <div class="row mt-1">
+
+                                                <div class="col">
+                                                    <label for="orderedDate" class="form-label fw-bold">Ordered Date
+                                                        :
+                                                        <span class="text-danger">*</span></label>
+                                                    <input type="date" required id="orderedDate" class="form-control">
+                                                </div>
+
+                                                <div class="col">
+                                                    <label for="deliveryDate" class="form-label fw-bold"> Required
+                                                        Delivery Date :
+                                                        <span class="text-danger">*</span></label>
+                                                    <input type="date" required id="deliveryDate" class="form-control">
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <br>
+                                    <!-- mug & Design info ..................................................-->
+                                    <div class="row mt-1">
+                                        <h4><i><b>|| Mug & Design Information</b></i></h4>
+
+                                        <div class="col">
+                                            <label for="selectProduct" class="form-label fw-bold">
+                                                Mug Product :
+                                                <span class="text-danger">*</span></label>
+                                            <select id="selectProduct" class="form-select">
+                                                <option value="" selected disabled>Select Mug Product</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="designCategory" class="form-label fw-bold">
+                                                Design Category :
+                                                <span class="text-danger">*</span></label>
+                                            <select id="designCategory" class="form-select">
+                                                <option value="" selected disabled>Select Category</option>
+                                                <option value="Photo">Photo</option>
+                                                <option value="Quote">Quote</option>
+                                                <option value="Logo">Logo</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="designFormat" class="form-label fw-bold">Design Format :
+                                                <span class="text-danger">*</span></label>
+                                            <input type="text" required placeholder="PNG / JPG" id="designFormat"
+                                                class="form-control">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row mt-1">
+                                        <div class="col">
+                                            <label for="designFile" class="form-label fw-bold"> Image of the Design :
+                                                <span class="text-danger">*</span></label>
+                                            <input type="file" required placeholder="Upload the file [PNG/JPG]"
+                                                id="designFile" accept="Image/*" class="form-control">
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="printArea" class="form-label fw-bold">
+                                                Print Area Type :
+                                                <span class="text-danger">*</span></label>
+                                            <select id="printArea" class="form-select">
+                                                <option value="" selected disabled>Select Area</option>
+                                                <option value="Full Wrap">Full Wrap</option>
+                                                <option value="Front Only">Front Only</option>
+                                                <option value="Both Sides">Both Sides</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="colorMode" class="form-label fw-bold">
+                                                Color Mode :
+                                                <span class="text-danger">*</span></label>
+                                            <select id="colorMode" class="form-select">
+                                                <option value="" selected disabled>Select Color Mode</option>
+                                                <option value="RGB">RGB</option>
+                                                <option value="CMYK">CMYK</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="designSize" class="form-label fw-bold">Design Size(cm) :
+                                                <span class="text-danger">*</span></label>
+                                            <input type="text" required placeholder="Enter Height & Width"
+                                                id="designSize" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <br>
+                                    <!-- cost............................................................. -->
+                                    <div class="row mt-1">
+                                        <h4><i><b>|| Print Costing</b></i></h4>
+
+                                        <div class="col">
+                                            <label for="qty" class="form-label fw-bold"> Quantity :
+                                                <span class="text-danger">*</span></label>
+                                            <input type="number" required placeholder="Enter Quantity" min="1" id="qty"
+                                                oninput="calculate()" class="form-control">
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="unitCost" class="form-label fw-bold">Unit Printing
+                                                Cost(Rs.) :
+                                                <span class="text-danger">*</span></label>
+                                            <input type="number" required placeholder="Enter Unit Cost" min="0"
+                                                oninput="calculate()" id="unitCost" class="form-control">
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="inkCost" class="form-label fw-bold">Ink Cost(Rs.) :
+                                                <span class="text-danger">*</span></label>
+                                            <input type="number" required placeholder="Enter Ink Cost" min="0"
+                                                id="inkCost" oninput="calculate()" class="form-control">
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="paperCost" class="form-label fw-bold"> Paper Cost(Rs.) :
+                                                <span class="text-danger">*</span></label>
+                                            <input type="number" required placeholder="Enter Paper Cost" min="0"
+                                                id="paperCost" oninput="calculate()" class="form-control">
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="designCost" class="form-label fw-bold">Design Cost(Rs.) :
+                                                <span class="text-danger">*</span></label>
+                                            <input type="number" required placeholder="Enter Design Cost" min="0"
+                                                id="designCost" oninput="calculate()" class="form-control">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row mt-1">
+                                        <div class="col">
+                                            <label for="discount" class="form-label fw-bold">Discount(%) :</label>
+                                            <input type="number" placeholder="Enter Discount" min="0"
+                                                id="discount" oninput="calculate()" class="form-control">
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="discountAmount" class="form-label fw-bold">Discount Amount(Rs.) :</label>
+                                            <input type="number" placeholder="Auto Calculated" min="0"
+                                                id="discountAmount" readonly class="form-control">
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="totalCost" class="form-label fw-bold">Total Printing
+                                                Cost(Rs.) :</label>
+                                            <input type="number" placeholder="Auto Calculated" min="0"
+                                                id="totalCost" readonly class="form-control">
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="advance" class="form-label fw-bold">Advance Paid(Rs.) :</label>
+                                            <input type="number" placeholder="Enter Advance Amount" min="0"
+                                                id="advance" oninput="calculate()" class="form-control">
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="balance" class="form-label fw-bold">Balance Amount(Rs.) :</label>
+                                            <input type="number" placeholder="Auto Calculated" min="0"
+                                                id="balance" readonly class="form-control">
+                                        </div>
+
+                                    </div>
+
+                                    <br>
+                                    <!-- buttons -->
+                                    <div class="row mt-1">
+                                        <div class="col-4">
+                                            <button class="btn clear" id="buttonClear" type="reset">
+                                                Clear</button>
+                                        </div>
+
+                                        <div class="col-8 text-end">
+                                            <button class="btn update" onclick="updateProduction()" id="buttonUpdate" type="button">
+                                                Update</button>
+                                            <button class="btn submit" onclick="submitProduction()" id="buttonSubmit"
+                                                type="button">
+                                                Submit</button>
+                                        </div>
+                                    </div>
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="table-tab-pane" role="tabpanel" aria-labelledby="table-tab" tabindex="0">
+
+                    <!-- table -->
+                    <div class="card div-table">
+                        <div class="card-body table-responsive">
+                            <table class=" table table-hover  table-bordered" id="tableProduction">
+
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Job ID</th>
+                                        <th>Customer</th>
+                                        <th>Mug Product</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                        <th>Balance</th>
+                                        <th>Status</th>
+                                        <th>Modify/Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="tableBodyProduction">
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- link sweet alert  -->
+    <script src="sweetalert.min.js"></script>
+
+    <!-- link js file -->
+    <script src="bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
+
+    <!-- link jquary file -->
+    <script src="js/jquery-4.0.0..min.js"></script>
+
+    <!-- link common js file -->
+    <script src="js/comman.js"></script>
+
+    <!-- link production js -->
+    <script src="js/10.production.js"></script>
+
+</body>
+
+</html>

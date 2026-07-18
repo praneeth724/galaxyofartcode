@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galaxy of Art - Product Details & Prices</title>
+    <link rel="icon" href="pictures/bgnd/Art Gallery.jpg">
+
+    <!-- link bootstrap css file -->
+    <link rel="stylesheet" href="bootstrap-5.2.3/css/bootstrap.min.css">
+
+    <!-- link fontawesome css file -->
+    <link rel="stylesheet" href="fontawesome-free-7.2.0/fontawesome-free-7.2.0-web/css/all.min.css">
+
+    <!-- link commen css file -->
+    <link rel="stylesheet" href="comman.css">
+
+    <style>
+        .section {
+            display: none;
+        }
+    </style>
+
+
+</head>
+
+
+
+
+<body>
+
+    <!-- top nav bar -->
+    <nav th:replace="topnavbar :: topNavbarFragment"></nav>
+
+
+    <div class="container-fluid">
+
+        <!-- title area -->
+        <div class="row m-3 p-2 div-title">
+            <div class="col text-center">
+                <h1>Product Details & Prices</h1>
+            </div>
+        </div>
+
+        <!-- tab lesa -->
+        <div class="row mt-2 ">
+            <div class="col">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="form-tab" data-bs-toggle="tab"
+                            data-bs-target="#form-tab-pane" type="button" role="tab" aria-controls="form-tab-pane"
+                            aria-selected="true"> <B> Product Form </B></button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="table-tab" data-bs-toggle="tab" data-bs-target="#table-tab-pane"
+                            type="button" role="tab" aria-controls="table-tab-pane" aria-selected="false"> <b>
+                                Product Table </b></button>
+                    </li>
+
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="form-tab-pane" role="tabpanel" aria-labelledby="form-tab"
+                        tabindex="0">
+                        <!-- forms -->
+
+
+
+                        <div class="card div-form">
+                            <div class="card-body ">
+
+                                <form id="formProducts" onsubmit="return false">
+
+
+                                    <div class="form-box">
+
+
+                                        <!-- required penweemata -->
+                                        <div class="row mt-1">
+                                            <div class="col text-end">
+                                                <p>Required <span class="text-danger">*</span></p>
+                                            </div>
+                                        </div>
+
+                                        <!-- dropdown to choose form -->
+                                        <label for="typeSelector" class="form-label fw-bold">Select
+                                            Type :
+                                            <span class="text-danger">*</span></label>
+                                        <select id="typeSelector" class="form-select" onchange="showForm()">
+                                            <option value="" selected disabled> Select
+                                                Type</option>
+                                            <option value="arts">Arts</option>
+                                            <option value="statues">Statues</option>
+                                            <option value="mugs">Mugs</option>
+                                        </select>
+                                        <br>
+                                        <br>
+
+
+                                        <!-- arts Form........................................................ -->
+                                        <div id="artsForm" class="section" onsubmit="return false">
+
+                                            <h4><i><B>Hand Painted Arts Details</B></i></h4>
+
+
+                                            <!--  name,code-->
+                                            <div class="row mt-1">
+
+                                                <div class="col">
+                                                    <label for="textArtistName" class="form-label fw-bold">Artist
+                                                        Name :
+                                                        <span class="text-danger">*</span></label>
+
+                                                    <input type="text" required placeholder="Enter Name" id="textArtistName"
+                                                        class="form-control">
+                                                </div>
+
+                                                <div class="col">
+                                                    <label for="textArtItemCode" class="form-label fw-bold">Item Code :
+                                                        <span class="text-danger">*</span></label>
+                                                    <input type="text" required placeholder="Enter Code"
+                                                        id="textArtItemCode" class="form-control">
+                                                </div>
+
+                                            </div>
+
+
+                                            <!-- product type,pic-->
+                                            <div class="row mt-1">
+
+
+                                                <div class="col">
+                                                    <label for="selectArtMedium" class="form-label fw-bold">Paint
+                                                        Medium :
+                                                        <span class="text-danger">*</span></label>
+                                                    <select id="selectArtMedium" class="form-select">
+                                                        <option value="" selected disabled>
+                                                            Select Medium</option>
+                                                        <option value="">Watercolour Painting</option>
+                                                        <option value="">Oil Painting</option>
+                                                        <option value="">Pencil art</option>
+                                                        <option value="">Pastel Painting</option>
+                                                    </select>
+                                                </div>
+
+
+                                                <div class="col">
+                                                    <label for="imgArtImage" class="form-label fw-bold">Image of the Art
+                                                        :
+                                                        <span class="text-danger">*</span></label>
+                                                    <input type="file" required placeholder="Upload the file"
+                                                        id="imgArtImage" accept="Image/*" class="form-control">
+                                                </div>
+
+
+                                            </div>
+
+                                            <!-- description,price -->
+                                            <div class="row mt-1">
+
+                                                <div class="col">
+                                                    <label for="textArtDescription" class="form-label fw-bold">
+                                                        Description
+                                                        :<span class="text-danger">*</span></label>
+                                                    <textarea required placeholder="Enter Description"
+                                                        id="textArtDescription" class="form-control"> </textarea>
+                                                </div>
+
+                                                <div class="col">
+                                                    <label for="textArtPrice" class="form-label fw-bold"> Art Price(Rs.)
+                                                        :
+                                                        <span class="text-danger">*</span></label>
+                                                    <input type="number" min="0" required placeholder="Enter Price"
+                                                        id="textArtPrice" class="form-control">
+                                                </div>
+
+                                            </div>
+
+                                            <br>
+                                            <!-- buttons -->
+                                            <div class="row mt-1">
+                                                <div class="col-4">
+                                                    <button class="btn clear " id="buttonClear" type="reset">
+                                                        Clear</button>
+                                                </div>
+
+                                                <div class="col-8 text-end">
+                                                    <button class="btn update" id="buttonUpdateArt" onclick="updateArt()" type="submit">
+                                                        Update</button>
+                                                    <button class="btn submit" id="buttonSubmitArt" onclick="submitArtsForm()" type="submit">
+                                                        Submit</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+                                        <!-- statues Form................................................................-->
+                                        <div id="statuesForm" class="section" onsubmit="return false">
+                                            <h4><i><B>Statues Details</B></i></h4>
+
+                                            <!-- shop name, type-->
+                                            <div class="row mt-1">
+
+                                                <div class="col">
+                                                    <label for="textStatueSupplierName" class="form-label fw-bold">Supplier
+                                                        Shop Name :
+                                                        <span class="text-danger">*</span></label>
+                                                    <input type="text" required placeholder="Enter Supplier Name"
+                                                        id="textStatueSupplierName" class="form-control">
+                                                </div>
+
+
+                                                <div class="col">
+                                                    <label for="selectStatueName" class="form-label fw-bold">
+                                                        Statue Name :
+                                                        <span class="text-danger">*</span></label>
+                                                    <select id="selectStatueName" onchange="updateStatueItemCode()"
+                                                        class="form-select">
+                                                        <option value="" selected disabled>Select Name</option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+
+
+                                            <!-- code,imge,price-->
+                                            <div class="row mt-1">
+
+                                                <div class="col">
+                                                    <label for="textStatueItemCode" class="form-label fw-bold"> Item Code
+                                                        :
+                                                        <span class="text-danger">*</span></label>
+                                                    <input type="text" required placeholder="Auto-filled, edit to keep unique"
+                                                        id="textStatueItemCode" class="form-control">
+                                                </div>
+
+                                                <div class="col">
+                                                    <label for="imgStatueImage" class="form-label fw-bold">Image of the
+                                                        Statue
+                                                        :
+                                                        <span class="text-danger">*</span></label>
+                                                    <input type="file" required placeholder="Upload the file"
+                                                        id="imgStatueImage" accept="Image/*" class="form-control">
+                                                </div>
+
+                                                <div class="col">
+                                                    <label for="textStatuePrice" class="form-label fw-bold">Price(Rs.)
+                                                        :
+                                                        <span class="text-danger">*</span></label>
+                                                    <input type="number" min="0" required placeholder="Enter Price"
+                                                        id="textStatuePrice" class="form-control">
+                                                </div>
+
+                                            </div>
+
+                                            <br>
+                                            <!-- buttons -->
+                                            <div class="row mt-1">
+                                                <div class="col-4">
+                                                    <button class="btn clear " id="buttonClear" type="reset">
+                                                        Clear</button>
+                                                </div>
+
+                                                <div class="col-8 text-end">
+                                                    <button class="btn update" id="buttonUpdateStatue" onclick="updateStatue()" type="submit">
+                                                        Update</button>
+                                                    <button class="btn submit" id="buttonSubmitStatue" onclick="submitStatuesForm()" type="submit">
+                                                        Submit</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <!-- mugs Form ........................................................................-->
+                                        <div id="mugsForm" class="section" onsubmit="return false">
+                                            <h4><i><B>Mugs Details</B></i></h4>
+
+                                            <!-- shop name,pname-->
+                                            <div class="row mt-1">
+
+                                                <div class="col">
+                                                    <label for="textMugSupplierName" class="form-label fw-bold">Supplier
+                                                        Shop
+                                                        Name :
+                                                        <span class="text-danger">*</span></label>
+                                                    <input type="text" required placeholder="Enter Supplier Name"
+                                                        id="textMugSupplierName" class="form-control">
+                                                </div>
+
+
+                                                <div class="col">
+                                                    <label for="selectMugName" class="form-label fw-bold">
+                                                        Mug Name :
+                                                        <span class="text-danger">*</span></label>
+                                                    <select id="selectMugName" onchange="updateMugItemCode()" class="form-select">
+                                                        <option value="" selected disabled>Select Name</option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+
+                                            <!-- code,image,price -->
+                                            <div class="row mt-1">
+
+                                                <div class="col">
+                                                    <label for="textMugItemCode" class="form-label fw-bold">
+                                                        Item Code :
+                                                        <span class="text-danger">*</span></label>
+                                                    <input type="text" required placeholder="Auto-filled, edit to keep unique"
+                                                        id="textMugItemCode" class="form-control">
+                                                </div>
+
+                                                <div class="col">
+                                                    <label for="imgMugImage" class="form-label fw-bold">Image of the Mug :
+                                                        <span class="text-danger">*</span></label>
+                                                    <input type="file" required placeholder="Upload the file"
+                                                        id="imgMugImage" accept="Image/*" class="form-control">
+                                                </div>
+
+                                                <div class="col">
+                                                    <label for="textMugPrice" class="form-label fw-bold">Price(Rs.) :
+                                                        <span class="text-danger">*</span></label>
+                                                    <input type="number" min="0" required placeholder="Enter Price"
+                                                        id="textMugPrice" class="form-control">
+                                                </div>
+                                            </div>
+
+                                            <br>
+                                            <!-- buttons -->
+                                            <div class="row mt-1">
+                                                <div class="col-4">
+                                                    <button class="btn clear " id="buttonClear" type="reset">
+                                                        Clear</button>
+                                                </div>
+
+                                                <div class="col-8 text-end">
+                                                    <button class="btn update" id="buttonUpdateMugs" onclick="updateMug()" type="submit">
+                                                        Update</button>
+                                                    <button class="btn submit" id="buttonSubmitMugs" onclick="submitMugsForm()" type="submit">
+                                                        Submit</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </form>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+            <div class="tab-pane fade" id="table-tab-pane" role="tabpanel" aria-labelledby="table-tab" tabindex="0">
+
+                <!-- table -->
+                <div class="card">
+                    <div class="card-body table-responsive">
+
+                        <!-- art table .........................................................-->
+                        <div id="artsTable" class="section">
+                            <h4><i><b>Hand Painted Arts Table</b></i></h4>
+
+                            <table class=" table table-hover table-striped table-bordered" id="tableHandpainting">
+
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Artist Name</th>
+                                        <th>Item Code</th>
+                                        <th>Medium</th>
+                                        <th>Image </th>
+                                        <th>Description</th>
+                                        <th>Price(Rs.)</th>
+                                        <th>Modify/Action</th>
+                                    </tr>
+
+                                </thead>
+
+                                <tbody id="tableBodyArts">
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                        <!-- statues table............................................................... -->
+                        <div id="statuesTable" class="section">
+                            <h4><i><b>Statues Table</b></i></h4>
+
+                            <table class=" table table-hover table-striped table-bordered" id="tableStatues">
+
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Supplier Shop Name</th>
+                                        <th>Statue Name</th>
+                                        <th>Item Code</th>
+                                        <th>Image</th>
+                                        <th>Price(Rs.)</th>
+                                        <th>Modify/Action</th>
+                                    </tr>
+
+                                </thead>
+
+                                <tbody id="tableBodyStatues">
+
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                        <!-- mugs table................................................................ -->
+                        <div id="mugsTable" class="section">
+                            <h4><i><b>Mugs Table</b></i></h4>
+
+                            <table class=" table table-hover table-striped table-bordered" id="tableMugs">
+
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Supplier Shop Name</th>
+                                        <th>Mug Name</th>
+                                        <th>Item Code</th>
+                                        <th>Image</th>
+                                        <th>Price(Rs.)</th>
+                                        <th>Modify/Action</th>
+                                    </tr>
+
+                                </thead>
+
+                                <tbody id="tableBodyMugs">
+
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <!-- link sweet alert  -->
+    <script src="sweetalert.min.js"></script>
+
+    <!-- link js file -->
+    <script src="bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
+
+    <!-- link jquary file -->
+    <script src="js/jquery-4.0.0..min.js"></script>
+
+    <!-- link common js file -->
+    <script src="js/comman.js"></script>
+
+    <!-- link product dtil js -->
+    <script src="js/2.product.js"></script>
+
+    <script>
+        // pre-select the Arts/Statues/Mugs tab when linked via /product?type=...
+        const urlType = new URLSearchParams(location.search).get("type");
+        if (urlType) {
+            const typeMap = { art: "arts", statue: "statues", mug: "mugs" };
+            const selector = document.getElementById("typeSelector");
+            selector.value = typeMap[urlType] || urlType;
+            showForm();
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galaxy of Art - Goods Receive Note</title>
+    <link rel="icon" href="pictures/bgnd/Art Gallery.jpg">
+
+    <!-- link bootstrap css file -->
+    <link rel="stylesheet" href="bootstrap-5.2.3/css/bootstrap.min.css">
+
+    <!-- link fontawesome css file -->
+    <link rel="stylesheet" href="fontawesome-free-7.2.0/fontawesome-free-7.2.0-web/css/all.min.css">
+
+    <!-- link commen css file -->
+    <link rel="stylesheet" href="comman.css">
+
+</head>
+
+
+
+
+<body>
+    <!-- top nav bar -->
+    <nav th:replace="topnavbar :: topNavbarFragment"></nav>
+
+    <div class="container-fluid">
+
+        <!-- title area -->
+        <div class="row m-3 p-2 div-title">
+            <div class="col text-center">
+                <h1>Goods Receive Note</h1>
+            </div>
+        </div>
+
+        <!-- tab lesa -->
+        <div class="row mt-2 ">
+            <div class="col">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="form-tab" data-bs-toggle="tab"
+                            data-bs-target="#form-tab-pane" type="button" role="tab" aria-controls="form-tab-pane"
+                            aria-selected="true"> <B>GRN Form </B></button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="table-tab" data-bs-toggle="tab" data-bs-target="#table-tab-pane"
+                            type="button" role="tab" aria-controls="table-tab-pane" aria-selected="false"> <b>
+                                GRN Table </b></button>
+                    </li>
+
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="form-tab-pane" role="tabpanel" aria-labelledby="form-tab"
+                        tabindex="0">
+
+                        <div class="card div-form">
+                            <div class="card-body ">
+
+                                <form id="formGRN" onsubmit="return false">
+
+                                    <!-- required penweemata -->
+                                    <div class="row mt-1">
+                                        <div class="col text-end">
+                                            <p>Required <span class="text-danger">*</span></p>
+                                        </div>
+                                    </div>
+
+                                    <!-- purchase order -->
+                                    <div class="row mt-1">
+
+                                        <div class="col">
+                                            <label for="selectPurchaseOrder" class="form-label fw-bold">Purchase Order :
+                                                <span class="text-danger">*</span></label>
+                                            <select id="selectPurchaseOrder" onchange="loadPurchaseOrderDetails()" class="form-select">
+                                                <option value="" selected disabled>Select Purchase Order</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="textSupplier" class="form-label fw-bold">Supplier :</label>
+                                            <input type="text" readonly id="textSupplier" class="form-control">
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="textProduct" class="form-label fw-bold">Product :</label>
+                                            <input type="text" readonly id="textProduct" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <!--dates-->
+                                    <div class="row mt-1">
+
+                                        <div class="col">
+                                            <label for="dateOrderdate" class="form-label fw-bold"> Order Date : <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="date" required readonly id="dateOrderdate" class="form-control">
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="dateReceiveddate" class="form-label fw-bold">Received Date :
+                                                <span class="text-danger">*</span></label>
+                                            <input type="date" required id="dateReceiveddate" class="form-control">
+                                        </div>
+
+                                    </div>
+
+                                    <!-- quantities -->
+                                    <div class="row mt-1">
+
+                                        <div class="col">
+                                            <label for="textReceivedQty" class="form-label fw-bold"> Received Quantity :
+                                                <span class="text-danger">*</span></label>
+                                            <input type="number" required min="0" placeholder="Enter Received Quantity"
+                                                id="textReceivedQty" class="form-control">
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="textDamagedQty" class="form-label fw-bold"> Damaged Quantity :
+                                                <span class="text-danger">*</span></label>
+                                            <input type="number" required min="0" placeholder="Enter Damaged Quantity"
+                                                id="textDamagedQty" class="form-control">
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="textTotalamount" class="form-label fw-bold"> Total Amount(Rs.) :
+                                                <span class="text-danger">*</span></label>
+                                            <input type="number" required min="0" placeholder="Enter Total Amount"
+                                                id="textTotalamount" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <!-- payment method,status-->
+                                    <div class="row mt-1">
+
+                                        <div class="col">
+                                            <label for="selectPaymentmethod" class="form-label fw-bold">Payment Method :
+                                                <span class="text-danger">*</span></label>
+                                            <select id="selectPaymentmethod" class="form-select">
+                                                <option value="" selected disabled>Select Payment Method</option>
+                                                <option value="Cash">Cash</option>
+                                                <option value="Card">Card</option>
+                                                <option value="Bank Transfer">Bank Transfer</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="selectStatus" class="form-label fw-bold">Status :
+                                                <span class="text-danger">*</span></label>
+                                            <select id="selectStatus" class="form-select">
+                                                <option value="" selected disabled>Select Status</option>
+                                                <option value="Pending">Pending</option>
+                                                <option value="Received">Received</option>
+                                                <option value="Paid">Paid</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <br>
+                                    <!-- buttons -->
+                                    <div class="row mt-1">
+                                        <div class="col-4">
+                                            <button class="btn clear" id="buttonClear" type="reset">
+                                                Clear</button>
+                                        </div>
+
+                                        <div class="col-8 text-end">
+                                            <button class="btn update" id="buttonUpdate" type="button" onclick="updateGrn()">
+                                                Update</button>
+                                            <button class="btn submit" id="buttonSubmit" type="button" onclick="submitGrn()">
+                                                Submit</button>
+                                        </div>
+                                    </div>
+
+                                </form>
+
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="table-tab-pane" role="tabpanel" aria-labelledby="table-tab" tabindex="0">
+
+                    <!-- table -->
+                    <div class="card div-table">
+                        <div class="card-body table-responsive">
+                            <table class=" table table-hover table-striped table-bordered" id="tableGRN">
+
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>GRN No</th>
+                                        <th>Supplier</th>
+                                        <th>Product</th>
+                                        <th>Received Date</th>
+                                        <th>Total Amount (Rs.)</th>
+                                        <th>Payment Method</th>
+                                        <th>Status</th>
+                                        <th>Modify/Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="tableBodyGRN">
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- link sweet alert  -->
+    <script src="sweetalert.min.js"></script>
+
+
+    <!-- link js file -->
+    <script src="bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
+
+    <!-- link jquary file -->
+    <script src="js/jquery-4.0.0..min.js"></script>
+
+    <!-- link common js file -->
+    <script src="js/comman.js"></script>
+
+    <!-- link grn js -->
+    <script src="js/7.grn.js"></script>
+
+</body>
+
+</html>

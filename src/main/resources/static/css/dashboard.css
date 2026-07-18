@@ -1,0 +1,230 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #ada65dce;
+}
+
+.dashboard-bg {
+    min-height: 100vh;
+
+}
+
+.dashboard-card {
+    border-radius: 20px;
+    background: rgb(241, 191, 191);
+    /* border: 1px solid #0f172a !important; */
+    box-shadow: 6px 15px 20px rgba(27, 42, 82, 0.15) !important;
+    overflow: hidden;
+}
+
+.summary-btn {
+    background: linear-gradient(135deg, #ff4fa0, #ff5f7e);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+.summary-btn:hover {
+    color: white;
+    opacity: 0.9;
+}
+
+.chart-menu span {
+    font-size: 13px;
+    color: #9a9a9a;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.chart-menu .active {
+    color: #ff4fa0;
+    border-bottom: 2px solid #ff4fa0;
+    padding-bottom: 5px;
+}
+
+.graph-box {
+    height: 300px;
+    background: linear-gradient(to bottom, #ffffff, #f9f9ff);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.graph-line {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.purple {
+    background: linear-gradient(to top,
+            rgba(129, 90, 213, 0.3),
+            transparent);
+    clip-path: polygon(0% 80%, 10% 65%, 20% 70%, 30% 40%, 40% 55%, 50% 60%, 60% 50%, 70% 45%, 80% 25%, 90% 60%, 100% 85%, 100% 100%, 0% 100%);
+}
+
+.pink {
+    background: linear-gradient(to top,
+            rgba(255, 79, 160, 0.3),
+            transparent);
+    clip-path: polygon(0% 85%, 10% 70%, 20% 50%, 30% 60%, 40% 45%, 50% 35%, 60% 55%, 70% 40%, 80% 50%, 90% 30%, 100% 90%, 100% 100%, 0% 100%);
+}
+
+.mini-info {
+    background: #fafbff;
+    border-radius: 15px;
+    padding: 15px;
+}
+
+.mini-icon,
+.activity-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+}
+
+.pink-bg {
+    background: linear-gradient(135deg, #ff4fa0, #ff6a88);
+
+
+}
+
+.purple-bg {
+    background: linear-gradient(135deg, #6a5cff, #8f6eff);
+}
+
+.blue-bg {
+    background: linear-gradient(135deg, #26c6ff, #4da3ff);
+}
+
+.yellow-bg {
+    background: linear-gradient(135deg, #ffb347, #ffcc33);
+}
+
+.traffic-circle {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: conic-gradient(#dd659d 0% 55%,
+            #3010b0 55% 88%,
+            #af6133 88% 100%);
+    position: relative;
+}
+
+.traffic-circle::before {
+    content: '';
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    background: white;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.small-card {
+    border-radius: 20px;
+    color: white;
+    padding: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 150px;
+    overflow: hidden;
+}
+
+.pink-card {
+    background: linear-gradient(135deg, #ff4fa0, #ff6b7d);
+    box-shadow: 6px 15px 20px rgba(27, 42, 82, 0.15) !important;
+}
+
+.purple-card {
+    background: linear-gradient(135deg, #6a5cff, #9c6cff);
+    box-shadow: 6px 15px 20px rgba(27, 42, 82, 0.15) !important;
+}
+
+.blue-card {
+    background: linear-gradient(135deg, #26c6ff, #4f8cff);
+    box-shadow: 6px 15px 20px rgba(27, 42, 82, 0.15) !important;
+}
+
+.yellow-card {
+    background: linear-gradient(135deg, #ffb347, #ff8c42);
+    box-shadow: 6px 15px 20px rgba(27, 42, 82, 0.15) !important;
+}
+
+.activity-item {
+    align-items: center;
+}
+
+
+
+@media(max-width: 991px) {
+
+    .graph-box {
+        height: 250px;
+    }
+
+    .traffic-circle {
+        width: 180px;
+        height: 180px;
+    }
+
+    .traffic-circle::before {
+        width: 110px;
+        height: 110px;
+    }
+}
+
+@media(max-width: 768px) {
+
+    .small-card {
+        min-height: 130px;
+    }
+
+    .graph-box {
+        height: 200px;
+    }
+
+    .chart-menu {
+        gap: 15px !important;
+        flex-wrap: wrap;
+    }
+}
+
+@media(max-width: 576px) {
+
+    .dashboard-card {
+        padding: 20px !important;
+    }
+
+    .traffic-circle {
+        width: 150px;
+        height: 150px;
+    }
+
+    .traffic-circle::before {
+        width: 90px;
+        height: 90px;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+}

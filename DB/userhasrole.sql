@@ -1,0 +1,1 @@
+SELECT * FROM galaxyofart.user_has_role_table;

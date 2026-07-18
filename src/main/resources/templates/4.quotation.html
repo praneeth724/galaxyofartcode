@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galaxy of Art - Quotations </title>
+    <link rel="icon" href="pictures/bgnd/Art Gallery.jpg">
+
+    <!-- link bootstrap css file -->
+    <link rel="stylesheet" href="bootstrap-5.2.3/css/bootstrap.min.css">
+
+    <!-- link fontawesome css file -->
+    <link rel="stylesheet" href="fontawesome-free-7.2.0/fontawesome-free-7.2.0-web/css/all.min.css">
+
+    <!-- link commen css file -->
+    <link rel="stylesheet" href="comman.css">
+
+</head>
+
+
+
+
+<body>
+    <!-- top nav bar -->
+    <nav th:replace="topnavbar :: topNavbarFragment"></nav>
+
+    <div class="container-fluid">
+
+        <!-- title area -->
+        <div class="row m-3 p-2  div-title">
+            <div class="col text-center">
+                <h1> Quotations</h1>
+            </div>
+        </div>
+
+        <!-- tab lesa -->
+        <div class="row mt-2 ">
+            <div class="col">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="form-tab" data-bs-toggle="tab"
+                            data-bs-target="#form-tab-pane" type="button" role="tab" aria-controls="form-tab-pane"
+                            aria-selected="true"> <B> Quotations Form </B></button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="table-tab" data-bs-toggle="tab" data-bs-target="#table-tab-pane"
+                            type="button" role="tab" aria-controls="table-tab-pane" aria-selected="false"> <b>
+                                Quotations Table </b></button>
+                    </li>
+
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="form-tab-pane" role="tabpanel" aria-labelledby="form-tab"
+                        tabindex="0">
+                        <!-- form -->
+
+                        <div class="card div-form">
+                            <div class="card-body ">
+
+                                <form id="formQuotation" onsubmit="return false">
+
+                                    <!-- required penweemata -->
+                                    <div class="row mt-1">
+                                        <div class="col text-end">
+                                            <p>Required <span class="text-danger">*</span></p>
+                                        </div>
+                                    </div>
+
+                                    <!-- price request -->
+                                    <div class="row mt-1">
+
+                                        <div class="col">
+                                            <label for="selectPriceRequest" class="form-label fw-bold">Supplier Price
+                                                Request :
+                                                <span class="text-danger">*</span></label>
+                                            <select id="selectPriceRequest" onchange="loadPriceRequestDetails()" class="form-select">
+                                                <option value="" selected disabled>Select Price Request</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="textSupplier" class="form-label fw-bold">Supplier :</label>
+                                            <input type="text" readonly id="textSupplier" class="form-control">
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="textProduct" class="form-label fw-bold">Product :</label>
+                                            <input type="text" readonly id="textProduct" class="form-control">
+                                        </div>
+
+                                    </div>
+
+                                    <!-- dates-->
+                                    <div class="row mt-1">
+
+                                        <div class="col">
+                                            <label for="dateRequestdate" class="form-label fw-bold">Request Date : <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="date" required placeholder="Enter Request Date"
+                                                id="requestDate" class="form-control">
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="dateDeadline" class="form-label fw-bold"> Validate Deadline :
+                                                <span class="text-danger">*</span></label>
+                                            <input type="date" required placeholder="Enter Validate Deadline"
+                                                id="validDate" class="form-control">
+                                        </div>
+
+                                    </div>
+
+                                    <!-- unit price,disct,qutity, -->
+                                    <div class="row mt-1">
+                                        <div class="col">
+                                            <label for="unitPrice" class="form-label fw-bold">Unit
+                                                Price(Rs.) :
+                                                <span class="text-danger">*</span></label>
+                                            <input type="number" required placeholder="Enter Unit Price" min="0"
+                                                id="unitPrice" class="form-control">
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="discount" class="form-label fw-bold">Discount(%) :</label>
+                                            <input type="number" placeholder="Enter Discount" min="0"
+                                                id="discount" class="form-control">
+                                        </div>
+
+
+                                        <div class="col">
+                                            <label for="qty" class="form-label fw-bold"> Quantity :
+                                                <span class="text-danger">*</span></label>
+                                            <input type="number" required placeholder="Enter Quantity" min="1" id="qty"
+                                                class="form-control">
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="selectStatus" class="form-label fw-bold"> Status :
+                                                <span class="text-danger">*</span></label>
+                                            <select id="selectStatus" class="form-select">
+                                                <option value="" selected disabled>Select Status</option>
+                                                <option value="Pending">Pending</option>
+                                                <option value="Approved">Approved</option>
+                                                <option value="Rejected">Rejected</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <br>
+                                    <!-- buttons -->
+                                    <div class="row mt-1">
+                                        <div class="col-4">
+                                            <button class="btn clear" id="buttonClear" type="reset">
+                                                Clear</button>
+                                        </div>
+
+                                        <div class="col-8 text-end">
+                                            <button class="btn update" onclick="updateQuotation()" id="buttonUpdate" type="button">
+                                                Update</button>
+                                            <button class="btn submit" onclick="submitQuotation()" id="buttonSubmit"
+                                                type="button">
+                                                Submit</button>
+                                        </div>
+                                    </div>
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="table-tab-pane" role="tabpanel" aria-labelledby="table-tab" tabindex="0">
+
+                    <!-- table -->
+                    <div class="card div-table">
+                        <div class="card-body table-responsive">
+                            <table class=" table table-hover  table-bordered" id="tableQuotation">
+
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Quotation ID</th>
+                                        <th>Supplier</th>
+                                        <th>Product</th>
+                                        <th>Deadline</th>
+                                        <th>Unit Price</th>
+                                        <th>Discount(%)</th>
+                                        <th>Quantity</th>
+                                        <th>Status</th>
+                                        <th>Modify/Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="tableBodyQuotation">
+
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- link sweet alert  -->
+    <script src="sweetalert.min.js"></script>
+
+    <!-- link js file -->
+    <script src="bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
+
+    <!-- link jquary file -->
+    <script src="js/jquery-4.0.0..min.js"></script>
+
+    <!-- link common js file -->
+    <script src="js/comman.js"></script>
+
+    <!-- link quotation js -->
+    <script src="js/4.quotation.js"></script>
+
+</body>
+
+</html>

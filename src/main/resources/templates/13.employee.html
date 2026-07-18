@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galaxy of Art - Employee Management</title>
+    <link rel="icon" href="pictures/bgnd/Art Gallery.jpg">
+
+    <!-- link bootstrap css file -->
+    <link rel="stylesheet" href="bootstrap-5.2.3/css/bootstrap.min.css">
+
+    <!-- link fontawesome css file -->
+    <link rel="stylesheet" href="fontawesome-free-7.2.0/fontawesome-free-7.2.0-web/css/all.min.css">
+
+    <!-- link commen css file -->
+    <link rel="stylesheet" href="comman.css">
+
+
+</head>
+
+
+
+
+<body>
+    <!-- top nav bar -->
+    <!-- <nav th:replace="topnavbar :: topNavbarFragment"></nav> -->
+
+    <nav th:replace="topnavbar :: topNavbarFragment"></nav>
+
+
+    <div class="container-fluid">
+
+        <!-- title area -->
+        <div class="row m-3 p-2  div-title">
+            <div class="col text-center">
+                <h1>Employee Management</h1>
+            </div>
+        </div>
+
+        <!-- tab lesa -->
+        <div class="row mt-2 ">
+            <div class="col">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="form-tab" data-bs-toggle="tab"
+                            data-bs-target="#form-tab-pane" type="button" role="tab" aria-controls="form-tab-pane"
+                            aria-selected="true"> <B>Employee Form </B></button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="table-tab" data-bs-toggle="tab" data-bs-target="#table-tab-pane"
+                            type="button" role="tab" aria-controls="table-tab-pane" aria-selected="false"> <b>Employee
+                                Table </b></button>
+                    </li>
+
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="form-tab-pane" role="tabpanel" aria-labelledby="form-tab"
+                        tabindex="0">
+                        <!-- form -->
+
+
+
+                        <div class="card div-form">
+                            <div class="card-body ">
+
+                                <!-- cancle auto form submission by onsubmit return fales -->
+                                <form id="formEmployee" onsubmit="return false">
+
+                                    <!-- required penweemata -->
+                                    <div class="row mt-1">
+                                        <div class="col text-end">
+                                            <p>Required <span class="text-danger">*</span></p>
+                                        </div>
+                                    </div>
+
+                                    <!-- names -->
+                                    <div class="row mt-1">
+
+                                        <!-- full name -->
+                                        <div class="col">
+                                            <label for="textfullname" class="form-label fw-bold"> Full Name : <span
+                                                    class="text-danger">*</span></label>
+                                            <!-- testarea danne select krddi cn eka name eka kotas enna oni nisa wenma -->
+                                            <textarea id="textFullName" placeholder="Enter Full Name" required
+                                                class="form-control"></textarea>
+                                        </div>
+
+                                        <!-- name with inisial -->
+                                        <div class="col">
+                                            <label for="nameWithInisial" class="form-label fw-bold"> Name with Inisials
+                                                :
+                                                <span class="text-danger">*</span></label>
+                                            <input type="text" id="nameInisial" placeholder="Name with Inisials"
+                                                required readonly class="form-control">
+                                        </div>
+
+
+                                        <!-- calling name -->
+                                        <div class="col">
+                                            <label for="selectCallingname" class="form-label fw-bold"> Calling Name :
+                                                <span class="text-danger">*</span></label>
+                                            <select id="selectCallingname"
+                                                onchange="employee.callingname = this.value; this.style.border = '2px solid green'"
+                                                required class="form-select" data-bs-toggle="">
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- NIC , Gender, DOB -->
+                                    <div class="row mt-1">
+
+                                        <div class="col">
+                                            <label for="textNIC" class="form-label fw-bold">NIC : <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" required placeholder="Enter NIC" id="textNIC"
+                                                class="form-control">
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="radioMale" class="form-label fw-bold" id="gender">Gender : <span
+                                                    class="text-danger">*</span>
+                                            </label>
+                                            <br>
+
+                                            <div class="border rounded px-3 py-2"
+                                                style="height: 38px; display: flex; align-items: center; background-color: rgb(255, 255, 255);">
+                                                <div class="col">
+                                                    <div class="form-check me-4" style="display: inline-block;">
+                                                        <input type="radio" value="male" name="Gender" required
+                                                            id="radioMale" class="form-check-input">
+                                                        <label for="radioMale"
+                                                            class="form-check-label fw-bold">Male</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="form-check" style="display: inline-block;">
+                                                        <input type="radio" value="female" name="Gender" required
+                                                            id="radioFemale" class="form-check-input">
+                                                        <label for="radioFemale"
+                                                            class="form-check-label fw-bold">Female</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+                                        <div class="col">
+                                            <label for="dateDOB" class="form-label fw-bold">DOB : <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="date" required id="dateDateOfBirth" max="" class="form-control"
+                                                onfocus="setMaxDate(this)" onchange="handleDOB(this)">
+                                        </div>
+
+                                    </div>
+
+                                    <!-- email & civilstatus -->
+                                    <div class="row mt-1">
+                                        <div class="col">
+                                            <label for="textEmail" class="form-label fw-bold">Email: <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="email" required placeholder="Enter Email" id="textEmail"
+                                                class="form-control"
+                                                onkeyup="textValidator(this,'^([a-zA-Z0-9]{6,20}[@][a-z]{3,10}[.][a-z]{2,3})$' , employee, 'email')">
+                                        </div>
+                                        <div class="col">
+                                            <label for="selectCivilstatus" class="form-label fw-bold">Civil status :
+                                                <span class="text-danger">*</span></label>
+                                            <select name="civilstatus" id="selectCivilStatus" required
+                                                class="form-select"
+                                                onchange="employee.civilstatus = this.value; this.style.border = '2px solid green'">
+                                                <option value="" selected="selected" disabled="disabled="> Select Civil
+                                                    Status</option>
+                                                <option value="Married">Married</option>
+                                                <option value="Unmarried">Unmarried</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Mobile -->
+                                    <div class="row mt-1">
+                                        <div class="col">
+                                            <label for="textMobile" class="col-4 form-label fw-bold mt-2">
+                                                Mobile No : <span class="text-danger"> *</span>
+                                            </label>
+                                            <div class="col">
+                                                <input type="text" required placeholder="Enter Mobile No"
+                                                    id="textMobileNo" class="form-control"
+                                                    onkeyup="textValidator(this,'[0][7][012345678][0-9]{7}$' , employee, 'mobilenumber')">
+                                            </div>
+                                        </div>
+
+                                        <!-- Land -->
+
+                                        <div class="col">
+                                            <label for="textLand" class="col-4 form-label fw-bold mt-2">
+                                                Land No : <span class="text-danger"></span>
+                                            </label>
+                                            <div class="col">
+                                                <input type="text" placeholder="Enter Land No" id="textLandNo"
+                                                    class="form-control"
+                                                    onkeyup="textValidator(this,'[0][0123456789][0-9]{8}$' , employee,' landno')">
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <!-- address & note -->
+                                    <div class="row mt-1">
+                                        <div class="col">
+                                            <label for="textAddress" class="form-label fw-bold">
+                                                Address : <span class="text-danger">*</span>
+                                            </label>
+                                            <textarea required placeholder="Enter Address" id="textAddress"
+                                                class="form-control"
+                                                onkeyup="textValidator(this,'^[A-Za-z:/,. 0-9]{7,100}$' , employee, 'address')"> </textarea>
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="note" class="form-label fw-bold">Note : <span
+                                                    class="text-danger"></span></label>
+                                            <textarea placeholder="Enter Note" id="textNote" class="form-control"
+                                                onkeyup="textValidator(this,'^[A-Za-z0-9 ,.\-:;?!()]+$' , employee, 'note')">
+                                            </textarea>
+                                        </div>
+                                    </div>
+
+
+
+                                    <!-- designation & employee status -->
+                                    <div class="row mt-1">
+                                        <div class="col">
+                                            <label for="selectDesignation" class="form-label fw-bold">Designtion :
+                                                <span class="text-danger">*</span></label>
+                                            <select name="designation" required id="selectDesignation"
+                                                class="form-select"
+                                                onchange="employee.designation_table_id = JSON.parse(this.value); this.style.border = '2px solid green'">
+                                                <option value="" selected="selected" disabled="disabled"> Select
+                                                    Designtion</option>
+
+                                            </select>
+                                        </div>
+                                        <div class="col">
+                                            <label for="selectEmployeestatus" class="form-label fw-bold">Employee Status
+                                                :
+                                                <span class="text-danger">*</span></label>
+                                            <select required id="selectEmployeeStatus" class="form-select"
+                                                onchange="employee.employee_status_id = JSON.parse(this.value);this.style.border = '2px solid green'">
+                                                <!--  onchange="employee.employeestatus_id = this.value; this.style.border = '2px solid green'"> -->
+                                                <option value="" selected="selected" disabled="disabled"> Select
+                                                    Employee Status</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <br>
+
+                                    <!-- buttons -->
+                                    <div class="row mt-1">
+                                        <div class="col-4">
+                                            <button class="btn clear " id="buttonClear" type="reset">
+                                                Clear</button>
+                                        </div>
+
+                                        <div class="col-8 text-end">
+                                            <button class="btn update" id="buttonUpdate" onclick="updateEmployee()"
+                                                type="submit">
+                                                Update</button>
+
+                                            <button class="btn submit" onclick="submitEmployee()" id="buttonSubmit"
+                                                type="button">Submit</button>
+
+                                        </div>
+                                    </div>
+
+
+                                </form>
+
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="table-tab-pane" role="tabpanel" aria-labelledby="table-tab" tabindex="0">
+
+                    <!-- table -->
+                    <div class="card div-table">
+                        <div class="card-body table-responsive">
+                            <table class=" table table-hover table-striped table-bordered" id="tableEmployee">
+
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Full Name</th>
+                                        <th>NIC</th>
+                                        <th>E-Mail</th>
+                                        <th> Mobile No</th>
+                                        <th> Designtion</th>
+                                        <th> Status</th>
+                                        <th>Modify/Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="tableBodyEmployee">
+                                </tbody>
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- link sweet alert  -->
+    <script src="sweetalert.min.js"></script>
+
+    <!-- link js file -->
+    <script src="bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
+
+    <!-- link jquary file -->
+    <script src="js/jquery-4.0.0..min.js"></script>
+
+    <!-- link common js file -->
+    <script src="js/comman.js"></script>
+
+    <!-- link employee js -->
+    <script src="js/13.employee.js" defer></script>
+
+
+</body>
+
+</html>

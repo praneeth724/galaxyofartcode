@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galaxy of Art - Customer Details</title>
+    <link rel="icon" href="pictures/bgnd/Art Gallery.jpg">
+
+    <!-- link bootstrap css file -->
+    <link rel="stylesheet" href="bootstrap-5.2.3/css/bootstrap.min.css">
+
+    <!-- link fontawesome css file -->
+    <link rel="stylesheet" href="fontawesome-free-7.2.0/fontawesome-free-7.2.0-web/css/all.min.css">
+
+    <!-- link commen css file -->
+    <link rel="stylesheet" href="comman.css">
+</head>
+
+
+
+
+<body>
+    <!-- top nav bar -->
+    <nav th:replace="topnavbar :: topNavbarFragment"></nav>
+
+
+    <div class="container-fluid">
+
+        <!-- title area -->
+        <div class="row m-3 p-2  div-title">
+            <div class="col text-center">
+                <h1>Customer Details</h1>
+            </div>
+        </div>
+
+        <!-- tab lesa -->
+        <div class="row mt-2 ">
+            <div class="col">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="form-tab" data-bs-toggle="tab"
+                            data-bs-target="#form-tab-pane" type="button" role="tab" aria-controls="form-tab-pane"
+                            aria-selected="true"> <B> Customer Form </B></button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="table-tab" data-bs-toggle="tab" data-bs-target="#table-tab-pane"
+                            type="button" role="tab" aria-controls="table-tab-pane" aria-selected="false"> <b>
+                                Customer Table </b></button>
+                    </li>
+
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="form-tab-pane" role="tabpanel" aria-labelledby="form-tab"
+                        tabindex="0">
+
+                        <!-- form -->
+                        <div class="card div-form">
+                            <div class="card-body ">
+
+                                <form id="formCustomerDetails" onsubmit="return false">
+
+                                    <!-- required penweemata -->
+                                    <div class="row mt-1">
+                                        <div class="col text-end">
+                                            <p>Required <span class="text-danger">*</span></p>
+                                        </div>
+                                    </div>
+
+                                    <!-- name,contact -->
+                                    <div class="row mt-1">
+
+                                        <div class="col">
+                                            <label for="textName" class="form-label fw-bold">Customer Name :
+                                                <span class="text-danger">*</span></label>
+
+                                            <input type="text" required placeholder="Enter Name" id="textName"
+                                                class="form-control">
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="textContact" class=" form-label fw-bold ">
+                                                Contact No : <span class="text-danger"> *</span>
+                                            </label>
+
+                                            <input type="text" required placeholder="Enter Contact No" id="textContact"
+                                                class="form-control">
+
+                                        </div>
+                                    </div>
+
+
+                                    <!-- email ,address -->
+                                    <div class="row mt-1">
+
+                                        <div class="col">
+                                            <label for="textEmail" class="form-label fw-bold">Email: <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="email" required placeholder="Enter Email" id="textEmail"
+                                                class="form-control">
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="textAddress" class="form-label fw-bold"> Address :<span
+                                                    class="text-danger">*</span></label>
+                                            <textarea required placeholder="Enter Address" id="textAddress"
+                                                class="form-control"> </textarea>
+                                        </div>
+
+
+                                    </div>
+
+                                    <!-- note -->
+                                    <div class="row mt-1">
+
+                                        <div class="col">
+                                            <label for="textNote" class="form-label fw-bold">Note : <span
+                                                    class="text-danger"></span></label>
+                                            <input type="text" placeholder="Enter Note" id="textNote"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+
+
+                                    <br>
+                                    <!-- buttons -->
+                                    <div class="row mt-1">
+                                        <div class="col-4">
+                                            <button class="btn clear " id="buttonClear" type="reset">
+                                                Clear</button>
+                                        </div>
+
+                                        <div class="col-8 text-end">
+                                            <button class="btn update" id="buttonUpdate" onclick="updateCustomer()"
+                                                type="submit">
+                                                Update</button>
+                                            <button class="btn submit" id="buttonSubmit" onclick="submitCustomer()"
+                                                type="submit">
+                                                Submit</button>
+                                        </div>
+                                    </div>
+
+
+                                </form>
+
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="table-tab-pane" role="tabpanel" aria-labelledby="table-tab" tabindex="0">
+
+                    <!-- table -->
+                    <div class="card div-table">
+                        <div class="card-body table-responsive">
+                            <table class=" table table-hover table-striped table-bordered" id="tableCustomerDetails">
+
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Contact No</th>
+                                        <th>E-mail</th>
+                                        <th>Address</th>
+                                        <th>Note</th>
+
+                                        <th>Modify/Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="tableBodyCustomerDetails">
+
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- link sweet alert  -->
+    <script src="sweetalert.min.js"></script>
+
+    <!-- link js file -->
+    <script src="bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
+
+    <!-- link jquary file -->
+    <script src="js/jquery-4.0.0..min.js"></script>
+
+    <!-- link common js file -->
+    <script src="js/comman.js"></script>
+
+    <!-- link customer details js -->
+    <script src="js/12.customerdetails.js"></script>
+
+</body>
+
+</html>

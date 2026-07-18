@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galaxy of Art - Artist Payment</title>
+    <link rel="icon" href="pictures/bgnd/Art Gallery.jpg">
+
+    <!-- link bootstrap css file -->
+    <link rel="stylesheet" href="bootstrap-5.2.3/css/bootstrap.min.css">
+
+    <!-- link fontawesome css file -->
+    <link rel="stylesheet" href="fontawesome-free-7.2.0/fontawesome-free-7.2.0-web/css/all.min.css">
+
+    <!-- link commen css file -->
+    <link rel="stylesheet" href="comman.css">
+
+</head>
+
+
+
+
+<body>
+    <!-- top nav bar -->
+    <nav th:replace="topnavbar :: topNavbarFragment"></nav>
+
+    <div class="container-fluid">
+
+        <!-- title area -->
+        <div class="row m-3 p-2  div-title">
+            <div class="col text-center">
+                <h1>Artist Payment</h1>
+            </div>
+        </div>
+
+        <!-- tab lesa -->
+        <div class="row mt-2 ">
+            <div class="col">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="form-tab" data-bs-toggle="tab"
+                            data-bs-target="#form-tab-pane" type="button" role="tab" aria-controls="form-tab-pane"
+                            aria-selected="true"> <B> Payment Form </B></button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="table-tab" data-bs-toggle="tab" data-bs-target="#table-tab-pane"
+                            type="button" role="tab" aria-controls="table-tab-pane" aria-selected="false"> <b> Payment
+                                Table </b></button>
+                    </li>
+
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="form-tab-pane" role="tabpanel" aria-labelledby="form-tab"
+                        tabindex="0">
+
+                        <div class="card div-form">
+                            <div class="card-body ">
+
+                                <form id="formPayment" onsubmit="return false">
+
+                                    <!-- required penweemata -->
+                                    <div class="row mt-1">
+                                        <div class="col text-end">
+                                            <p>Required <span class="text-danger">*</span></p>
+                                        </div>
+                                    </div>
+
+                                    <!-- artist,product -->
+                                    <div class="row mt-1">
+
+                                        <div class="col">
+                                            <label for="selectArtist" class="form-label fw-bold">Artist :
+                                                <span class="text-danger">*</span></label>
+                                            <select id="selectArtist" class="form-select">
+                                                <option value="" selected disabled>Select Artist</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="selectProduct" class="form-label fw-bold">Product :
+                                                <span class="text-danger">*</span></label>
+                                            <select id="selectProduct" onchange="onProductChange()" class="form-select">
+                                                <option value="" selected disabled>Select Product</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+
+                                    <!-- comisn type, rate-->
+                                    <div class="row mt-1">
+
+                                        <div class="col">
+                                            <label for="selectCommissiontype" class="form-label fw-bold">Commission Type :
+                                                <span class="text-danger">*</span></label>
+                                            <select id="selectCommissiontype" class="form-select">
+                                                <option value="" selected disabled>Select Type</option>
+                                                <option value="Percentage">Percentage</option>
+                                                <option value="Fixed Amount">Fixed Amount</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="commissionRate" class="form-label fw-bold">Commission Rate :
+                                                <span class="text-danger">*</span></label>
+                                            <input type="number" required placeholder="Enter Rate" min="0"
+                                                id="commissionRate" class="form-control" onchange="calculatePayable()">
+                                        </div>
+
+                                    </div>
+
+                                    <!--price,quantity,total,payble amt-->
+                                    <div class="row mt-1">
+
+                                        <div class="col">
+                                            <label for="itemPrice" class="form-label fw-bold"> Item Price(Rs.) :
+                                                <span class="text-danger">*</span></label>
+                                            <input type="number" required placeholder="Enter Price" min="0"
+                                                id="itemPrice" class="form-control" onchange="calculatePayable()">
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="itemQuantity" class="form-label fw-bold"> Quantity :
+                                                <span class="text-danger">*</span></label>
+                                            <input type="number" required placeholder="Enter Quantity" min="1"
+                                                id="itemQuantity" class="form-control" onchange="calculatePayable()">
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="totalAmount" class="form-label fw-bold">Total Amount(Rs.) :</label>
+                                            <input type="number" readonly placeholder="Auto Calculated"
+                                                id="totalAmount" class="form-control">
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="artistPayableamount" class="form-label fw-bold">Payable To Artist(Rs.) :</label>
+                                            <input type="number" readonly placeholder="Auto Calculated"
+                                                id="artistPayableamount" class="form-control">
+                                        </div>
+
+                                    </div>
+
+                                    <!-- balance, due date-->
+                                    <div class="row mt-1">
+
+                                        <div class="col">
+                                            <label for="balanceAmount" class="form-label fw-bold">Balance(Rs.) :</label>
+                                            <input type="number" min="0" placeholder="Enter Balance"
+                                                id="balanceAmount" class="form-control">
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="datePaymentduedate" class="form-label fw-bold">Payment Due Date :</label>
+                                            <input type="date" id="datePaymentduedate" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <!-- Payment method, date,status-->
+                                    <div class="row mt-1">
+
+                                        <div class="col">
+                                            <label for="selectPaymentmethod" class="form-label fw-bold">Payment Method :
+                                                <span class="text-danger">*</span></label>
+                                            <select id="selectPaymentmethod" class="form-select">
+                                                <option value="" selected disabled>Select Payment Method</option>
+                                                <option value="Cash">Cash</option>
+                                                <option value="Card">Card</option>
+                                                <option value="Bank Transfer">Bank Transfer</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="datePaymentdate" class="form-label fw-bold">Payment Date :
+                                                <span class="text-danger">*</span></label>
+                                            <input type="date" required id="datePaymentdate" class="form-control">
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="selectPaymentstatus" class="form-label fw-bold">Payment Status :
+                                                <span class="text-danger">*</span></label>
+                                            <select id="selectPaymentstatus" class="form-select">
+                                                <option value="" selected disabled>Select Payment Status</option>
+                                                <option value="Paid">Paid</option>
+                                                <option value="Pending">Pending</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+
+                                    <br>
+                                    <!-- buttons -->
+                                    <div class="row mt-1">
+                                        <div class="col-4">
+                                            <button class="btn clear" id="buttonClear" type="reset">
+                                                Clear</button>
+                                        </div>
+
+                                        <div class="col-8 text-end">
+                                            <button class="btn update" id="buttonUpdate" type="button" onclick="updatePayment()">
+                                                Update</button>
+                                            <button class="btn submit" id="buttonSubmit" type="button" onclick="submitPayment()">
+                                                Submit</button>
+                                        </div>
+                                    </div>
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="table-tab-pane" role="tabpanel" aria-labelledby="table-tab" tabindex="0">
+
+                    <!-- table -->
+                    <div class="card div-table">
+                        <div class="card-body table-responsive">
+                            <table class=" table table-hover table-striped table-bordered" id="tablePayment">
+
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Pay No</th>
+                                        <th>Artist</th>
+                                        <th>Product</th>
+                                        <th>Commission Type</th>
+                                        <th>Commission Rate</th>
+                                        <th>Total(Rs.)</th>
+                                        <th>Payable(Rs.)</th>
+                                        <th>Payment Date</th>
+                                        <th>Status</th>
+                                        <th>Modify/Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="tableBodyPayment">
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- link sweet alert  -->
+    <script src="sweetalert.min.js"></script>
+
+    <!-- link js file -->
+    <script src="bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
+
+    <!-- link jquary file -->
+    <script src="js/jquery-4.0.0..min.js"></script>
+
+    <!-- link common js file -->
+    <script src="js/comman.js"></script>
+
+    <!-- link artist payment js -->
+    <script src="js/8.payment.js"></script>
+
+</body>
+
+</html>

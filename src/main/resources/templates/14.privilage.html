@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galaxy of Art - Privilage Management</title>
+    <link rel="icon" href="pictures/bgnd/Art Gallery.jpg">
+
+    <!-- link bootstrap css file -->
+    <link rel="stylesheet" href="bootstrap-5.2.3/css/bootstrap.min.css">
+
+    <!-- link fontawesome css file -->
+    <link rel="stylesheet" href="fontawesome-free-7.2.0/fontawesome-free-7.2.0-web/css/all.min.css">
+
+    <!-- link commen css file -->
+    <link rel="stylesheet" href="comman.css">
+
+</head>
+
+
+
+
+<body>
+
+    <!-- top nav bar -->
+    <nav th:replace="topnavbar :: topNavbarFragment"></nav>
+
+    <div class="container-fluid">
+
+        <!-- title area -->
+        <div class="row m-3 p-2 div-title">
+            <div class="col text-center">
+                <h1>Privilage Management</h1>
+            </div>
+        </div>
+
+        <!-- tab lesa -->
+        <div class="row mt-2 ">
+            <div class="col">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="form-tab" data-bs-toggle="tab"
+                            data-bs-target="#form-tab-pane" type="button" role="tab" aria-controls="form-tab-pane"
+                            aria-selected="true"><b> Privilage Form </b></button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="table-tab" data-bs-toggle="tab" data-bs-target="#table-tab-pane"
+                            type="button" role="tab" aria-controls="table-tab-pane" aria-selected="false"> <b>Privilage
+                                Table </b></button>
+                    </li>
+
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="form-tab-pane" role="tabpanel" aria-labelledby="form-tab"
+                        tabindex="0">
+
+                        <!-- form -->
+                        <div class="card div-form">
+                            <div class="card-body ">
+
+
+                                <form id="formPrivilage" onsubmit="return false">
+
+                                    <!-- required penweemata -->
+                                    <div class="row mt-1">
+                                        <div class="col text-end">
+                                            <p>Required <span class="text-danger">*</span></p>
+                                        </div>
+                                    </div>
+
+                                    <!-- roles,modules -->
+                                    <div class="row mt-1">
+
+                                        <!-- Role -->
+                                        <div class="col">
+                                            <label for="selectRole" class="form-label fw-bold">Role :
+                                                <span class="text-danger">*</span></label>
+                                            <select required id="selectRole" class="form-select"
+                                                onchange="privilage.role_id.JSON.parse(this.value); this.style.border= '2px solid green';">
+                                                <option value="" selected="selected" disabled="disabled"> Select
+                                                    Role</option>
+
+                                            </select>
+                                        </div>
+
+                                        <!-- Module-->
+                                        <div class="col">
+                                            <label for="selectModule" class="form-label fw-bold">Module :
+                                                <span class="text-danger">*</span></label>
+                                            <select required id="selectModule" class="form-select"
+                                                onchange="privilage.module_id.JSON.parse(this.value); this.style.border= '2px solid green';">
+                                                <option value="" selected="selected" disabled="disabled"> Select Module
+                                                </option>
+
+
+                                            </select>
+                                        </div>
+
+                                    </div>
+
+
+                                    <br>
+
+                                    <!-- select,insert,delete,update-->
+                                    <div class="row mt-1">
+
+                                        <div class="col">
+                                            <label class="form-label fw-bold me-4">Select : <span
+                                                    class="text-danger">*</span></label>
+                                        </div>
+                                        <div class=" col-2 border rounded px-3 py-2"
+                                            style="height: 38px; display: flex; align-items: center; background-color: rgb(255, 255, 255);">
+
+                                            <div class="d-flex align-items-center">
+                                                <div class="form-check form-switch form-check-inline">
+                                                    <input type="checkbox" id="chkSelect" class="form-check-input"
+                                                        onchange="if (chkSelect.checked){
+                                                            lblSelect.innerText = 'Granted';
+                                                            privilage.privi_select = true;
+                                                        } else{
+                                                            lblSelect.innerText = 'Not-Granted';
+                                                            privilage.privi_select = false;
+                                                        }">
+
+                                                    <label for="chkSelect" class="form-check-label"
+                                                        id="lblSelect"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col">
+                                            <label class="form-label fw-bold me-4">Insert : <span
+                                                    class="text-danger">*</span></label>
+                                        </div>
+                                        <div class=" col-2 border rounded px-3 py-2"
+                                            style="height: 38px; display: flex; align-items: center; background-color: rgb(255, 255, 255);">
+
+                                            <div class="d-flex align-items-center">
+                                                <div class="form-check form-switch form-check-inline">
+                                                    <input type="checkbox" id="chkInsert" class="form-check-input"
+                                                        onchange="if (chkInsert.checked){
+                                                            lblInsert.innerText = 'Granted';
+                                                            privilage.privi_insert = true;  
+                                                        } else{
+                                                            lblInsert.innerText = 'Not-Granted';
+                                                            privilage.privi_insert = false;
+                                                        }">
+                                                    <label for="chkInsert" class="form-check-label"
+                                                        id="lblInsert"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col">
+                                            <label class="form-label fw-bold me-4">Update : <span
+                                                    class="text-danger">*</span></label>
+                                        </div>
+                                        <div class=" col-2 border rounded px-3 py-2"
+                                            style="height: 38px; display: flex; align-items: center; background-color: rgb(255, 255, 255);">
+
+                                            <div class="d-flex align-items-center">
+                                                <div class="form-check form-switch form-check-inline">
+                                                    <input type="checkbox" id="chkUpdate" class="form-check-input"
+                                                        onchange="if (chkUpdate.checked){
+                                                            lblUpdate.innerText = 'Granted';
+                                                            privilage.privi_update = true;
+                                                        } else{
+                                                            lblUpdate.innerText = 'Not-Granted';
+                                                            privilage.privi_update = false;
+                                                        }">
+                                                    <label for="chkUpdate" class="form-check-label"
+                                                        id="lblUpdate"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col">
+                                            <label class="form-label fw-bold me-4">Delete : <span
+                                                    class="text-danger">*</span></label>
+                                        </div>
+                                        <div class="col-2 border rounded px-3 py-2"
+                                            style="height: 38px; display: flex; align-items: center; background-color: rgb(255, 255, 255);">
+
+                                            <div class="d-flex align-items-center">
+                                                <div class="form-check form-switch form-check-inline ">
+                                                    <input type="checkbox" id="chkDelete" class="form-check-input"
+                                                        onchange="if (chkDelete.checked){
+                                                            lblDelete.innerText = 'Granted';
+                                                            privilage.privi_delete = true;
+                                                        } else{
+                                                            lblDelete.innerText = 'Not-Granted';
+                                                            privilage.privi_delete = false;
+                                                          
+                                                        }">
+                                                    <label for="chkDelete" class="form-check-label"
+                                                        id="lblDelete"></label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <br>
+
+                                    <!-- buttons -->
+                                    <div class="row mt-1">
+                                        <div class="col-4">
+                                            <button class="btn clear " id="buttonClear" type="reset">
+                                                Clear</button>
+                                        </div>
+
+                                        <div class="col-8 text-end">
+                                            <button class="btn update" id=" buttonUpdate" type="submit"
+                                                onclick=" buttonPrivilageUpdate()">
+                                                Update</button>
+
+                                            <button class="btn submit" id="buttonSubmit" type="submit"
+                                                onclick="buttonPrivilageSubmit()">
+                                                Submit</button>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="tab-pane fade" id="table-tab-pane" role="tabpanel" aria-labelledby="table-tab" tabindex="0">
+
+                    <!-- table -->
+                    <div class="card">
+                        <div class="card-body table-responsive">
+                            <table class=" table table-hover table-striped table-bordered" id="tablePrivilage">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Role</th>
+                                        <th>Module</th>
+                                        <th>Select</th>
+                                        <th>Insert</th>
+                                        <th>Update</th>
+                                        <th>Delete</th>
+                                        <th>Modify/Action</th>
+
+                                    </tr>
+                                </thead>
+
+                                <tbody id="tableBodyPrivilage">
+                                </tbody>
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- link sweet alert  -->
+    <script src="sweetalert.min.js"></script>
+
+    <!-- link js file -->
+    <script src="bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
+
+    <!-- link jquary file -->
+    <script src="js/jquery-4.0.0..min.js"></script>
+
+    <!-- link common js file -->
+    <script src="js/comman.js"></script>
+
+    <!-- link privilage js -->
+    <script src="js/14.privilage.js"></script>
+
+
+</body>
+
+</html>

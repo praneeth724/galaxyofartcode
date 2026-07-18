@@ -1,0 +1,164 @@
+<th:block th:fragment="topNavbarFragment">
+
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+
+<!-- mobile-only top bar: brand + hamburger to open the sidebar -->
+<div class="mobile-topbar d-lg-none">
+    <button class="sidebar-toggle-btn" type="button" onclick="GOASidebar.toggle()" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+    <a class="mobile-topbar-brand d-flex align-items-center gap-2" href="/dashboard">
+        <img src="/pictures/logo_clean2.png" width="28px" height="28px" alt="logo">
+        <span class="fw-bold">Galaxy of Art</span>
+    </a>
+</div>
+
+<div class="sidebar-backdrop" id="sidebarBackdrop" onclick="GOASidebar.close()"></div>
+
+<nav class="app-sidebar" id="appSidebar">
+
+    <div class="sidebar-brand">
+        <a class="d-flex align-items-center gap-2 text-decoration-none" href="/dashboard">
+            <img src="/pictures/logo_clean2.png" width="35px" height="35px" alt="logo">
+            <span class="fw-bold fs-5 text-white">Galaxy of Art</span>
+        </a>
+        <button class="sidebar-close-btn d-lg-none" type="button" onclick="GOASidebar.close()" aria-label="Close navigation">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+
+    <div class="sidebar-user">
+        <img src="/pictures/login logo.jpg" alt="" class="sidebar-user-avatar">
+        <div>
+            <div class="fw-bold text-white" th:text="${loggedusername}">Admin</div>
+            <small class="text-secondary">Signed in</small>
+        </div>
+    </div>
+
+    <ul class="sidebar-nav">
+
+        <li class="sidebar-item">
+            <a class="sidebar-link" href="/dashboard"><i class="fa-solid fa-house"></i><span>Home</span></a>
+        </li>
+
+        <li class="sidebar-item">
+            <a class="sidebar-link" href="#submenuAdmin" data-bs-toggle="collapse" role="button" aria-expanded="false">
+                <i class="fa-solid fa-user-gear"></i><span>Administration</span><i class="fa-solid fa-chevron-down sidebar-caret"></i>
+            </a>
+            <ul class="collapse sidebar-submenu" id="submenuAdmin">
+                <li><a href="/employee">Employee</a></li>
+                <li><a href="/user">User</a></li>
+                <li><a href="/privilage">Privilage</a></li>
+            </ul>
+        </li>
+
+        <li class="sidebar-item">
+            <a class="sidebar-link" href="#submenuProducts" data-bs-toggle="collapse" role="button" aria-expanded="false">
+                <i class="fa-solid fa-palette"></i><span>Products</span><i class="fa-solid fa-chevron-down sidebar-caret"></i>
+            </a>
+            <ul class="collapse sidebar-submenu" id="submenuProducts">
+                <li><a href="/product?type=art">Arts</a></li>
+                <li><a href="/product?type=statue">Statues</a></li>
+                <li><a href="/product?type=mug">Mugs</a></li>
+                <li><a href="/product">All</a></li>
+                <li><a href="/inventory">Inventory</a></li>
+            </ul>
+        </li>
+
+        <li class="sidebar-item">
+            <a class="sidebar-link" href="#submenuSourcing" data-bs-toggle="collapse" role="button" aria-expanded="false">
+                <i class="fa-solid fa-truck-field"></i><span>Sourcing</span><i class="fa-solid fa-chevron-down sidebar-caret"></i>
+            </a>
+            <ul class="collapse sidebar-submenu" id="submenuSourcing">
+                <li><a href="/artistsupplierdetails">Artist &amp; Supplier</a></li>
+                <li><a href="/supplierpricerequest">Supplier Price Request</a></li>
+                <li><a href="/quotation">Quotations</a></li>
+                <li><a href="/purchaseorder">Purchase Order</a></li>
+                <li><a href="/grn">Goods Receive Note</a></li>
+                <li><a href="/artistsupplierpayment">Artist Payment</a></li>
+            </ul>
+        </li>
+
+        <li class="sidebar-item">
+            <a class="sidebar-link" href="#submenuSales" data-bs-toggle="collapse" role="button" aria-expanded="false">
+                <i class="fa-solid fa-cart-shopping"></i><span>Sales</span><i class="fa-solid fa-chevron-down sidebar-caret"></i>
+            </a>
+            <ul class="collapse sidebar-submenu" id="submenuSales">
+                <li><a href="/customerdetails">Customers</a></li>
+                <li><a href="/invoice">Invoice</a></li>
+            </ul>
+        </li>
+
+        <li class="sidebar-item">
+            <a class="sidebar-link" href="#submenuProduction" data-bs-toggle="collapse" role="button" aria-expanded="false">
+                <i class="fa-solid fa-industry"></i><span>Production</span><i class="fa-solid fa-chevron-down sidebar-caret"></i>
+            </a>
+            <ul class="collapse sidebar-submenu" id="submenuProduction">
+                <li><a href="/production">Production</a></li>
+                <li><a href="/productionview">Production Tracking</a></li>
+            </ul>
+        </li>
+
+        <li class="sidebar-item">
+            <a class="sidebar-link" href="#submenuReports" data-bs-toggle="collapse" role="button" aria-expanded="false">
+                <i class="fa-solid fa-chart-pie"></i><span>Reports</span><i class="fa-solid fa-chevron-down sidebar-caret"></i>
+            </a>
+            <ul class="collapse sidebar-submenu" id="submenuReports">
+                <li><a href="/reports/sales">Sales Report</a></li>
+                <li><a href="/reports/purchase">Purchase Report</a></li>
+                <li><a href="/reports/employee">Employee Report</a></li>
+            </ul>
+        </li>
+
+    </ul>
+
+    <div class="sidebar-footer">
+        <a class="sidebar-footer-link" href="#">
+            <i class="fa-solid fa-id-badge"></i><span>Change Profile</span>
+        </a>
+        <a class="sidebar-footer-link" href="#" onclick="if(window.confirm('Are You Sure To Logout..?')){
+                window.location.replace('/logout')
+            }">
+            <i class="fa-solid fa-right-from-bracket"></i><span>Logout</span>
+        </a>
+    </div>
+
+</nav>
+
+<script>
+    window.GOASidebar = {
+        toggle: function () {
+            document.getElementById('appSidebar').classList.toggle('show');
+            document.getElementById('sidebarBackdrop').classList.toggle('show');
+        },
+        close: function () {
+            document.getElementById('appSidebar').classList.remove('show');
+            document.getElementById('sidebarBackdrop').classList.remove('show');
+        }
+    };
+
+    // highlight the current page's sidebar link and auto-expand its submenu
+    (function () {
+        var path = window.location.pathname;
+
+        document.querySelectorAll('.app-sidebar .sidebar-submenu a').forEach(function (link) {
+            if (link.getAttribute('href').split('?')[0] === path) {
+                link.classList.add('active');
+                var submenu = link.closest('.sidebar-submenu');
+                submenu.classList.add('show');
+                var toggleLink = submenu.previousElementSibling;
+                toggleLink.classList.add('active');
+                toggleLink.setAttribute('aria-expanded', 'true');
+            }
+        });
+
+        document.querySelectorAll('.app-sidebar > .sidebar-nav > .sidebar-item > .sidebar-link').forEach(function (link) {
+            if (link.getAttribute('href') === path) {
+                link.classList.add('active');
+            }
+        });
+    })();
+</script>
+
+</th:block>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galaxy of Art - Purchase Report</title>
+    <link rel="icon" href="/pictures/bgnd/Art Gallery.jpg">
+
+    <link rel="stylesheet" href="/bootstrap-5.2.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/fontawesome-free-7.2.0/fontawesome-free-7.2.0-web/css/all.min.css">
+    <link rel="stylesheet" href="/comman.css">
+
+    <style>
+        .report-root {
+            --accent: #eb6834;
+            --accent-soft: #fdeee6;
+            --surface-1: #fcfcfb;
+            --text-secondary: #52514e;
+            --muted: #898781;
+            --grid: #e1e0d9;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root:where(:not([data-theme="light"])) .report-root {
+                --surface-1: #1a1a19;
+                --text-secondary: #c3c2b7;
+                --grid: #2c2c2a;
+                --accent-soft: #3a2214;
+            }
+        }
+
+        :root[data-theme="dark"] .report-root {
+            --surface-1: #1a1a19;
+            --text-secondary: #c3c2b7;
+            --grid: #2c2c2a;
+            --accent-soft: #3a2214;
+        }
+
+        .report-header-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .btn-generate {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+        }
+
+        .btn-generate:hover {
+            background: var(--accent);
+            filter: brightness(0.92);
+            color: #fff;
+        }
+
+        .kpi-card {
+            border: 1px solid var(--grid);
+            border-radius: 10px;
+            padding: 1rem;
+            height: 100%;
+        }
+
+        .kpi-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .kpi-value {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .kpi-label {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        thead.theme-head {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .status-pill {
+            padding: 0.2rem 0.6rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-received {
+            background: #e6f4e6;
+            color: #0ca30c;
+        }
+
+        .status-pending {
+            background: #fdeee6;
+            color: #eb6834;
+        }
+
+        .chart-grid {
+            stroke: var(--grid);
+            stroke-width: 1;
+        }
+
+        .chart-axis-label {
+            font-size: 10px;
+            fill: var(--muted);
+        }
+
+        .chart-empty {
+            font-size: 13px;
+            fill: var(--muted);
+        }
+
+        #purchaseChart {
+            width: 100%;
+            height: 240px;
+        }
+    </style>
+</head>
+
+<body class="report-root">
+    <nav th:replace="topnavbar :: topNavbarFragment"></nav>
+
+    <div class="container-fluid mt-3">
+
+        <!-- header row -->
+        <div class="row align-items-center mb-3">
+            <div class="col-auto d-flex align-items-center gap-2">
+                <span class="report-header-icon"><i class="fa-solid fa-truck-ramp-box"></i></span>
+                <h3 class="mb-0">Purchase Report</h3>
+            </div>
+            <div class="col d-flex justify-content-end align-items-end gap-2 flex-wrap">
+                <div>
+                    <label class="form-label mb-0 small">From Date:</label>
+                    <input type="date" id="fromDate" class="form-control form-control-sm">
+                </div>
+                <div>
+                    <label class="form-label mb-0 small">To Date:</label>
+                    <input type="date" id="toDate" class="form-control form-control-sm">
+                </div>
+                <button class="btn btn-generate btn-sm" onclick="generateReport()">
+                    <i class="fa-solid fa-arrow-down"></i> Generate Report
+                </button>
+            </div>
+        </div>
+
+        <!-- KPI cards -->
+        <div class="row g-3 mb-3" id="kpiRow">
+        </div>
+
+        <div class="row g-3">
+            <!-- table -->
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body table-responsive">
+                        <table class="table table-hover table-bordered mb-0">
+                            <thead class="theme-head">
+                                <tr>
+                                    <th>#</th>
+                                    <th>GRN No</th>
+                                    <th>Date</th>
+                                    <th>Supplier</th>
+                                    <th>Total Amount</th>
+                                    <th>Payment Method</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBodyPurchase"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- chart -->
+            <div class="col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h6>Purchase Trend (Daily)</h6>
+                        <svg id="purchaseChart"></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/sweetalert.min.js"></script>
+    <script src="/bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/jquery-4.0.0..min.js"></script>
+    <script src="/js/comman.js"></script>
+    <script src="/js/reportcharts.js"></script>
+    <script src="/js/17.purchasereport.js"></script>
+
+</body>
+
+</html>

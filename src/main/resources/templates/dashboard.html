@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="icon" href="pictures/bgnd/Art Gallery.jpg">
+
+    <!-- link bootstrap css file -->
+    <link rel="stylesheet" href="bootstrap-5.2.3/css/bootstrap.min.css">
+
+    <!-- link fontawesome css file -->
+    <link rel="stylesheet" href="fontawesome-free-7.2.0/fontawesome-free-7.2.0-web/css/all.min.css">
+
+    <!-- link commen css file -->
+    <link rel="stylesheet" href="comman.css">
+
+    <!-- link commen css file -->
+    <link rel="stylesheet" href="css/dashboard.css">
+
+
+</head>
+
+<body>
+
+    <!-- top nav bar -->
+    <nav th:replace="topnavbar :: topNavbarFragment"></nav>
+
+
+    <div class="container-fluid p-3 dashboard-bg">
+
+        <!-- Top Row -->
+        <div class="row g-4">
+
+            <!-- Overview Chart -->
+            <div class="col-lg-9">
+                <div class="card dashboard-card border-0 shadow-sm p-4 h-100">
+
+                    <div class="d-flex justify-content-between flex-wrap gap-3">
+
+                        <!-- Left Side -->
+                        <div>
+                            <h6 class="text-muted fw-semibold">Dashboard</h6>
+                            <small class="text-secondary">Overview of Current Month</small>
+
+                            <div class="mt-4">
+                                <h1 class="fw-bold" id="currentMonthEarnings">Rs. 0.00</h1>
+                                <p class="text-muted mb-3">Current Month Earnings</p>
+
+                                <h2 class="fw-bold" id="currentMonthSales">0</h2>
+                                <p class="text-muted">Current Month Sales</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Bottom Stats -->
+                    <div class="row mt-5 g-4">
+
+                        <div class="col-md-3 col-sm-6">
+                            <div class="mini-info d-flex align-items-center gap-3">
+                                <div class="mini-icon pink-bg">
+                                    <i class="fa-solid fa-sack-dollar"></i>
+                                </div>
+                                <div>
+                                    <small class="text-muted">Total Sales (All Time)</small>
+                                    <h6 class="fw-bold mb-0" id="totalSalesAllTime">Rs. 0.00</h6>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-sm-6">
+                            <div class="mini-info d-flex align-items-center gap-3">
+                                <div class="mini-icon purple-bg">
+                                    <i class="fa-solid fa-truck-ramp-box"></i>
+                                </div>
+                                <div>
+                                    <small class="text-muted">Total Purchases (All Time)</small>
+                                    <h6 class="fw-bold mb-0" id="totalPurchasesAllTime">Rs. 0.00</h6>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-sm-6">
+                            <div class="mini-info d-flex align-items-center gap-3">
+                                <div class="mini-icon blue-bg">
+                                    <i class="fa-solid fa-users"></i>
+                                </div>
+                                <div>
+                                    <small class="text-muted">Total Customers</small>
+                                    <h6 class="fw-bold mb-0" id="totalCustomers">0</h6>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-sm-6">
+                            <div class="mini-info d-flex align-items-center gap-3">
+                                <div class="mini-icon yellow-bg">
+                                    <i class="fa-solid fa-truck-field"></i>
+                                </div>
+                                <div>
+                                    <small class="text-muted">Total Suppliers</small>
+                                    <h6 class="fw-bold mb-0" id="totalSuppliers">0</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Traffic -->
+            <div class="col-lg-3">
+                <div class="card dashboard-card border-0 shadow-sm p-4 h-100">
+
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h6 class="fw-bold mb-0">Products by Type</h6>
+                    </div>
+
+                    <!-- Circle -->
+                    <div class="traffic-circle mx-auto mb-4"></div>
+
+                    <!-- Stats -->
+                    <div class="row text-center">
+                        <div class="col-4">
+                            <h3 class="fw-bold" id="statuePercent">0%</h3>
+                            <small class="text-muted">Statues</small>
+                        </div>
+
+                        <div class="col-4">
+                            <h3 class="fw-bold" id="mugPercent">0%</h3>
+                            <small class="text-muted">Mugs</small>
+                        </div>
+
+                        <div class="col-4">
+                            <h3 class="fw-bold" id="artPercent">0%</h3>
+                            <small class="text-muted">Art Works</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Colored Cards -->
+        <div class="row g-4 mt-1">
+
+            <div class="col-lg-3 col-md-6">
+                <div class="small-card pink-card">
+                    <div>
+                        <p class="mb-2">Revenue</p>
+                        <i class="fa-solid fa-chart-line fs-1"></i>
+                    </div>
+
+                    <div class="text-end">
+                        <h2 id="revenueLast10Days">Rs. 0</h2>
+                        <small>Last 10 Days</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="small-card purple-card">
+                    <div>
+                        <p class="mb-2">New Customers</p>
+                        <i class="fa-solid fa-user-plus fs-1 "></i>
+                    </div>
+
+                    <div class="text-end">
+                        <h2 id="newCustomersLast10Days">0</h2>
+                        <small>Last 10 Days</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="small-card blue-card">
+                    <div>
+                        <p class="mb-2">Pending Invoices</p>
+                        <i class="fa-solid fa-file-invoice fs-1"></i>
+                    </div>
+
+                    <div class="text-end">
+                        <h2 id="pendingInvoices">0</h2>
+                        <small>Awaiting Payment</small>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="small-card yellow-card">
+                    <div>
+                        <p class="mb-2">Low Stock Items</p>
+                        <i class="fa-solid fa-triangle-exclamation fs-1"></i>
+                    </div>
+
+                    <div class="text-end">
+                        <h2 id="lowStockItems">0</h2>
+                        <small>At Or Below Reorder Point</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- link sweet alert  -->
+    <script src="sweetalert.min.js"></script>
+
+    <!-- link js file -->
+    <script src="bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
+
+    <!-- link jquary file -->
+    <script src="js/jquery-4.0.0..min.js"></script>
+
+    <!-- link common js file -->
+    <script src="js/comman.js"></script>
+
+    <!-- link dashboard js -->
+    <script src="js/dashboard.js"></script>
+
+</body>
+
+</html>

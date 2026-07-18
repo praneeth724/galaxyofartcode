@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galaxy of Art - Artist & Supplier Details</title>
+    <link rel="icon" href="pictures/bgnd/Art Gallery.jpg">
+
+    <!-- link bootstrap css file -->
+    <link rel="stylesheet" href="bootstrap-5.2.3/css/bootstrap.min.css">
+
+    <!-- link fontawesome css file -->
+    <link rel="stylesheet" href="fontawesome-free-7.2.0/fontawesome-free-7.2.0-web/css/all.min.css">
+
+    <!-- link commen css file -->
+    <link rel="stylesheet" href="comman.css">
+
+    <style>
+        .section {
+            display: none;
+        }
+    </style>
+
+</head>
+
+
+
+
+<body>
+
+    <!-- top nav bar -->
+    <nav th:replace="topnavbar :: topNavbarFragment"></nav>
+
+    <div class="container-fluid">
+
+        <!-- title area -->
+        <div class="row m-3 p-2 div-title">
+            <div class="col text-center">
+                <h1>Artist & Supplier Details</h1>
+            </div>
+        </div>
+
+        <!-- tab lesa -->
+        <div class="row mt-2 ">
+            <div class="col">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="form-tab" data-bs-toggle="tab"
+                            data-bs-target="#form-tab-pane" type="button" role="tab" aria-controls="form-tab-pane"
+                            aria-selected="true"> <B> Details Form </B></button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="table-tab" data-bs-toggle="tab" data-bs-target="#table-tab-pane"
+                            type="button" role="tab" aria-controls="table-tab-pane" aria-selected="false"> <b>
+                                Details Table </b></button>
+                    </li>
+
+                </ul>
+
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="form-tab-pane" role="tabpanel" aria-labelledby="form-tab"
+                        tabindex="0">
+
+                        <!-- form -->
+
+                        <div class="card div-form">
+                            <div class="card-body ">
+
+                                <form id="formArtistSupplier" onsubmit="return false">
+
+
+                                    <div class="form-box">
+
+                                        <!-- required penweemata -->
+                                        <div class="row mt-1">
+                                            <div class="col text-end">
+                                                <p>Required <span class="text-danger">*</span></p>
+                                            </div>
+                                        </div>
+
+                                        <!-- dropdown to choose form -->
+                                        <label for="typeSelector" class="form-label fw-bold">Select
+                                            Type :
+                                            <span class="text-danger">*</span></label>
+                                        <select id="typeSelector" class="form-select" onchange="showForm()">
+                                            <option value="" selected disabled> Select
+                                                Type</option>
+                                            <option value="artist">Artist</option>
+                                            <option value="supplier">Supplier</option>
+                                        </select>
+                                        <br>
+                                        <br>
+
+
+
+                                        <!-- Artist Form -->
+                                        <div id="artistForm" class="section" onsubmit="return false">
+                                            <h4><i><b>Artist Details</b></i></h4>
+
+
+                                            <!--  name,nic -->
+                                            <div class="row mt-1">
+
+                                                <div class="col">
+                                                    <label for="textname" class="form-label fw-bold">Artist
+                                                        Name :
+                                                        <span class="text-danger">*</span></label>
+
+                                                    <input type="text" required placeholder="Enter Name" id="artistName"
+                                                        class="form-control"></text>
+                                                </div>
+
+                                                <div class="col">
+                                                    <label for="textNIC" class="form-label fw-bold">NIC
+                                                        :
+                                                        <span class="text-danger">*</span></label>
+                                                    <input type="text" required placeholder="Enter NIC" id="nic"
+                                                        class="form-control">
+                                                </div>
+
+                                            </div>
+
+                                            <!-- email, contct -->
+                                            <div class="row mt-1">
+
+                                                <div class="col">
+                                                    <label for="textContactno" class=" form-label fw-bold ">
+                                                        Contact No : <span class="text-danger"> *</span>
+                                                    </label>
+
+                                                    <input type="text" required placeholder="Enter Contact No"
+                                                        id="contact" class="form-control">
+
+                                                </div>
+
+                                                <div class="col">
+                                                    <label for="textEmail" class="form-label fw-bold">Email: <span
+                                                            class="text-danger">*</span></label>
+                                                    <input type="email" required placeholder="Enter Email" id="email"
+                                                        class="form-control">
+                                                </div>
+
+
+                                            </div>
+
+                                            <br>
+
+                                            <!--  bnk dtls -->
+                                            <div class="row mt-1">
+
+
+                                                <div class="col">
+                                                    <label for="textBankdetails" class=" form-label fw-bold ">
+                                                        Bank Details: <span class="text-danger"> *</span>
+                                                    </label>
+                                                    <div class="row mt-1">
+                                                        <div class="col">
+                                                            <label for="textBeneficiary" class=" form-label fw-bold ">
+                                                                Beneficiary Name : <span class="text-danger"> *</span>
+                                                            </label>
+
+                                                            <input type="text" required
+                                                                placeholder="Enter Beneficiary Name" id="beneficiary"
+                                                                class="form-control">
+
+                                                        </div>
+
+
+                                                        <div class="col">
+                                                            <label for="textBank" class=" form-label fw-bold ">
+                                                                Bank Name : <span class="text-danger"> *</span>
+                                                            </label>
+
+                                                            <input type="text" required placeholder="Enter Bank Name"
+                                                                id="bank" class="form-control">
+
+                                                        </div>
+
+
+                                                        <div class="col">
+                                                            <label for="textAccount" class=" form-label fw-bold ">
+                                                                Account No : <span class="text-danger"> *</span>
+                                                            </label>
+
+                                                            <input type="text" required placeholder="Enter Account No"
+                                                                id="account" class="form-control">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <br>
+                                            <!-- buttons -->
+                                            <div class="row mt-1">
+                                                <div class="col-4">
+                                                    <button class="btn clear " id="buttonArtistClear" type="reset">
+                                                        Clear</button>
+                                                </div>
+
+                                                <div class="col-8 text-end">
+                                                    <button class="btn update" id="buttonArtistUpdate" type="submit"
+                                                        onclick="updateArtist()">
+                                                        Update</button>
+                                                    <button class="btn submit" id="buttonArtistSubmit" type="button"
+                                                        onclick="submitArtistForm()">
+                                                        Submit</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+                                        <!-- supplier Form -->
+                                        <div id="supplierForm" class="section" onsubmit="return false">
+                                            <h4><i><b> Supplier Details </b></i></h4>
+
+                                            <!--  name ,brn,prodct-->
+                                            <div class="row mt-1">
+
+                                                <div class="col">
+                                                    <label for="textSupplierName" class="form-label fw-bold">Supplier
+                                                        Shop
+                                                        Name :
+                                                        <span class="text-danger">*</span></label>
+                                                    <select id="selectSupplierName" class="form-select">
+                                                        <option value="" selected="selected" disabled="disabled">
+                                                            Select Supplier Shop Name</option>
+                                                        <option value="">DDM Ceramic Center </option>
+                                                        <option value="">Manel Statues Home</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="col">
+                                                    <label for="textBrn" class="form-label fw-bold">Business Reg No.
+                                                        :
+                                                        <span class="text-danger">*</span></label>
+                                                    <input type="text" required placeholder="Enter BRN" id="textBrn"
+                                                        class="form-control">
+                                                </div>
+
+                                                <div class="col">
+                                                    <label for="selectProducttype" class="form-label fw-bold">
+                                                        Product Type :
+                                                        <span class="text-danger">*</span></label>
+                                                    <select id="selectProductType" class="form-select">
+                                                        <option value="" selected="selected" disabled="disabled">
+                                                            Select Product
+                                                            Type</option>
+                                                        <option value="">Statues</option>
+                                                        <option value="">Mugs</option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+
+                                            <!-- email ,address, contct -->
+                                            <div class="row mt-1">
+
+                                                <div class="col-4">
+                                                    <label for="textSupplierContact" class=" form-label fw-bold ">
+                                                        Contact No : <span class="text-danger"> *</span>
+                                                    </label>
+
+                                                    <input type="text" required placeholder="Enter Contact No"
+                                                        id="textSupplierContact" class="form-control">
+
+                                                </div>
+
+                                                <div class="col-4">
+                                                    <label for="textSpplierEmail" class="form-label fw-bold">Email:
+                                                        <span class="text-danger">*</span></label>
+                                                    <input type="email" required placeholder="Enter Email"
+                                                        id="textSupplierEmail" class="form-control">
+                                                </div>
+
+                                                <div class="col-4">
+                                                    <label for="textAddress" class="form-label fw-bold"> Address :<span
+                                                            class="text-danger">*</span></label>
+                                                    <textarea required placeholder="Enter Address" id="textAddress"
+                                                        class="form-control"> </textarea>
+                                                </div>
+
+
+                                            </div>
+
+                                            <br>
+
+                                            <!-- bk detls -->
+                                            <div class="row mt-1">
+
+
+                                                <div class="col">
+                                                    <label for="textBankdetails" class=" form-label fw-bold ">
+                                                        Bank Details: <span class="text-danger"> *</span>
+                                                    </label>
+                                                    <div class="row mt-1">
+                                                        <div class="col">
+                                                            <label for="textSupplierBeneficiary"
+                                                                class=" form-label fw-bold ">
+                                                                Beneficiary Name : <span class="text-danger"> *</span>
+                                                            </label>
+
+                                                            <input type="text" required
+                                                                placeholder="Enter Beneficiary Name"
+                                                                id="textSupplierBeneficiary" class="form-control">
+
+                                                        </div>
+
+
+                                                        <div class="col">
+                                                            <label for="textSupplierBank" class=" form-label fw-bold ">
+                                                                Bank Name : <span class="text-danger"> *</span>
+                                                            </label>
+
+                                                            <input type="text" required placeholder="Enter Bank Name"
+                                                                id="textSupplierBank" class="form-control">
+
+                                                        </div>
+
+
+                                                        <div class="col">
+                                                            <label for="textSupplierAccount"
+                                                                class=" form-label fw-bold ">
+                                                                Account No : <span class="text-danger"> *</span>
+                                                            </label>
+
+                                                            <input type="text" required placeholder="Enter Account No"
+                                                                id="textSupplierAccount" class="form-control">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <br>
+                                            <!-- buttons -->
+                                            <div class="row mt-1">
+                                                <div class="col-4">
+                                                    <button class="btn clear " id="buttonSupplierClear" type="reset">
+                                                        Clear</button>
+                                                </div>
+
+                                                <div class="col-8 text-end">
+                                                    <button class="btn update" id="buttonSupplierUpdate" type="submit"
+                                                        onclick="updateSupplier()">
+                                                        Update</button>
+                                                    <button class="btn submit" id="buttonSupplierSubmit" type="button"
+                                                        onclick="submitSupplierForm()">
+                                                        Submit</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="tab-pane fade" id="table-tab-pane" role="tabpanel" aria-labelledby="table-tab" tabindex="0">
+
+                    <!-- table -->
+                    <div class="card">
+                        <div class="card-body table-responsive">
+
+                            <!-- artist table -->
+                            <div id="artistTable" class="section">
+                                <h4><i>Artist Table</i></h4>
+
+                                <table class=" table table-hover table-striped table-bordered" id="tableArtist">
+
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th rowspan="2">#</th>
+                                            <th rowspan="2">Artist Name</th>
+                                            <th rowspan="2">NIC</th>
+                                            <th rowspan="2">Contact No</th>
+                                            <th rowspan="2">Email </th>
+                                            <th colspan="3" style="text-align: center;">Bank details </th>
+                                            <th rowspan="2">Modify/Action</th>
+                                        </tr>
+                                        <tr>
+
+                                            <td>Beneficiary Name</td>
+                                            <td>Bank Name</td>
+                                            <td>Acc. No</td>
+
+                                        </tr>
+                                    </thead>
+
+                                    <tbody id="tableBodyArtist">
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+
+                            <!-- supplire table -->
+                            <div id="supplierTable" class="section">
+                                <h4><i>Supplier Table</i></h4>
+                                <table class=" table table-hover table-striped table-bordered" id="tableSupplier">
+
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th rowspan="2">#</th>
+                                            <th rowspan="2">Supplier Shop Name</th>
+                                            <th rowspan="2">Business Reg No.</th>
+                                            <th rowspan="2">Contact No.</th>
+                                            <th rowspan="2">Email</th>
+                                            <th rowspan="2">Address</th>
+                                            <th rowspan="2">Product Type</th>
+                                            <th colspan="3" style="text-align: center;">Bank details </th>
+                                            <th rowspan="2">Modify/Action</th>
+
+                                        </tr>
+                                        <tr>
+
+                                            <td>Beneficiary Name</td>
+                                            <td>Bank Name</td>
+                                            <td>Acc. No</td>
+
+
+                                        </tr>
+                                    </thead>
+
+                                    <tbody id="tableBodySupplier">
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <!-- link sweet alert  -->
+        <script src="sweetalert.min.js"></script>
+
+        <!-- link js file -->
+        <script src="bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
+
+        <!-- link jquary file -->
+        <script src="js/jquery-4.0.0..min.js"></script>
+
+        <!-- link common js file -->
+        <script src="js/comman.js"></script>
+
+        <!-- link artist,supplier details js -->
+        <script src="js/1.arist,supplier details.js"></script>
+    </div>
+
+</body>
+
+</html>

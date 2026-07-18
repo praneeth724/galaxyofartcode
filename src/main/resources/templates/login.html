@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galaxy of Art - Login</title>
+    <link rel="icon" href="pictures/bgnd/Art Gallery.jpg">
+
+    <!-- link bootstrap css file -->
+    <link rel="stylesheet" href="bootstrap-5.2.3/css/bootstrap.min.css">
+
+    <!-- link fontawesome css file -->
+    <link rel="stylesheet" href="fontawesome-free-7.2.0/fontawesome-free-7.2.0-web/css/all.min.css">
+
+    <!-- link commen css file -->
+    <link rel="stylesheet" href="comman.css">
+
+    <!-- link login css -->
+    <link rel="stylesheet" href="css/login.css">
+
+</head>
+
+
+<body>
+
+    <div class="login-card">
+
+        <!-- LEFT IMAGE SLIDER -->
+        <div class="left-side">
+            <div class="slider">
+                <img src="pictures/login photos/1.jpg">
+                <img src="pictures/login photos/art 5.jpg">
+                <img src="pictures/login photos/art 3.jpg">
+                <img src="pictures/login photos/art 1.jpg">
+                <img src="pictures/login photos/art 7.jpg">
+                <img src="pictures/login photos/art 2.jpg">
+                <img src="pictures/login photos/mug.jpg">
+                <img src="pictures/login photos/art 4.jpg">
+                <img src="pictures/login photos/2.jpg">
+                <img src="pictures/login photos/3.jpg">
+
+            </div>
+        </div>
+
+        <!-- RIGHT LOGIN -->
+        <div class="right-side">
+
+            <!-- Logo -->
+            <img src="pictures/logo_clean2.png" class="logo mb-3">
+
+            <h4 class="mb-4">USER LOGIN</h4>
+
+            <form action="/login" method="post">
+
+                <input type="hidden" th:if="${_csrf}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+                <div class="input-group">
+                    <span class="input-group-text">👤</span>
+                    <input type="text" id="username" class="form-control" placeholder="Username" name="username">
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-text">🔑</span>
+                    <input type="password" id="password" class="form-control" placeholder="Password" name="password">
+                </div>
+
+                <p id="error" class="text-danger mt-2"></p>
+
+                <div class="forgot text-primary" data-bs-toggle="modal" data-bs-target="#forgotModal">
+                    Forgot password?
+                </div>
+
+                <button class="btn btn-login" type="submit">LOGIN</button>
+
+
+                <div th:if="${param.error}"></div>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- FORGOT PASSWORD MODAL -->
+    <div class="modal fade" id="forgotModal">
+        <div class="modal-dialog">
+            <div class="modal-content p-3">
+
+                <h5>Reset Password</h5>
+
+                <input type="email" id="email" class="form-control mt-2" placeholder="Enter your email">
+
+                <button class="btn-reset mt-3" onclick="resetPassword()">Send Reset Link</button>
+
+                <p id="msg" class="text-success mt-2"></p>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- link js file -->
+    <script src="bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
+
+    <!-- link jquary file -->
+    <script src="js/jquery-4.0.0..min.js"></script>
+
+    <!-- link common js file -->
+    <script src="js/comman.js"></script>
+
+    <!-- link login js -->
+    <script src="js/login.js"></script>
+
+
+</body>
+
+</html>
