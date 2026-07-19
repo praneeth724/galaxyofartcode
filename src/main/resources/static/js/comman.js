@@ -87,7 +87,7 @@ const getHTTPServiceRequest = (url, method, data) => {
 const textValidator = (element, pattern, object, property) => {
 
   let elementValue = element.value;
-  let regOb = new RegExp(pattern);
+  let regOb = new RegExp(pattern, "u");
 
 
   if (elementValue != "") {

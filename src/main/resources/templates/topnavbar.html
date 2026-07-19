@@ -2,6 +2,7 @@
 
 <meta name="_csrf" th:content="${_csrf.token}" />
 <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+<meta name="_csrf_parameter" th:content="${_csrf.parameterName}" />
 
 <!-- mobile-only top bar: brand + hamburger to open the sidebar -->
 <div class="mobile-topbar d-lg-none">
@@ -114,12 +115,7 @@
     </ul>
 
     <div class="sidebar-footer">
-        <a class="sidebar-footer-link" href="#">
-            <i class="fa-solid fa-id-badge"></i><span>Change Profile</span>
-        </a>
-        <a class="sidebar-footer-link" href="#" onclick="if(window.confirm('Are You Sure To Logout..?')){
-                window.location.replace('/logout')
-            }">
+        <a class="sidebar-footer-link" href="#" onclick="GOALogout()">
             <i class="fa-solid fa-right-from-bracket"></i><span>Logout</span>
         </a>
     </div>
@@ -127,6 +123,32 @@
 </nav>
 
 <script>
+    // Spring Security's default logout endpoint only accepts POST, so submit
+    // a hidden form (with the CSRF token) instead of navigating via GET.
+    function GOALogout() {
+        if (!window.confirm('Are You Sure To Logout..?')) {
+            return;
+        }
+
+        var csrfToken = document.querySelector('meta[name="_csrf"]');
+        var csrfParameter = document.querySelector('meta[name="_csrf_parameter"]');
+
+        var form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/logout';
+
+        if (csrfToken && csrfParameter) {
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = csrfParameter.content;
+            input.value = csrfToken.content;
+            form.appendChild(input);
+        }
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+
     window.GOASidebar = {
         toggle: function () {
             document.getElementById('appSidebar').classList.toggle('show');

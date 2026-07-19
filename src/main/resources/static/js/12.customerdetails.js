@@ -292,7 +292,7 @@ const refreshCustomerDetailsForm = () => {
 textNameElement.addEventListener("keyup", () => {
 
     let name = textNameElement.value;
-    let regPattern = new RegExp("^[A-Za-z\\s]{3,50}$");
+    let regPattern = /^\p{L}[\p{L}0-9\s.,'&()-]{1,69}$/u;
 
     if (regPattern.test(name)) {
 
@@ -330,7 +330,7 @@ textContactElement.addEventListener("keyup", (validateContact) => {
 textEmailElement.addEventListener("keyup", () => {
 
     let email = textEmailElement.value;
-    let regPattern = new RegExp("^[A-Za-z0-9]{3,}[@][a-z]{3,}[.][a-z]{2,}$");
+    let regPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
     if (regPattern.test(email)) {
 
@@ -349,7 +349,7 @@ textEmailElement.addEventListener("keyup", () => {
 textAddressElement.addEventListener("keyup", () => {
 
     let address = textAddressElement.value;
-    let regPattern = new RegExp("^[A-Za-z:/,. 0-9]{7,100}$");
+    let regPattern = /^[\p{L}0-9\s:/,.#-]{7,150}$/u;
 
     if (regPattern.test(address)) {
 

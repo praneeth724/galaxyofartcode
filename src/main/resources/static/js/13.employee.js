@@ -1,4 +1,4 @@
-
+﻿
 let textFullNameElement = document.querySelector("#textFullName");
 let selectCallingnameElement = document.querySelector("#selectCallingname");
 let nameInisialElement = document.querySelector("#nameInisial");
@@ -117,7 +117,7 @@ const printEmployee = (dataOb) => {
         "<h1> __________Employee Details__________ </h1>" +
         "<p><strong> Full Name : </strong> " + employee.fullname + "</p>" +
         "<p><strong> Calling Name: </strong> " + employee.callingname + "</p>" +
-        "<p><strong> Name With Initial : </strong> " + employee.nameWithInisial + "</p>" +
+        "<p><strong> Name With Initial : </strong> " + employee.namewithinitial + "</p>" +
         "<p><strong> NIC : </strong> " + employee.nic + "</p>" +
         "<p><strong> Gender : </strong> " + employee.gender + "</p>" +
         "<p><strong> Date of Birth : </strong> " + employee.dob + "</p>" +
@@ -238,7 +238,7 @@ const printEmployee = (dataOb) => {
 
    tdFullName.innerText = employee.fullname;
    tdCallingName.innerText = employee.callingname;
-   tdNameWithInisial.innerText = employee.nameWithInisial;
+   tdnamewithinitial.innerText = employee.namewithinitial;
    tdNIC.innerText = employee.nic;
    tdGender.innerText = employee.gender;
    tdDateOfBirth.innerText = employee.dob;
@@ -377,8 +377,8 @@ const checkFormUpdate = () => {
         updates = updates + "Calling Name Is Changed..! \n" + oldEmployee.callingname + " into " + employee.callingname + "\n";
     }
 
-    if (employee.nameWithInisial != oldEmployee.nameWithInisial) {
-        updates = updates + "Name With Initial Is Changed..! \n" + oldEmployee.nameWithInisial + " into " + employee.nameWithInisial + "\n";
+    if (employee.namewithinitial != oldEmployee.namewithinitial) {
+        updates = updates + "Name With Initial Is Changed..! \n" + oldEmployee.namewithinitial + " into " + employee.namewithinitial + "\n";
     }
 
     if (employee.nic != oldEmployee.nic) {
@@ -613,7 +613,7 @@ const refreshEmployeeForm = () => {
 textFullNameElement.addEventListener("keyup", () => {
 
     let fullName = textFullNameElement.value;
-    let regPattern = new RegExp("^([A-Z][a-z]{2,20}[\\s])+([d][e][\\s])?([A-Z][a-z]{2,20}[\\s])*([A-Z][a-z]{2,25})$");
+    let regPattern = /^\p{L}[\p{L}'-]*(\s+\p{L}[\p{L}'-]*)+$/u;
 
     if (regPattern.test(fullName)) {
 
@@ -642,7 +642,7 @@ textFullNameElement.addEventListener("keyup", () => {
         nameParts.forEach(namePart => {
             let option = document.createElement("option");
 
-            if (namePart.length > 2) {
+            if (namePart.length > 1) {
                 option.value = namePart;
                 option.innerText = namePart;
                 selectCallingnameElement.appendChild(option);
@@ -651,21 +651,21 @@ textFullNameElement.addEventListener("keyup", () => {
         });
 
         //genarte name with inisial
-        let nameWithInisial = "";
+        let namewithinitial = "";
         nameParts.forEach((namePart, index) => {
             if (index < nameParts.length - 1) {
-                nameWithInisial = nameWithInisial + namePart.charAt(0).toUpperCase() + ".";
+                namewithinitial = namewithinitial + namePart.charAt(0).toUpperCase() + ".";
             }
         });
 
         //last name
-        nameWithInisial = nameWithInisial + nameParts[nameParts.length - 1].charAt(0).toUpperCase() + nameParts[nameParts.length - 1].substring(1);
+        namewithinitial = namewithinitial + nameParts[nameParts.length - 1].charAt(0).toUpperCase() + nameParts[nameParts.length - 1].substring(1);
         //let lastName = nameParts[nameParts.length - 1];
-        //nameWithInisial += lastName.charAt(0).toUpperCase() + lastName.substring(1);
+        //namewithinitial += lastName.charAt(0).toUpperCase() + lastName.substring(1);
 
-        nameInisialElement.value = nameWithInisial;
+        nameInisialElement.value = namewithinitial;
         nameInisialElement.style.border = "2px solid green";
-        employee.namewithinisial = nameWithInisial;
+        employee.namewithinitial = namewithinitial;
 
     } else {
         textFullNameElement.style.border = "2px solid red";
@@ -676,81 +676,11 @@ textFullNameElement.addEventListener("keyup", () => {
 
         nameInisialElement.value = "";
         nameInisialElement.style.border = "2px solid #dee2e6";
-        employee.namewithinisial = null;
+        employee.namewithinitial = null;
 
 
     }
 });
-
-
-/** 
-textFullNameElement.addEventListener("keyup", () => {
- 
-    let fullName = textFullNameElement.value.trim();
- 
-    // Improved regex (more flexible)
-    let regPattern = /^([A-Z][a-z]{2,20})(\s[A-Z][a-z]{2,20})+$/;
- 
-    if (regPattern.test(fullName)) {
- 
-        textFullNameElement.style.border = "2px solid green";
-        employee.fullname = fullName;
- 
-        // Clear dropdown
-        selectCallingnameElement.innerHTML = "";
- 
-        // Default option
-        let optionMsg = document.createElement("option");
-        optionMsg.selected = true;
-        optionMsg.disabled = true;
-        optionMsg.value = "";
-        optionMsg.innerText = "Select Calling Name";
-        selectCallingnameElement.appendChild(optionMsg);
- 
-        // Split name parts (remove extra spaces)
-        let nameParts = fullName.split(/\s+/);
- 
-        // Add name parts to dropdown
-        nameParts.forEach(namePart => {
-            let option = document.createElement("option");
-            option.value = namePart;
-            option.innerText = namePart;
-            selectCallingnameElement.appendChild(option);
-        });
- 
-        // Generate name with initials
-        let nameWithInisial = "";
- 
-        nameParts.forEach((namePart, index) => {
-            if (index < nameParts.length - 1) {
-                nameWithInisial += namePart.charAt(0).toUpperCase() + ". ";
-            }
-        });
- 
-        // Last name (full)
-        let lastName = nameParts[nameParts.length - 1];
-        nameWithInisial += lastName.charAt(0).toUpperCase() + lastName.slice(1);
- 
-        // Set value
-        nameInisialElement.value = nameWithInisial;
-        nameInisialElement.style.border = "2px solid green";
-        employee.nameWithInisial = nameWithInisial;
- 
-    } else {
- 
-        textFullNameElement.style.border = "2px solid red";
-        employee.fullname = null;
- 
-        selectCallingnameElement.innerHTML = "";
-        employee.callingname = null;
-        selectCallingnameElement.style.border = "#dee2e6";
- 
-        nameInisialElement.value = "";
-        nameInisialElement.style.border = "2px solid #dee2e6";
-        employee.nameWithInisial = null;
-    }
-});
-*/
 
 //nic validation and age gender generation
 textNICElement.addEventListener("keyup", () => {

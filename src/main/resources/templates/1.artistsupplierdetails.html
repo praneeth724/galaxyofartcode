@@ -103,19 +103,19 @@
                                             <div class="row mt-1">
 
                                                 <div class="col">
-                                                    <label for="textname" class="form-label fw-bold">Artist
+                                                    <label for="textName" class="form-label fw-bold">Artist
                                                         Name :
                                                         <span class="text-danger">*</span></label>
 
-                                                    <input type="text" required placeholder="Enter Name" id="artistName"
-                                                        class="form-control"></text>
+                                                    <input type="text" required placeholder="Enter Name" id="textName"
+                                                        class="form-control">
                                                 </div>
 
                                                 <div class="col">
                                                     <label for="textNIC" class="form-label fw-bold">NIC
                                                         :
                                                         <span class="text-danger">*</span></label>
-                                                    <input type="text" required placeholder="Enter NIC" id="nic"
+                                                    <input type="text" required placeholder="Enter NIC" id="textNIC"
                                                         class="form-control">
                                                 </div>
 
@@ -130,14 +130,14 @@
                                                     </label>
 
                                                     <input type="text" required placeholder="Enter Contact No"
-                                                        id="contact" class="form-control">
+                                                        id="textContact" class="form-control">
 
                                                 </div>
 
                                                 <div class="col">
                                                     <label for="textEmail" class="form-label fw-bold">Email: <span
                                                             class="text-danger">*</span></label>
-                                                    <input type="email" required placeholder="Enter Email" id="email"
+                                                    <input type="email" required placeholder="Enter Email" id="textEmail"
                                                         class="form-control">
                                                 </div>
 
@@ -161,7 +161,7 @@
                                                             </label>
 
                                                             <input type="text" required
-                                                                placeholder="Enter Beneficiary Name" id="beneficiary"
+                                                                placeholder="Enter Beneficiary Name" id="textBeneficiary"
                                                                 class="form-control">
 
                                                         </div>
@@ -173,7 +173,7 @@
                                                             </label>
 
                                                             <input type="text" required placeholder="Enter Bank Name"
-                                                                id="bank" class="form-control">
+                                                                id="textBank" class="form-control">
 
                                                         </div>
 
@@ -184,7 +184,7 @@
                                                             </label>
 
                                                             <input type="text" required placeholder="Enter Account No"
-                                                                id="account" class="form-control">
+                                                                id="textAccount" class="form-control">
 
                                                         </div>
                                                     </div>
@@ -225,12 +225,8 @@
                                                         Shop
                                                         Name :
                                                         <span class="text-danger">*</span></label>
-                                                    <select id="selectSupplierName" class="form-select">
-                                                        <option value="" selected="selected" disabled="disabled">
-                                                            Select Supplier Shop Name</option>
-                                                        <option value="">DDM Ceramic Center </option>
-                                                        <option value="">Manel Statues Home</option>
-                                                    </select>
+                                                    <input type="text" required placeholder="Enter Supplier Shop Name"
+                                                        id="textSupplierName" class="form-control">
                                                 </div>
 
                                                 <div class="col">
@@ -249,8 +245,8 @@
                                                         <option value="" selected="selected" disabled="disabled">
                                                             Select Product
                                                             Type</option>
-                                                        <option value="">Statues</option>
-                                                        <option value="">Mugs</option>
+                                                        <option value="statue">Statues</option>
+                                                        <option value="mug">Mugs</option>
                                                     </select>
                                                 </div>
 

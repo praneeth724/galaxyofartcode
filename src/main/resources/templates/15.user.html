@@ -113,7 +113,7 @@
                                                 <span class="text-danger">*</span></label>
                                             <input type="password" id="textReTypePassword"
                                                 placeholder="Enter Password Again" required class="form-control"
-                                                onkeyup="textPasswordRetypeValidator(this, '^[a-zA-Z0-9\\#\\@\\*]{6,16}$',user, 'reenterPassword')">
+                                                onkeyup="textPasswordRetypeValidator(this)">
                                         </div>
 
                                     </div>
@@ -132,7 +132,7 @@
                                                     class="text-danger">*</span></label>
                                             <input type="email" required placeholder="Enter Email" id="textEmail"
                                                 class="form-control"
-                                                onkeyup="textValidator(this,'^([a-zA-Z0-9]{6,20}[@][a-z]{3,10}[.][a-z]{2,3})$' , user, 'useremail')">
+                                                onkeyup="textValidator(this,'^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$' , user, 'useremail')">
                                         </div>
 
                                         <!-- status -->
@@ -168,7 +168,7 @@
                                                     class="text-danger"></span></label>
                                             <textarea required placeholder="Enter Note" id="textNote"
                                                 class="form-control"
-                                                onkeyup="textValidator(this,'^[A-Za-z:/,. 0-9]{7,100}$' , user, 'note')">
+                                                onkeyup="textValidator(this,'^[\\p{L}0-9\\s:/,.#-]{7,150}$' , user, 'note')">
                                             </textarea>
                                         </div>
                                     </div>

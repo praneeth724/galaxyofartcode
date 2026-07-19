@@ -70,6 +70,9 @@ let textBeneficiaryElement = document.querySelector("#textBeneficiary");
 let textBankElement = document.querySelector("#textBank");
 let textAccountElement = document.querySelector("#textAccount");
 
+let buttonArtistSubmitElement = document.querySelector("#buttonArtistSubmit");
+let buttonArtistUpdateElement = document.querySelector("#buttonArtistUpdate");
+
 
 //difine function for refresh artist table.............................................
 const refreshArtistTable = () => {
@@ -122,9 +125,9 @@ const refillArtistForm = (dataOb) => {
     textBankElement.value = artist.bank;
     textAccountElement.value = artist.account;
 
-    buttonSubmit.style.display = "none";  // submit penne na
-    buttonUpdate.style.display = "inline-block";   // update penwa
-    buttonUpdate.disabled = false;   // Important
+    buttonArtistSubmitElement.style.display = "none";  // submit penne na
+    buttonArtistUpdateElement.style.display = "inline-block";   // update penwa
+    buttonArtistUpdateElement.disabled = false;   // Important
 
 
 }
@@ -325,13 +328,13 @@ const printArtist = (dataOb) => {
 const refreshArtistForm = () => {
 
     //clear static element
-    artistForm.reset();
+    formArtistSupplier.reset();
 
     //if (!userPrivi.privi_insert) { //update ekdi submit disable
-        //buttonSubmit.disabled = "disabled";
+        //buttonArtistSubmitElement.disabled = "disabled";
     //}
 
-    buttonUpdate.disabled = "disabled"; //submit eke update disable
+    buttonArtistUpdateElement.disabled = "disabled"; //submit eke update disable
 
     //create empty object
     //artist = new Object();
@@ -363,7 +366,7 @@ const refreshArtistForm = () => {
 textNameElement.addEventListener("keyup", () => {
 
     let name = textNameElement.value;
-    let regPattern = new RegExp("^[A-Za-z\\s]{3,50}$");
+    let regPattern = /^\p{L}[\p{L}0-9\s.,'&()-]{1,69}$/u;
 
     if (regPattern.test(name)) {
 
@@ -423,7 +426,7 @@ textContactElement.addEventListener("keyup", () => {
 textEmailElement.addEventListener("keyup", () => {
 
     let email = textEmailElement.value;
-    let regPattern = new RegExp("^[A-Za-z0-9]{3,}[@][a-z]{3,}[.][a-z]{2,}$");
+    let regPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
     if (regPattern.test(email)) {
 
@@ -443,7 +446,7 @@ textEmailElement.addEventListener("keyup", () => {
 textBeneficiaryElement.addEventListener("keyup", () => {
 
     let beneficiary = textBeneficiaryElement.value;
-    let regPattern = new RegExp("^([A-Z][a-z]{2,20}[\\s])+([d][e][\\s])?([A-Z][a-z]{2,20}[\\s])*([A-Z][a-z]{2,25})$");
+    let regPattern = /^\p{L}[\p{L}'-]*(\s+\p{L}[\p{L}'-]*)+$/u;
 
     if (regPattern.test(beneficiary)) {
 
@@ -463,7 +466,7 @@ textBeneficiaryElement.addEventListener("keyup", () => {
 textBankElement.addEventListener("keyup", () => {
 
     let bank = textBankElement.value;
-    let regPattern = new RegExp("^([A-Z][a-z]{2,06})$");
+    let regPattern = /^\p{L}[\p{L}0-9\s.,'&()-]{1,49}$/u;
 
     if (regPattern.test(bank)) {
 
@@ -613,6 +616,9 @@ let textSupplierBeneficiaryElement = document.querySelector("#textSupplierBenefi
 let textSupplierBankElement = document.querySelector("#textSupplierBank");
 let textSupplierAccountElement = document.querySelector("#textSupplierAccount");
 
+let buttonSupplierSubmitElement = document.querySelector("#buttonSupplierSubmit");
+let buttonSupplierUpdateElement = document.querySelector("#buttonSupplierUpdate");
+
 
 
 //define function for refresh supplier table.....................................................................
@@ -689,7 +695,7 @@ const refillSupplierForm = (dataOb) => {
     supplier = JSON.parse(JSON.stringify(dataOb));
     oldSupplier = JSON.parse(JSON.stringify(dataOb));
 
-    textSupplierNameElement = supplier.name;
+    textSupplierNameElement.value = supplier.name;
     textBrnElement.value = supplier.brn;
     textSupplierContactElement.value = supplier.contact;
     textSupplierEmailElement.value = supplier.email;
@@ -700,8 +706,8 @@ const refillSupplierForm = (dataOb) => {
     textSupplierBankElement.value = supplier.bank;
     textSupplierAccountElement.value = supplier.account;
 
-    buttonSubmit.style.display = "none";  // submit penne na
-    buttonUpdate.style.display = "block";   // update penwa
+    buttonSupplierSubmitElement.style.display = "none";  // submit penne na
+    buttonSupplierUpdateElement.style.display = "block";   // update penwa
 
 }
 
@@ -868,14 +874,14 @@ const deleteSupplier = (dataOb) => {
 //define function for refresh supplier form...........................................................
 const refreshSupplierForm = () => {
 
-    supplierForm.reset(); //clr static element value
+    formArtistSupplier.reset(); //clr static element value
 
 
     //if (!userPrivi.privi_insert) { //update ekdi submit disable
-       // buttonSubmit.disabled = "disabled";
+       // buttonSupplierSubmitElement.disabled = "disabled";
    // }
 
-    buttonUpdate.disabled = "disabled";   //update eka disable
+    buttonSupplierUpdateElement.disabled = "disabled";   //update eka disable
 
     //create empty object
     //supplier = new Object();
@@ -909,7 +915,7 @@ const refreshSupplierForm = () => {
 textSupplierNameElement.addEventListener("keyup", () => {
 
     let name = textSupplierNameElement.value;
-    let regPattern = new RegExp("^[A-Za-z\\s&().]{3,}$");
+    let regPattern = /^\p{L}[\p{L}0-9\s&().,'-]{1,69}$/u;
 
     if (regPattern.test(name)) {
 
@@ -972,7 +978,7 @@ textSupplierContactElement.addEventListener("keyup", () => {
 textSupplierEmailElement.addEventListener("keyup", () => {
 
     let email = textSupplierEmailElement.value;
-    let regPattern = new RegExp("^[A-Za-z0-9]{3,}[@][a-z]{3,}[.][a-z]{2,}$");
+    let regPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
     if (regPattern.test(email)) {
 
@@ -993,7 +999,7 @@ textSupplierEmailElement.addEventListener("keyup", () => {
 textAddressElement.addEventListener("keyup", () => {
 
     let address = textAddressElement.value;
-    let regPattern = new RegExp("^[A-Za-z:/,. 0-9]{7,100}$");
+    let regPattern = /^[\p{L}0-9\s:/,.#-]{7,150}$/u;
 
     if (regPattern.test(address)) {
 
@@ -1032,7 +1038,7 @@ selectProductTypeElement.addEventListener("change", () => {
 textSupplierBeneficiaryElement.addEventListener("keyup", () => {
 
     let beneficiary = textSupplierBeneficiaryElement.value;
-    let regPattern = new RegExp("^([A-Z][a-z]{2,20}[\\s])+([d][e][\\s])?([A-Z][a-z]{2,20}[\\s])*([A-Z][a-z]{2,25})$");
+    let regPattern = /^\p{L}[\p{L}'-]*(\s+\p{L}[\p{L}'-]*)+$/u;
 
     if (regPattern.test(beneficiary)) {
 
@@ -1053,7 +1059,7 @@ textSupplierBeneficiaryElement.addEventListener("keyup", () => {
 textSupplierBankElement.addEventListener("keyup", () => {
 
     let bank = textSupplierBankElement.value;
-    let regPattern = new RegExp("^([A-Z][a-z]{2,06})$");
+    let regPattern = /^\p{L}[\p{L}0-9\s.,'&()-]{1,49}$/u;
 
     if (regPattern.test(bank)) {
 

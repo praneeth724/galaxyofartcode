@@ -49,7 +49,7 @@ const refreshUserTable = () => {
 
 //define function to get employee name
 const getEmployee = (dataOb) => {
-    return dataOb.employee_id.fullname;
+    return dataOb.employee_table_id.fullname;
 }
 
 //define function to get role 
@@ -85,8 +85,8 @@ const formRefill = (dataOb) => {
 
 
     let employees = getServiceRequest("/employee/alldata");
-    fillDataIntoSelect(selectEmployeeElement, "Select Employee..!", employees, "fullname");
-    selectEmployeeElement.value = JSON.stringify(user.employee_id);
+    fillDataToSelect(selectEmployeeElement, "Select Employee..!", employees, "fullname");
+    selectEmployeeElement.value = JSON.stringify(user.employee_table_id);
 
     textUsernameElement.value = user.username;
     textPasswordElement.value = "" //to avoid password show;
@@ -97,16 +97,16 @@ const formRefill = (dataOb) => {
         textNoteElement.value = user.note;
 
     if (user.status) {
-        chkUserStatusElement.checked = true;
+        checkUserStatusElement.checked = true;
         lblUserStatusElement.innerText = "User Account is Active ..!";
     } else {
-        chkUserStatusElement.checked = false;
+        checkUserStatusElement.checked = false;
         lblUserStatusElement.innerText = "User Account is Inactive ..!";
     }
 
 
     //get role list
-    let roles = getServiceRequest("/role/alldatawithoutadmin");
+    let roles = getServiceRequest("/roles/alldatawithoutadmin");
 
     divRole.innerHTML = "";  //avoid duplication
     roles.forEach(role => {
@@ -118,6 +118,12 @@ const formRefill = (dataOb) => {
         inputElement.type = "checkbox";
         inputElement.className = "form-check-input ";
 
+        // log wena kenge role eka auto fill wenna (check user roles when refill form)
+        let extIndex = user.roles.map(rl => rl.name).indexOf(role.name);
+        if (extIndex > -1) {
+            inputElement.checked = true;
+        }
+
         // role eka agta ena , eka ain krnna oni nisa
         inputElement.onchange = (event) => {
             if (inputElement.checked) {
@@ -128,22 +134,15 @@ const formRefill = (dataOb) => {
                     user.roles.splice(extIndex, 1);
                 }
             }
-            // log wena kenge role eka auto fill wenna (check user roles when refill form)
-            let extIndex = user.roles.map(rl => rl.name).indexOf(role.name);
-            if (extIndex > -1) {
-                inputElement.checked = true;
-            }
-
-
-
-            let labelElement = document.createElement("label");
-            labelElement.className = "form-check-label fw-bold ";
-            labelElement.innerText = role.name;
-
-            div.appendChild(inputElement);
-            div.appendChild(labelElement);
-            divRole.appendChild(div);
         }
+
+        let labelElement = document.createElement("label");
+        labelElement.className = "form-check-label fw-bold ";
+        labelElement.innerText = role.name;
+
+        div.appendChild(inputElement);
+        div.appendChild(labelElement);
+        divRole.appendChild(div);
     });
 
     buttonSubmit.style.display = "none";
@@ -156,8 +155,8 @@ const formRefill = (dataOb) => {
 const checkFormUpdate = () => {
     let updates = "";
 
-    if (user.employee_id.id != oldUser.employee_id.id) {
-        updates = updates + "Employee is Changed ..! \n" + oldUser.employee_id.id + " into " + employee_id.id + "\n";
+    if (user.employee_table_id.id != oldUser.employee_table_id.id) {
+        updates = updates + "Employee is Changed ..! \n" + oldUser.employee_table_id.id + " into " + user.employee_table_id.id + "\n";
     }
 
     if (user.username != oldUser.username) {
@@ -174,10 +173,6 @@ const checkFormUpdate = () => {
 
     if (user.status != oldUser.status) {
         updates = updates + "Status is Changed ..! \n";
-    }
-
-    if (user.employee_id.id != oldUser.employee_id.id) {
-        updates = updates + "Employee is Changed ..! \n";
     }
 
     if (user != null && oldUser != null) {
@@ -270,7 +265,7 @@ const userDelete = (dataOb) => {
     swal({
         title: "Are You Sure To Delete This File..?",
         text: "Following User Details Will Be Deleted..! \n" +
-            "Employee Fullname :" + dataOb.employee_id.fullname +
+            "Employee Fullname :" + dataOb.employee_table_id.fullname +
             "\n User Name :" + dataOb.username,
 
         icon: "warning",
@@ -315,11 +310,11 @@ const printUser = (dataOb) => {
 
     newWindow.document.writeln("<html><head><title> Print User Details </title></head><body>" +
         "<h1> __________User Details__________ </h1>" +
-        "<p><strong> Employee Name : </strong> " + user.employee + "</p>" +
+        "<p><strong> Employee Name : </strong> " + user.employee_table_id.fullname + "</p>" +
         "<p><strong> User Name : </strong> " + user.username + "</p>" +
-        "<p><strong> Role : </strong> " + user.roles + "</p>" +
+        "<p><strong> Role : </strong> " + user.roles.map(r => r.name).join(", ") + "</p>" +
         "<p><strong> Email : </strong> " + user.useremail + "</p>" +
-        "<p><strong> Status : </strong> " + user.userstatus + "</p>" +
+        "<p><strong> Status : </strong> " + (user.status ? "Active" : "Inactive") + "</p>" +
         "</body></html>"
     );
 
@@ -351,7 +346,7 @@ const refreshUserForm = () => {
 
     buttonUpdate.disabled = "disabled";
 
-    user = new object();
+    user = new Object();
     user.roles = new Array();
 
     let users = getServiceRequest("/user/alldata");
@@ -361,13 +356,13 @@ const refreshUserForm = () => {
     clearElement([selectEmployeeElement, textUsernameElement, textPasswordElement, textReTypePasswordElement,
         textEmailElement, textNoteElement,]);
 
-    chkUserStatusElement.checked = true;
+    checkUserStatusElement.checked = true;
     lblUserStatusElement.innerText = "User Account is Active ..!";
     user.status = true;
 
 
     //get role list
-    let roles = getServiceRequest("/role/alldatawithoutadmin");
+    let roles = getServiceRequest("/roles/alldatawithoutadmin");
 
     divRole.innerHTML = "";  //avoid duplication
     roles.forEach(role => {
@@ -389,15 +384,15 @@ const refreshUserForm = () => {
                     user.roles.splice(extIndex, 1);
                 }
             }
-
-            let labelElement = document.createElement("label");
-            labelElement.className = "form-check-label fw-bold ";
-            labelElement.innerText = role.name;
-
-            div.appendChild(inputElement);
-            div.appendChild(labelElement);
-            divRole.appendChild(div);
         }
+
+        let labelElement = document.createElement("label");
+        labelElement.className = "form-check-label fw-bold ";
+        labelElement.innerText = role.name;
+
+        div.appendChild(inputElement);
+        div.appendChild(labelElement);
+        divRole.appendChild(div);
     });
 
 
@@ -407,7 +402,7 @@ const refreshUserForm = () => {
 const checkFormError = () => {
     let errors = "";
 
-    if (user.employee_id == null) {
+    if (user.employee_table_id == null) {
         errors = errors + "Please Select Employee ..! \n";
     }
 
@@ -442,7 +437,7 @@ const submitUser = () => {
         swal({
             title: "Are You Sure To Save This File..?",
             text: "Following Employee Record Will Be Saved..! \n" +
-                "Employee Fullname :" + user.employee_id.fullname +
+                "Employee Fullname :" + user.employee_table_id.fullname +
                 "\n User Name :" + user.username,
 
             icon: "warning",
@@ -495,13 +490,13 @@ const textPasswordRetypeValidator = (elementId) => {
 
     if (textPasswordElement.value === elementId.value) {
         //valid
-        textPassword.style.border = " 2px solid green";
-        elementId.style.border = " 2px solid green";
+        textPasswordElement.style.border = "2px solid green";
+        elementId.style.border = "2px solid green";
         user.password = elementId.value;
     } else {
         //invalid
-        textPassword.style.border = " 2px solid red";
-        elementId.style.border = " 2px solid red";
+        textPasswordElement.style.border = "2px solid red";
+        elementId.style.border = "2px solid red";
         user.password = null;
     }
 }

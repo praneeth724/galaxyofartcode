@@ -316,6 +316,9 @@ const checkFormError = () => {
     if (production.designsize == null) errors = errors + "Please Enter Design Size ..!\n";
     if (production.quantity == null || production.quantity <= 0) errors = errors + "Please Enter Valid Quantity ..!\n";
     if (production.unitcost == null) errors = errors + "Please Enter Valid Unit Cost ..!\n";
+    if (production.inkcost == null) errors = errors + "Please Enter Valid Ink Cost ..!\n";
+    if (production.papercost == null) errors = errors + "Please Enter Valid Paper Cost ..!\n";
+    if (production.designcost == null) errors = errors + "Please Enter Valid Design Cost ..!\n";
 
     return errors;
 }
@@ -342,9 +345,6 @@ const submitProduction = () => {
                         swal("Save Completed..!", { icon: "success" });
                         refreshProductionTable();
                         refreshProductionForm();
-
-                        let newId = serviceResponse.split(":")[1];
-                        window.open("productionview/details?id=" + newId, "_blank");
                     } else {
                         swal("Save Not Completed..!", " Form Has Some Errors..! \n" + serviceResponse, "error");
                     }

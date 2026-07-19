@@ -6,10 +6,10 @@ const checkBoxInsertElement = document.querySelector("#chkInsert");
 const checkBoxUpdateElement = document.querySelector("#chkUpdate");
 const checkBoxDeleteElement = document.querySelector("#chkDelete");
 
-const lableSelectElement = document.querySelector("lblSelect");
-const lableInsertElement = document.querySelector("lblInsert");
-const lableUpdateElement = document.querySelector("lblUpdate");
-const lableDeleteElement = document.querySelector("lblDelete");
+const lableSelectElement = document.querySelector("#lblSelect");
+const lableInsertElement = document.querySelector("#lblInsert");
+const lableUpdateElement = document.querySelector("#lblUpdate");
+const lableDeleteElement = document.querySelector("#lblDelete");
 
 
 
@@ -64,13 +64,13 @@ const refreshPrivilageTable = () => {
 //role
 const getRole = (dataOb) => {
 
-    return dataOb.role_id.name;
+    return dataOb.roles_table_id.name;
 }
 
 //module
 const getModule = (dataOb) => {
 
-    return dataOb.module_id.name;
+    return dataOb.module_table_id.name;
 }
 
 //select
@@ -124,8 +124,8 @@ const refillPrivilage = (dataOb) => {
     selectModuleElement.disabled = "disabled";  ////disable for update
 
 
-    selectRoleElement.value = JSON.stringify(privilage.role_id);
-    selectModuleElement.value = JSON.stringify(privilage.module_id);
+    selectRoleElement.value = JSON.stringify(privilage.roles_table_id);
+    selectModuleElement.value = JSON.stringify(privilage.module_table_id);
 
     if (privilage.privi_select) {
         checkBoxSelectElement.checked = true;
@@ -145,7 +145,7 @@ const refillPrivilage = (dataOb) => {
 
     if (privilage.privi_update) {
         checkBoxUpdateElement.checked = true;
-        lableUpdateElement.innerText = "Not-Granted..!";
+        lableUpdateElement.innerText = "Granted..!";
     } else {
         checkBoxUpdateElement.checked = false;
         lableUpdateElement.innerText = "Not-Granted..!";
@@ -153,7 +153,7 @@ const refillPrivilage = (dataOb) => {
 
     if (privilage.privi_delete) {
         checkBoxDeleteElement.checked = true;
-        lableDeleteElement.innerText = "Not-Granted..!";
+        lableDeleteElement.innerText = "Granted..!";
     } else {
         checkBoxDeleteElement.checked = false;
         lableDeleteElement.innerText = "Not-Granted..!";
@@ -170,12 +170,12 @@ const checkFormUpdate = () => {
 
     let updates = "";
 
-    if (privilage.role_id.name != oldPrivilage.role_id.name) {
-        updates = updates + "Role is Changed..! \n" + oldPrivilage.role_id.name + "into" + privilage.role_id.name + " \n";
+    if (privilage.roles_table_id.name != oldPrivilage.roles_table_id.name) {
+        updates = updates + "Role is Changed..! \n" + oldPrivilage.roles_table_id.name + "into" + privilage.roles_table_id.name + " \n";
     }
 
-    if (privilage.module_id.name != oldPrivllage.module_id.name) {
-        updates = updates + "Module is Changed..! \n" + oldPrivilage.module_id.name + "into" + privilage.module_id.name + "\n";
+    if (privilage.module_table_id.name != oldPrivilage.module_table_id.name) {
+        updates = updates + "Module is Changed..! \n" + oldPrivilage.module_table_id.name + "into" + privilage.module_table_id.name + "\n";
     }
 
     if (privilage.privi_select != oldPrivilage.privi_select) {
@@ -186,7 +186,7 @@ const checkFormUpdate = () => {
         updates = updates + "Insert Privilage is Changed..! \n";
     }
 
-    if (privilage.privi_updatee != oldPrivilage.privi_update) {
+    if (privilage.privi_update != oldPrivilage.privi_update) {
         updates = updates + "Update Privilage is Changed..! \n";
     }
 
@@ -267,8 +267,8 @@ const deletePrivilage = (dataOb) => {
         //get user confimation
         title: "Are You Sure To Delete This File..?",
         text: "Following Privilage Details Will Be Deleted..! \n" +
-            "Role :" + dataOb.role_id +
-            "\n Module" + dataOb.module_id,
+            "Role :" + dataOb.roles_table_id.name +
+            "\n Module" + dataOb.module_table_id.name,
 
         icon: "warning",
         buttons: true,
@@ -303,19 +303,19 @@ const deletePrivilage = (dataOb) => {
 //define function for print
 const printPrivilage = (dataOb) => {
 
-    employee = dataOb;
+    privilage = dataOb;
 
     //option 1- open new print tab to print
     let newWindow = window.open();
 
     newWindow.document.writeln("<html><head><title> Print Privilage Details </title></head><body>" +
         "<h1> __________Privilage Details__________ </h1>" +
-        "<p><strong> Role : </strong> " + employee.role_id + "</p>" +
-        "<p><strong> Module : </strong> " + employee.module_id + "</p>" +
-        "<p><strong> Select : </strong> " + getSelect(dataObject) + "</p>" +
-        "<p><strong> Insert : </strong> " + getinsert(dataObject) + "</p>" +
-        "<p><strong> Update : </strong> " + getUpdate(dataObject) + "</p>" +
-        "<p><strong> Delete : </strong> " + getDelete(dataObject) + "</p>" +
+        "<p><strong> Role : </strong> " + privilage.roles_table_id.name + "</p>" +
+        "<p><strong> Module : </strong> " + privilage.module_table_id.name + "</p>" +
+        "<p><strong> Select : </strong> " + getSelect(dataOb) + "</p>" +
+        "<p><strong> Insert : </strong> " + getInsert(dataOb) + "</p>" +
+        "<p><strong> Update : </strong> " + getUpdate(dataOb) + "</p>" +
+        "<p><strong> Delete : </strong> " + getDelete(dataOb) + "</p>" +
         "</body></html>"
     );
 
@@ -358,11 +358,11 @@ const refreshPrivilageForm = () => {
     selectModuleElement.disabled = ""; // update ekta refill eke disable karapu nisa , methnadi enable krnwa
 
     //get role list from database
-    let roles = getServicesRequest("/role/alldatawithoutadmin")
-    filDataIntoSelect(selectRoleElement, "Select Role..!", roles, "name");
+    let roles = getServiceRequest("/role/alldatawithoutadmin")
+    fillDataToSelect(selectRoleElement, "Select Role..!", roles, "name");
 
-    let modules = getServicesRequest("/module/alldata")
-    filDataIntoSelect(selectModuleElement, "Select Module..!", modules, "name");
+    let modules = getServiceRequest("/module/alldata")
+    fillDataToSelect(selectModuleElement, "Select Module..!", modules, "name");
 
 
     checkBoxSelectElement.checked = false;
@@ -384,17 +384,17 @@ const refreshPrivilageForm = () => {
     privilage.privi_delete = false;
 
     //clear all element (colour clear)
-    clearElement(selectModuleElement, selectRoleElement)
+    clearElement([selectModuleElement, selectRoleElement])
 }
 
 //define function check form error....
 const checkFormError = () => {
     let errors = "";
 
-    if (privilage.role_id == null) {
+    if (privilage.roles_table_id == null) {
         errors = errors + "Please Select Role ..!\n";
     }
-    if (privilage.module_id == null) {
+    if (privilage.module_table_id == null) {
         errors = errors + "Please Select Module ..!\n";
     }
 
@@ -415,8 +415,8 @@ const buttonPrivilageSubmit = () => {
         swal({
             title: "Are You Sure To Save This File..?",
             text: "Following Privilage Details Will Be Saved..! \n" +
-                "Role :" + privilage.role_id.name +
-                "\n Module :" + privilage.module_id.name,
+                "Role :" + privilage.roles_table_id.name +
+                "\n Module :" + privilage.module_table_id.name,
 
             icon: "warning",
             buttons: true,

@@ -77,7 +77,7 @@
                                             <label for="selectRole" class="form-label fw-bold">Role :
                                                 <span class="text-danger">*</span></label>
                                             <select required id="selectRole" class="form-select"
-                                                onchange="privilage.role_id.JSON.parse(this.value); this.style.border= '2px solid green';">
+                                                onchange="privilage.roles_table_id = JSON.parse(this.value); this.style.border= '2px solid green';">
                                                 <option value="" selected="selected" disabled="disabled"> Select
                                                     Role</option>
 
@@ -89,7 +89,7 @@
                                             <label for="selectModule" class="form-label fw-bold">Module :
                                                 <span class="text-danger">*</span></label>
                                             <select required id="selectModule" class="form-select"
-                                                onchange="privilage.module_id.JSON.parse(this.value); this.style.border= '2px solid green';">
+                                                onchange="privilage.module_table_id = JSON.parse(this.value); this.style.border= '2px solid green';">
                                                 <option value="" selected="selected" disabled="disabled"> Select Module
                                                 </option>
 
@@ -212,8 +212,8 @@
                                         </div>
 
                                         <div class="col-8 text-end">
-                                            <button class="btn update" id=" buttonUpdate" type="submit"
-                                                onclick=" buttonPrivilageUpdate()">
+                                            <button class="btn update" id="buttonUpdate" type="submit"
+                                                onclick="buttonPrivilageUpdate()">
                                                 Update</button>
 
                                             <button class="btn submit" id="buttonSubmit" type="submit"

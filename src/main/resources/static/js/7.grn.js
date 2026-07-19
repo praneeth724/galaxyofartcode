@@ -41,6 +41,11 @@ function loadPurchaseOrderDetails() {
     textTotalamountElement.value = selectedPO.total;
 
     grn.orderdate = selectedPO.orderdate;
+    grn.receivedquantity = Number(selectedPO.quantity);
+    grn.totalamount = Number(selectedPO.total);
+
+    textReceivedQtyElement.style.border = "2px solid green";
+    textTotalamountElement.style.border = "2px solid green";
 
     selectPurchaseOrderElement.style.border = "2px solid green";
 }

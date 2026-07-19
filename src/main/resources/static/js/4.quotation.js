@@ -47,6 +47,11 @@ function loadPriceRequestDetails() {
     selectPriceRequestElement.style.border = "2px solid green";
 }
 
+//keep quotation.requestdate in sync if the auto-filled date is manually edited
+requestDateElement.addEventListener("change", () => {
+    quotation.requestdate = requestDateElement.value;
+});
+
 
 //define function for refresh table................................................
 const refreshQuotationTable = () => {

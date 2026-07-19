@@ -272,7 +272,7 @@ const refreshArtsForm = () => {
 //artist name validation
 textArtistNameElement.addEventListener("keyup", () => {
     let name = textArtistNameElement.value;
-    let regPattern = new RegExp("^[A-Za-z\\s]{3,50}$");
+    let regPattern = /^\p{L}[\p{L}0-9\s.,'&()-]{1,69}$/u;
 
     if (regPattern.test(name)) {
         art.name = name;
@@ -321,7 +321,7 @@ imgArtImageElement.addEventListener("change", () => {
 //discription validation
 textArtDescriptionElement.addEventListener("keyup", () => {
     let artdescription = textArtDescriptionElement.value;
-    let regPattern = new RegExp("^[A-Za-z:/,. 0-9]{7,350}$");
+    let regPattern = /^[\p{L}0-9\s:/,.#()-]{7,350}$/u;
 
     if (regPattern.test(artdescription)) {
         art.artdescription = artdescription;
@@ -587,7 +587,7 @@ const refreshStatuesForm = () => {
 //supplier name validation
 textStatueSupplierNameElement.addEventListener("keyup", () => {
     let name = textStatueSupplierNameElement.value;
-    let regPattern = new RegExp("^[A-Za-z\\s]{3,50}$");
+    let regPattern = /^\p{L}[\p{L}0-9\s.,'&()-]{1,69}$/u;
 
     if (regPattern.test(name)) {
         statue.name = name;
@@ -886,7 +886,7 @@ const refreshMugsForm = () => {
 //supplier name validation
 textMugSupplierNameElement.addEventListener("keyup", () => {
     let name = textMugSupplierNameElement.value;
-    let regPattern = new RegExp("^[A-Za-z\\s]{3,50}$");
+    let regPattern = /^\p{L}[\p{L}0-9\s.,'&()-]{1,69}$/u;
 
     if (regPattern.test(name)) {
         mug.name = name;
