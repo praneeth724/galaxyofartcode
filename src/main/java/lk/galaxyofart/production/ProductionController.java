@@ -47,6 +47,15 @@ public class ProductionController {
         return ui;
     }
 
+    @RequestMapping("productionview/details")
+    public ModelAndView productionJobDetailsPage() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        ModelAndView ui = new ModelAndView();
+        ui.addObject("loggedusername", authentication.getName());
+        ui.setViewName("11a.productionJobDetails.html");
+        return ui;
+    }
+
     @GetMapping(value = "/production/byid", params = { "id" }, produces = "application/json")
     public Production getByIdQP(@RequestParam("id") Integer id) {
         return productionDao.getReferenceById(id);
@@ -117,7 +126,7 @@ public class ProductionController {
             production.setJobid("JOB-" + String.format("%04d", production.getId()));
             productionDao.save(production);
 
-            return "OK";
+            return "OK:" + production.getId();
         } catch (Exception e) {
             return "Save Not Completed..!" + e.getMessage();
         }

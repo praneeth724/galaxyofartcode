@@ -123,7 +123,7 @@ const clearElement = (elementList) => {
 
 
 //define function to fill data into table..................
-const fillDataIntoTable = (tableBodyElement, dataList, propertyList, editFunction, deleteFunction, printFunction, buttonVisibility = true) => {
+const fillDataIntoTable = (tableBodyElement, dataList, propertyList, editFunction, deleteFunction, printFunction, buttonVisibility = true, printOnly = false) => {
 
   tableBodyElement.innerHTML = "";
 
@@ -153,30 +153,32 @@ const fillDataIntoTable = (tableBodyElement, dataList, propertyList, editFunctio
       tr.appendChild(tdModify);
     }
 
-    //edit
-    let buttonEdit = document.createElement("button");
-    buttonEdit.type = "button";
-    buttonEdit.innerHTML = '<i class="fa-solid fa-edit" </i>';
+    if (!printOnly) {
+      //edit
+      let buttonEdit = document.createElement("button");
+      buttonEdit.type = "button";
+      buttonEdit.innerHTML = '<i class="fa-solid fa-edit" </i>';
 
-    buttonEdit.onclick = () => {
-      console.log("Edit", data);
-      editFunction(data);
+      buttonEdit.onclick = () => {
+        console.log("Edit", data);
+        editFunction(data);
+      }
+
+      buttonEdit.className = "btn edit  fw-bold ms-1 me-1";
+      tdModify.appendChild(buttonEdit);
+
+      //delete
+      let buttonDelete = document.createElement("button");
+      buttonDelete.type = "button";
+      buttonDelete.innerHTML = '<i class="fa-solid fa-trash" ></i>';
+
+      buttonDelete.onclick = () => {
+        deleteFunction(data);
+      }
+
+      buttonDelete.className = "btn delete fw-bold ms-1 me-1";
+      tdModify.appendChild(buttonDelete);
     }
-
-    buttonEdit.className = "btn edit  fw-bold ms-1 me-1";
-    tdModify.appendChild(buttonEdit);
-
-    //delete
-    let buttonDelete = document.createElement("button");
-    buttonDelete.type = "button";
-    buttonDelete.innerHTML = '<i class="fa-solid fa-trash" ></i>';
-
-    buttonDelete.onclick = () => {
-      deleteFunction(data);
-    }
-
-    buttonDelete.className = "btn delete fw-bold ms-1 me-1";
-    tdModify.appendChild(buttonDelete);
 
     // print
     let buttonPrint = document.createElement("button");

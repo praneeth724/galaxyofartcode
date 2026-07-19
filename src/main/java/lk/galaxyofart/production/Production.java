@@ -57,6 +57,7 @@ public class Production {
     private Double total;
     private Double advance;
     private Double balance;
+    private Boolean approvedbymanager;
 
     private LocalDateTime addeddatetime;
     private LocalDateTime updatedatetime;
@@ -66,7 +67,7 @@ public class Production {
             LocalDate ordereddate, LocalDate deliverydate, Products product_id, String designcategory,
             String designformat, String designfile, String printarea, String colormode, String designsize,
             Integer quantity, Double unitcost, Double inkcost, Double papercost, Double designcost, Double discount,
-            Double discountamount, Double total, Double advance, Double balance) {
+            Double discountamount, Double total, Double advance, Double balance, Boolean approvedbymanager) {
         this.id = id;
         this.customername = customername;
         this.contact = contact;
@@ -91,5 +92,6 @@ public class Production {
         this.total = total;
         this.advance = advance;
         this.balance = balance;
+        this.approvedbymanager = approvedbymanager;
     }
 }

@@ -35,6 +35,7 @@ let discountAmountElement = document.querySelector("#discountAmount");
 let totalCostElement = document.querySelector("#totalCost");
 let advanceElement = document.querySelector("#advance");
 let balanceElement = document.querySelector("#balance");
+let approvedByManagerElement = document.querySelector("#approvedByManager");
 
 
 //compute discount amount, total cost, balance
@@ -124,6 +125,7 @@ const refillProductionForm = (dataOb) => {
     totalCostElement.value = production.total;
     advanceElement.value = production.advance;
     balanceElement.value = production.balance;
+    approvedByManagerElement.checked = !!production.approvedbymanager;
 
     buttonSubmit.style.display = "none";
     buttonUpdate.style.display = "block";
@@ -271,8 +273,11 @@ const refreshProductionForm = () => {
         discountamount: 0,
         total: null,
         advance: 0,
-        balance: null
+        balance: null,
+        approvedbymanager: false
     }
+
+    approvedByManagerElement.checked = false;
 }
 
 //simple text/date field bindings
@@ -290,6 +295,7 @@ designFileElement.addEventListener("change", () => { production.designfile = des
 printAreaElement.addEventListener("change", () => { production.printarea = printAreaElement.value || null; });
 colorModeElement.addEventListener("change", () => { production.colormode = colorModeElement.value || null; });
 designSizeElement.addEventListener("keyup", () => { production.designsize = designSizeElement.value || null; });
+approvedByManagerElement.addEventListener("change", () => { production.approvedbymanager = approvedByManagerElement.checked; });
 
 
 //define function check form error.........................
@@ -332,10 +338,13 @@ const submitProduction = () => {
                 if (willSave) {
                     let serviceResponse = getHTTPServiceRequest("/production/save", "POST", production);
 
-                    if (serviceResponse == "OK") {
+                    if (serviceResponse && serviceResponse.startsWith("OK")) {
                         swal("Save Completed..!", { icon: "success" });
                         refreshProductionTable();
                         refreshProductionForm();
+
+                        let newId = serviceResponse.split(":")[1];
+                        window.open("productionview/details?id=" + newId, "_blank");
                     } else {
                         swal("Save Not Completed..!", " Form Has Some Errors..! \n" + serviceResponse, "error");
                     }

@@ -336,6 +336,7 @@ CREATE TABLE `production` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `addeddatetime` datetime(6) DEFAULT NULL,
   `advance` double DEFAULT NULL,
+  `approvedbymanager` bit(1) DEFAULT NULL,
   `balance` double DEFAULT NULL,
   `colormode` varchar(255) DEFAULT NULL,
   `contact` varchar(255) DEFAULT NULL,

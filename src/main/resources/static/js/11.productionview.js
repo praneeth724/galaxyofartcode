@@ -32,6 +32,33 @@ const refreshProductionViewTable = () => {
         { dataType: "function", propertyName: getJobStatusBadge }
     ];
 
-    // read-only view: no edit/delete/print actions, so pass no-op handlers and hide the modify column
-    fillDataIntoTable(tableBodyProductionView, productions, propertyList, () => {}, () => {}, () => {}, false);
+    // read-only view: no edit/delete, but keep a print action, so pass no-op handlers for edit/delete and printOnly=true
+    fillDataIntoTable(tableBodyProductionView, productions, propertyList, () => {}, () => {}, printProductionView, true, true);
+}
+
+
+//define function for print, mirrors printProduction() in 10.production.js
+const printProductionView = (dataOb) => {
+
+    let newWindow = window.open();
+
+    newWindow.document.writeln(
+        "<html><head><title> Print Production Job </title></head><body>" +
+        "<h1> __________Production Job__________ </h1>" +
+        "<p><strong> Job ID : </strong> " + dataOb.jobid + "</p>" +
+        "<p><strong> Customer : </strong> " + dataOb.customername + "</p>" +
+        "<p><strong> Product : </strong> " + (dataOb.product_id ? dataOb.product_id.name : "") + "</p>" +
+        "<p><strong> Ordered Date : </strong> " + dataOb.ordereddate + "</p>" +
+        "<p><strong> Delivery Date : </strong> " + dataOb.deliverydate + "</p>" +
+        "<p><strong> Total : </strong> " + dataOb.total + "</p>" +
+        "<p><strong> Balance : </strong> " + dataOb.balance + "</p>" +
+        "<p><strong> Status : </strong> " + dataOb.jobstatus + "</p>" +
+        "</body></html>"
+    );
+
+    setInterval(() => {
+        newWindow.stop();
+        newWindow.print();
+        newWindow.close();
+    }, 1000);
 }
