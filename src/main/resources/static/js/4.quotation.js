@@ -45,11 +45,18 @@ function loadPriceRequestDetails() {
     quotation.quantity = selectedPR.quantity;
 
     selectPriceRequestElement.style.border = "2px solid green";
+    requestDateElement.style.border = "2px solid green";
 }
 
 //keep quotation.requestdate in sync if the auto-filled date is manually edited
 requestDateElement.addEventListener("change", () => {
-    quotation.requestdate = requestDateElement.value;
+    if (requestDateElement.value != "") {
+        quotation.requestdate = requestDateElement.value;
+        requestDateElement.style.border = "2px solid green";
+    } else {
+        quotation.requestdate = null;
+        requestDateElement.style.border = "2px solid red";
+    }
 });
 
 
@@ -241,6 +248,7 @@ const refreshQuotationForm = () => {
     }
 
     selectPriceRequestElement.style.border = "1px solid #ced4da";
+    requestDateElement.style.border = "1px solid #ced4da";
     validDateElement.style.border = "1px solid #ced4da";
     unitPriceElement.style.border = "1px solid #ced4da";
     qtyElement.style.border = "1px solid #ced4da";
@@ -305,6 +313,7 @@ const checkFormError = () => {
     let errors = "";
 
     if (!quotation.pricerequest_id) errors = errors + "Please Select A Price Request ..!\n";
+    if (quotation.requestdate == null) errors = errors + "Please Enter Valid Request Date ..!\n";
     if (quotation.deadline == null) errors = errors + "Please Enter Valid Deadline ..!\n";
     if (quotation.price == null) errors = errors + "Please Enter Valid Unit Price ..!\n";
     if (quotation.quantity == null) errors = errors + "Please Enter Valid Quantity ..!\n";

@@ -9,6 +9,7 @@ body {
 @media (min-width: 992px) {
     body {
         margin-left: 260px;
+        padding-top: 56px;
     }
 }
 
@@ -285,6 +286,33 @@ table td {
 .mobile-topbar-brand {
     color: #fff;
     text-decoration: none;
+}
+
+.desktop-topbar {
+    position: fixed;
+    top: 0;
+    left: 260px;
+    right: 0;
+    height: 56px;
+    background: #fff;
+    align-items: center;
+    padding: 0 24px;
+    z-index: 1030;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.desktop-topbar .breadcrumb-item {
+    font-weight: 600;
+    color: #6b7280;
+}
+
+.desktop-topbar .breadcrumb-item.active {
+    color: #111827;
+}
+
+.desktop-topbar .breadcrumb-item + .breadcrumb-item::before {
+    color: #9ca3af;
 }
 
 .sidebar-backdrop {

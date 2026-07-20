@@ -292,6 +292,16 @@ selectCommissiontypeElement.addEventListener("change", () => {
     calculatePayable();
 });
 
+//commission rate validation
+commissionRateElement.addEventListener("keyup", () => {
+    if (commissionRateElement.value != "" && Number(commissionRateElement.value) > 0) {
+        commissionRateElement.style.border = "2px solid green";
+    } else {
+        commissionRateElement.style.border = "2px solid red";
+    }
+    calculatePayable();
+});
+
 //item price validation
 itemPriceElement.addEventListener("keyup", () => {
     if (itemPriceElement.value != "" && Number(itemPriceElement.value) > 0) {
@@ -364,7 +374,7 @@ const checkFormError = () => {
     if (!payment.artist_id) errors = errors + "Please Select Valid Artist ..!\n";
     if (!payment.product_id) errors = errors + "Please Select Valid Product ..!\n";
     if (payment.commissiontype == null) errors = errors + "Please Select Commission Type ..!\n";
-    if (payment.commissionrate == null) errors = errors + "Please Enter Valid Commission Rate ..!\n";
+    if (payment.commissionrate == null || payment.commissionrate <= 0) errors = errors + "Please Enter Valid Commission Rate ..!\n";
     if (payment.price == null || payment.price <= 0) errors = errors + "Please Enter Valid Item Price ..!\n";
     if (payment.quantity == null || payment.quantity <= 0) errors = errors + "Please Enter Valid Quantity ..!\n";
     if (payment.paymethod == null) errors = errors + "Please Select Payment Method ..!\n";

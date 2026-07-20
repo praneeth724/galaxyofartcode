@@ -15,6 +15,13 @@
     </a>
 </div>
 
+<!-- desktop-only top bar: shows where you are, e.g. Administration / Employee -->
+<div class="desktop-topbar d-none d-lg-flex">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0" id="topbarBreadcrumb"></ol>
+    </nav>
+</div>
+
 <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="GOASidebar.close()"></div>
 
 <nav class="app-sidebar" id="appSidebar">
@@ -159,6 +166,56 @@
             document.getElementById('sidebarBackdrop').classList.remove('show');
         }
     };
+
+    // breadcrumb path shown in the desktop top bar, e.g. Administration / Employee
+    (function () {
+        var path = window.location.pathname;
+        var query = window.location.search;
+
+        var breadcrumbMap = [
+            { path: '/dashboard', section: 'Home', label: 'Dashboard' },
+
+            { path: '/employee', section: 'Administration', label: 'Employee' },
+            { path: '/user', section: 'Administration', label: 'User' },
+            { path: '/privilage', section: 'Administration', label: 'Privilage' },
+
+            { path: '/product', query: 'type=art', section: 'Products', label: 'Arts' },
+            { path: '/product', query: 'type=statue', section: 'Products', label: 'Statues' },
+            { path: '/product', query: 'type=mug', section: 'Products', label: 'Mugs' },
+            { path: '/product', section: 'Products', label: 'All' },
+            { path: '/inventory', section: 'Products', label: 'Inventory' },
+
+            { path: '/artistsupplierdetails', section: 'Sourcing', label: 'Artist & Supplier' },
+            { path: '/supplierpricerequest', section: 'Sourcing', label: 'Supplier Price Request' },
+            { path: '/quotation', section: 'Sourcing', label: 'Quotations' },
+            { path: '/purchaseorder', section: 'Sourcing', label: 'Purchase Order' },
+            { path: '/grn', section: 'Sourcing', label: 'Goods Receive Note' },
+            { path: '/artistsupplierpayment', section: 'Sourcing', label: 'Artist Payment' },
+
+            { path: '/customerdetails', section: 'Sales', label: 'Customers' },
+            { path: '/invoice', section: 'Sales', label: 'Invoice' },
+
+            { path: '/production', section: 'Production', label: 'Production' },
+            { path: '/productionview', section: 'Production', label: 'Production Tracking' },
+
+            { path: '/reports/sales', section: 'Reports', label: 'Sales Report' },
+            { path: '/reports/purchase', section: 'Reports', label: 'Purchase Report' },
+            { path: '/reports/employee', section: 'Reports', label: 'Employee Report' }
+        ];
+
+        var match = breadcrumbMap.find(function (entry) {
+            return entry.path === path && entry.query && query.indexOf(entry.query) !== -1;
+        }) || breadcrumbMap.find(function (entry) {
+            return entry.path === path && !entry.query;
+        });
+
+        var breadcrumbEl = document.getElementById('topbarBreadcrumb');
+        if (breadcrumbEl && match) {
+            breadcrumbEl.innerHTML =
+                '<li class="breadcrumb-item">' + match.section + '</li>' +
+                '<li class="breadcrumb-item active" aria-current="page">' + match.label + '</li>';
+        }
+    })();
 
     // highlight the current page's sidebar link and auto-expand its submenu
     (function () {

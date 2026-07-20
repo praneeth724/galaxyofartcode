@@ -57,16 +57,23 @@ function calculate() {
     totalCostElement.value = total;
     balanceElement.value = balance;
 
-    production.quantity = qty;
-    production.unitcost = unitCost;
-    production.inkcost = inkCost;
-    production.papercost = paperCost;
-    production.designcost = designCost;
     production.discount = discount;
     production.discountamount = discountAmount;
     production.total = total;
     production.advance = advance;
     production.balance = balance;
+
+    qtyElement.style.border = qty > 0 ? "2px solid green" : "2px solid red";
+    unitCostElement.style.border = unitCost > 0 ? "2px solid green" : "2px solid red";
+    inkCostElement.style.border = inkCost > 0 ? "2px solid green" : "2px solid red";
+    paperCostElement.style.border = paperCost > 0 ? "2px solid green" : "2px solid red";
+    designCostElement.style.border = designCost > 0 ? "2px solid green" : "2px solid red";
+
+    production.quantity = qty > 0 ? qty : null;
+    production.unitcost = unitCost > 0 ? unitCost : null;
+    production.inkcost = inkCost > 0 ? inkCost : null;
+    production.papercost = paperCost > 0 ? paperCost : null;
+    production.designcost = designCost > 0 ? designCost : null;
 }
 
 
@@ -278,23 +285,160 @@ const refreshProductionForm = () => {
     }
 
     approvedByManagerElement.checked = false;
+
+    customerNameElement.style.border = "1px solid #ced4da";
+    contactElement.style.border = "1px solid #ced4da";
+    jobStatusElement.style.border = "1px solid #ced4da";
+    orderedDateElement.style.border = "1px solid #ced4da";
+    deliveryDateElement.style.border = "1px solid #ced4da";
+    selectProductElement.style.border = "1px solid #ced4da";
+    designCategoryElement.style.border = "1px solid #ced4da";
+    designFormatElement.style.border = "1px solid #ced4da";
+    printAreaElement.style.border = "1px solid #ced4da";
+    colorModeElement.style.border = "1px solid #ced4da";
+    designSizeElement.style.border = "1px solid #ced4da";
+    qtyElement.style.border = "1px solid #ced4da";
+    unitCostElement.style.border = "1px solid #ced4da";
+    inkCostElement.style.border = "1px solid #ced4da";
+    paperCostElement.style.border = "1px solid #ced4da";
+    designCostElement.style.border = "1px solid #ced4da";
 }
 
-//simple text/date field bindings
-customerNameElement.addEventListener("keyup", () => { production.customername = customerNameElement.value || null; });
-contactElement.addEventListener("keyup", () => { production.contact = contactElement.value || null; });
-jobStatusElement.addEventListener("change", () => { production.jobstatus = jobStatusElement.value || null; });
-orderedDateElement.addEventListener("change", () => { production.ordereddate = orderedDateElement.value || null; });
-deliveryDateElement.addEventListener("change", () => { production.deliverydate = deliveryDateElement.value || null; });
-selectProductElement.addEventListener("change", () => {
-    production.product_id = selectProductElement.value ? JSON.parse(selectProductElement.value) : null;
+//customer name validation
+customerNameElement.addEventListener("keyup", () => {
+    let name = customerNameElement.value;
+    let regPattern = /^\p{L}[\p{L}0-9\s.,'&()-]{1,69}$/u;
+
+    if (regPattern.test(name)) {
+        production.customername = name;
+        customerNameElement.style.border = "2px solid green";
+    } else {
+        production.customername = null;
+        customerNameElement.style.border = "2px solid red";
+    }
 });
-designCategoryElement.addEventListener("change", () => { production.designcategory = designCategoryElement.value || null; });
-designFormatElement.addEventListener("keyup", () => { production.designformat = designFormatElement.value || null; });
+
+//contact validation
+contactElement.addEventListener("keyup", () => {
+    let contact = contactElement.value;
+    let regPattern = /^[0]{1}[7][01245678]{1}[0-9]{7}$/;
+
+    if (regPattern.test(contact)) {
+        production.contact = contact;
+        contactElement.style.border = "2px solid green";
+    } else {
+        production.contact = null;
+        contactElement.style.border = "2px solid red";
+    }
+});
+
+//job status validation
+jobStatusElement.addEventListener("change", () => {
+    if (jobStatusElement.value != "") {
+        production.jobstatus = jobStatusElement.value;
+        jobStatusElement.style.border = "2px solid green";
+    } else {
+        production.jobstatus = null;
+        jobStatusElement.style.border = "2px solid red";
+    }
+});
+
+//ordered date validation
+orderedDateElement.addEventListener("change", () => {
+    if (orderedDateElement.value != "") {
+        production.ordereddate = orderedDateElement.value;
+        orderedDateElement.style.border = "2px solid green";
+    } else {
+        production.ordereddate = null;
+        orderedDateElement.style.border = "2px solid red";
+    }
+});
+
+//delivery date validation
+deliveryDateElement.addEventListener("change", () => {
+    if (deliveryDateElement.value != "") {
+        production.deliverydate = deliveryDateElement.value;
+        deliveryDateElement.style.border = "2px solid green";
+    } else {
+        production.deliverydate = null;
+        deliveryDateElement.style.border = "2px solid red";
+    }
+});
+
+//product validation
+selectProductElement.addEventListener("change", () => {
+    if (selectProductElement.value != "") {
+        production.product_id = JSON.parse(selectProductElement.value);
+        selectProductElement.style.border = "2px solid green";
+    } else {
+        production.product_id = null;
+        selectProductElement.style.border = "2px solid red";
+    }
+});
+
+//design category validation
+designCategoryElement.addEventListener("change", () => {
+    if (designCategoryElement.value != "") {
+        production.designcategory = designCategoryElement.value;
+        designCategoryElement.style.border = "2px solid green";
+    } else {
+        production.designcategory = null;
+        designCategoryElement.style.border = "2px solid red";
+    }
+});
+
+//design format validation
+designFormatElement.addEventListener("keyup", () => {
+    let format = designFormatElement.value;
+    let regPattern = /^[\p{L}0-9\s/.,()-]{1,30}$/u;
+
+    if (regPattern.test(format)) {
+        production.designformat = format;
+        designFormatElement.style.border = "2px solid green";
+    } else {
+        production.designformat = null;
+        designFormatElement.style.border = "2px solid red";
+    }
+});
+
 designFileElement.addEventListener("change", () => { production.designfile = designFileElement.value || null; });
-printAreaElement.addEventListener("change", () => { production.printarea = printAreaElement.value || null; });
-colorModeElement.addEventListener("change", () => { production.colormode = colorModeElement.value || null; });
-designSizeElement.addEventListener("keyup", () => { production.designsize = designSizeElement.value || null; });
+
+//print area validation
+printAreaElement.addEventListener("change", () => {
+    if (printAreaElement.value != "") {
+        production.printarea = printAreaElement.value;
+        printAreaElement.style.border = "2px solid green";
+    } else {
+        production.printarea = null;
+        printAreaElement.style.border = "2px solid red";
+    }
+});
+
+//color mode validation
+colorModeElement.addEventListener("change", () => {
+    if (colorModeElement.value != "") {
+        production.colormode = colorModeElement.value;
+        colorModeElement.style.border = "2px solid green";
+    } else {
+        production.colormode = null;
+        colorModeElement.style.border = "2px solid red";
+    }
+});
+
+//design size validation
+designSizeElement.addEventListener("keyup", () => {
+    let size = designSizeElement.value;
+    let regPattern = /^[\p{L}0-9\s.xX×*-]{1,30}$/u;
+
+    if (regPattern.test(size)) {
+        production.designsize = size;
+        designSizeElement.style.border = "2px solid green";
+    } else {
+        production.designsize = null;
+        designSizeElement.style.border = "2px solid red";
+    }
+});
+
 approvedByManagerElement.addEventListener("change", () => { production.approvedbymanager = approvedByManagerElement.checked; });
 
 
