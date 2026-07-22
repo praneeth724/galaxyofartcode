@@ -22,6 +22,7 @@ public class WebConfiguration {
 
                     .requestMatchers("/css/**").permitAll()
                     .requestMatchers("/pictures/**").permitAll()
+                    .requestMatchers("/uploads/**").permitAll()
                     .requestMatchers("/bootstrap-5.2.3/**").permitAll()
                     .requestMatchers("/fontawesome-free-7.2.0/**").permitAll()
                     .requestMatchers("/js/**").permitAll()

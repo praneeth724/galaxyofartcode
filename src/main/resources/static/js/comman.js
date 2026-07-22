@@ -83,6 +83,47 @@ const getHTTPServiceRequest = (url, method, data) => {
 }
 
 
+//define function for uploading a file and getting back its stored path...........
+const uploadFileServiceRequest = (url, file) => {
+
+  let servicesResponces = null;
+
+  let csrfToken = document.querySelector('meta[name="_csrf"]');
+  let csrfHeader = document.querySelector('meta[name="_csrf_header"]');
+
+  let formData = new FormData();
+  formData.append("file", file);
+
+  let ajaxSettings = {
+    url: url,
+    type: "POST",
+    async: false,
+    data: formData,
+    processData: false,
+    contentType: false,
+
+    success: function (response) {
+      servicesResponces = response;
+    },
+
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.error("Upload Error:", textStatus, errorThrown);
+      servicesResponces = null;
+    }
+  };
+
+  if (csrfToken && csrfHeader) {
+    ajaxSettings.headers = {};
+    ajaxSettings.headers[csrfHeader.content] = csrfToken.content;
+  }
+
+  $.ajax(ajaxSettings);
+
+  return servicesResponces;
+
+}
+
+
 //define common text element validation function....................
 const textValidator = (element, pattern, object, property) => {
 

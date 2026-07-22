@@ -35,6 +35,15 @@ let oldMug = null;
 let statuesList = [];
 let mugsList = [];
 
+//render an uploaded product image as a thumbnail; older rows saved before the
+//upload fix hold a browser fakepath string instead of a real path, show as text
+const productImageThumbnail = (data) => {
+    if (data.image && data.image.startsWith("/uploads/")) {
+        return '<img src="' + data.image + '" alt="product image" style="max-width:60px;max-height:60px;">';
+    }
+    return data.image || "";
+}
+
 
 //independantly load forms (show form)...............................
 function showForm() {
@@ -89,7 +98,7 @@ const refreshArtsTable = () => {
         { dataType: "string", propertyName: "name" },
         { dataType: "string", propertyName: "itemcode" },
         { dataType: "string", propertyName: "medium" },
-        { dataType: "string", propertyName: "image" },
+        { dataType: "function", propertyName: productImageThumbnail },
         { dataType: "string", propertyName: "artdescription" },
         { dataType: "string", propertyName: "price" }
     ];
@@ -248,7 +257,7 @@ const printArt = (dataOb) => {
 //refresh artist form.........................................................
 const refreshArtsForm = () => {
 
-    artsForm.reset();
+    formProducts.reset();
     buttonUpdateArt.disabled = "disabled";
 
     art = {
@@ -309,9 +318,18 @@ selectArtMediumElement.addEventListener("change", () => {
 
 //image validation
 imgArtImageElement.addEventListener("change", () => {
-    if (imgArtImageElement.value != "") {
-        art.image = imgArtImageElement.value;
-        imgArtImageElement.style.border = "2px solid green";
+    let file = imgArtImageElement.files[0];
+
+    if (file) {
+        let storedPath = uploadFileServiceRequest("/product/uploadimage", file);
+        if (storedPath) {
+            art.image = storedPath;
+            imgArtImageElement.style.border = "2px solid green";
+        } else {
+            art.image = null;
+            imgArtImageElement.style.border = "2px solid red";
+            swal("Image Upload Failed..!", "", "error");
+        }
     } else {
         art.image = null;
         imgArtImageElement.style.border = "2px solid red";
@@ -421,7 +439,7 @@ const refreshStatuesTable = () => {
         { dataType: "string", propertyName: "name" },
         { dataType: "function", propertyName: (data) => data.statue_id ? data.statue_id.name : "" },
         { dataType: "string", propertyName: "itemcode" },
-        { dataType: "string", propertyName: "image" },
+        { dataType: "function", propertyName: productImageThumbnail },
         { dataType: "string", propertyName: "price" }
     ];
 
@@ -565,7 +583,7 @@ const printStatue = (dataOb) => {
 //refresh statue form.........................................................
 const refreshStatuesForm = () => {
 
-    statuesForm.reset();
+    formProducts.reset();
     buttonUpdateStatue.disabled = "disabled";
 
     statue = {
@@ -623,9 +641,18 @@ textStatueItemCodeElement.addEventListener("keyup", () => {
 
 //image validation
 imgStatueImageElement.addEventListener("change", () => {
-    if (imgStatueImageElement.value != "") {
-        statue.image = imgStatueImageElement.value;
-        imgStatueImageElement.style.border = "2px solid green";
+    let file = imgStatueImageElement.files[0];
+
+    if (file) {
+        let storedPath = uploadFileServiceRequest("/product/uploadimage", file);
+        if (storedPath) {
+            statue.image = storedPath;
+            imgStatueImageElement.style.border = "2px solid green";
+        } else {
+            statue.image = null;
+            imgStatueImageElement.style.border = "2px solid red";
+            swal("Image Upload Failed..!", "", "error");
+        }
     } else {
         statue.image = null;
         imgStatueImageElement.style.border = "2px solid red";
@@ -720,7 +747,7 @@ const refreshMugsTable = () => {
         { dataType: "string", propertyName: "name" },
         { dataType: "function", propertyName: (data) => data.mug_id ? data.mug_id.name : "" },
         { dataType: "string", propertyName: "itemcode" },
-        { dataType: "string", propertyName: "image" },
+        { dataType: "function", propertyName: productImageThumbnail },
         { dataType: "string", propertyName: "price" }
     ];
 
@@ -864,7 +891,7 @@ const printMug = (dataOb) => {
 //refresh mug form.........................................................
 const refreshMugsForm = () => {
 
-    mugsForm.reset();
+    formProducts.reset();
     buttonUpdateMugs.disabled = "disabled";
 
     mug = {
@@ -922,9 +949,18 @@ textMugItemCodeElement.addEventListener("keyup", () => {
 
 //image validation
 imgMugImageElement.addEventListener("change", () => {
-    if (imgMugImageElement.value != "") {
-        mug.image = imgMugImageElement.value;
-        imgMugImageElement.style.border = "2px solid green";
+    let file = imgMugImageElement.files[0];
+
+    if (file) {
+        let storedPath = uploadFileServiceRequest("/product/uploadimage", file);
+        if (storedPath) {
+            mug.image = storedPath;
+            imgMugImageElement.style.border = "2px solid green";
+        } else {
+            mug.image = null;
+            imgMugImageElement.style.border = "2px solid red";
+            swal("Image Upload Failed..!", "", "error");
+        }
     } else {
         mug.image = null;
         imgMugImageElement.style.border = "2px solid red";

@@ -1,12 +1,20 @@
 package lk.galaxyofart.productdetails;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import lk.galaxyofart.AuthController;
@@ -78,6 +87,34 @@ public class ProductsController {
             return "OK";
         } catch (Exception e) {
             return "Delete Not Completed..! :" + e.getMessage();
+        }
+    }
+
+    @PostMapping(value = "/product/uploadimage")
+    public ResponseEntity<String> uploadProductImage(@RequestParam("file") MultipartFile file) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Privilage userPriv = authController.getPrivilageByUserAndModule(authentication.getName(), "product");
+        if (!userPriv.getPrivi_insert()) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Upload Not Completed..! : You Haven't Any Permission..!");
+        }
+
+        if (file.isEmpty()) {
+            return ResponseEntity.badRequest().body("Upload Not Completed..! : No File Selected..!");
+        }
+
+        String originalName = StringUtils.cleanPath(file.getOriginalFilename() == null ? "" : file.getOriginalFilename());
+        String extension = originalName.contains(".") ? originalName.substring(originalName.lastIndexOf('.')) : "";
+        String storedName = UUID.randomUUID().toString() + extension;
+
+        try {
+            Path uploadDir = Paths.get("uploads", "products");
+            Files.createDirectories(uploadDir);
+            file.transferTo(uploadDir.resolve(storedName));
+            return ResponseEntity.ok("/uploads/products/" + storedName);
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Upload Not Completed..! : " + e.getMessage());
         }
     }
 
