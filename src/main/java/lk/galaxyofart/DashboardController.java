@@ -2,6 +2,9 @@ package lk.galaxyofart;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -78,6 +81,21 @@ public class DashboardController {
                 .filter(inv -> inv.getAvailable() != null && inv.getRop() != null && inv.getAvailable() <= inv.getRop())
                 .count();
 
+        DateTimeFormatter dayLabelFormat = DateTimeFormatter.ofPattern("MMM d");
+        List<String> revenueTrendLabels = new ArrayList<>();
+        List<Double> revenueTrendValues = new ArrayList<>();
+
+        for (int i = 6; i >= 0; i--) {
+            LocalDate day = today.minusDays(i);
+            double dayRevenue = invoices.stream()
+                    .filter(inv -> day.equals(inv.getInvoicedate()))
+                    .mapToDouble(inv -> inv.getTotal() != null ? inv.getTotal() : 0)
+                    .sum();
+
+            revenueTrendLabels.add(day.format(dayLabelFormat));
+            revenueTrendValues.add(dayRevenue);
+        }
+
         return new DashboardSummary(
                 currentMonthEarnings, currentMonthSales,
                 totalArt, totalStatue, totalMug,
@@ -85,6 +103,7 @@ public class DashboardController {
                 (long) asdetailsDao.findByType("supplier").size(),
                 totalSalesAllTime, totalPurchasesAllTime,
                 revenueLast10Days, newCustomersLast10Days,
-                pendingInvoices, lowStockItems);
+                pendingInvoices, lowStockItems,
+                revenueTrendLabels, revenueTrendValues);
     }
 }

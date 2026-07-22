@@ -129,34 +129,42 @@ const refillPrivilage = (dataOb) => {
 
     if (privilage.privi_select) {
         checkBoxSelectElement.checked = true;
-        lableSelectElement.innerText = "Granted..!";
+        lableSelectElement.innerText = "Granted";
+        lableSelectElement.className = "privilage-status-badge text-success";
     } else {
         checkBoxSelectElement.checked = false;
-        lableSelectElement.innerText = "Not-Granted..!";
+        lableSelectElement.innerText = "Not Granted";
+        lableSelectElement.className = "privilage-status-badge text-muted";
     }
 
     if (privilage.privi_insert) {
         checkBoxInsertElement.checked = true;
-        lableInsertElement.innerText = "Granted..!";
+        lableInsertElement.innerText = "Granted";
+        lableInsertElement.className = "privilage-status-badge text-success";
     } else {
         checkBoxInsertElement.checked = false;
-        lableInsertElement.innerText = "Not-Granted..!";
+        lableInsertElement.innerText = "Not Granted";
+        lableInsertElement.className = "privilage-status-badge text-muted";
     }
 
     if (privilage.privi_update) {
         checkBoxUpdateElement.checked = true;
-        lableUpdateElement.innerText = "Granted..!";
+        lableUpdateElement.innerText = "Granted";
+        lableUpdateElement.className = "privilage-status-badge text-success";
     } else {
         checkBoxUpdateElement.checked = false;
-        lableUpdateElement.innerText = "Not-Granted..!";
+        lableUpdateElement.innerText = "Not Granted";
+        lableUpdateElement.className = "privilage-status-badge text-muted";
     }
 
     if (privilage.privi_delete) {
         checkBoxDeleteElement.checked = true;
-        lableDeleteElement.innerText = "Granted..!";
+        lableDeleteElement.innerText = "Granted";
+        lableDeleteElement.className = "privilage-status-badge text-success";
     } else {
         checkBoxDeleteElement.checked = false;
-        lableDeleteElement.innerText = "Not-Granted..!";
+        lableDeleteElement.innerText = "Not Granted";
+        lableDeleteElement.className = "privilage-status-badge text-muted";
     }
 
 
@@ -358,7 +366,7 @@ const refreshPrivilageForm = () => {
     selectModuleElement.disabled = ""; // update ekta refill eke disable karapu nisa , methnadi enable krnwa
 
     //get role list from database
-    let roles = getServiceRequest("/role/alldatawithoutadmin")
+    let roles = getServiceRequest("/roles/alldatawithoutadmin")
     fillDataToSelect(selectRoleElement, "Select Role..!", roles, "name");
 
     let modules = getServiceRequest("/module/alldata")
@@ -366,16 +374,20 @@ const refreshPrivilageForm = () => {
 
 
     checkBoxSelectElement.checked = false;
-    lableSelectElement.innerText = "Select Privilage Not-Granted..!";
+    lableSelectElement.innerText = "Not Granted";
+    lableSelectElement.className = "privilage-status-badge text-muted";
 
     checkBoxInsertElement.checked = false;
-    lableInsertElement.innerText = "Insert Privilage Not-Granted..!";
+    lableInsertElement.innerText = "Not Granted";
+    lableInsertElement.className = "privilage-status-badge text-muted";
 
     checkBoxUpdateElement.checked = false;
-    lableUpdateElement.innerText = "Update Privilage Not-Granted..!";
+    lableUpdateElement.innerText = "Not Granted";
+    lableUpdateElement.className = "privilage-status-badge text-muted";
 
     checkBoxDeleteElement.checked = false;
-    lableDeleteElement.innerText = "Delete Privilage Not-Granted..!";
+    lableDeleteElement.innerText = "Not Granted";
+    lableDeleteElement.className = "privilage-status-badge text-muted";
 
     //not granted ewth value pass wenna oni nisa, inisial situation eka fales dnwa.
     privilage.privi_select = false;

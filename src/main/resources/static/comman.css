@@ -51,6 +51,20 @@ body {
     background-color: #cfc6cbb9;
 }
 
+/* privilage toggle cards.......................................................... */
+.privilage-toggle-box {
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    padding: 10px 14px;
+    height: 100%;
+}
+
+.privilage-status-badge {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
 .div-table {
     background-color: #cfc6cb;
     width: 100%;

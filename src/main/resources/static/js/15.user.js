@@ -349,8 +349,8 @@ const refreshUserForm = () => {
     user = new Object();
     user.roles = new Array();
 
-    let users = getServiceRequest("/user/alldata");
-    fillDataToSelect(selectEmployeeElement, "Select Employee..!", users, "fullname");
+    let employees = getServiceRequest("/employee/alldata");
+    fillDataToSelect(selectEmployeeElement, "Select Employee..!", employees, "fullname");
 
     //cler all element (border colur)
     clearElement([selectEmployeeElement, textUsernameElement, textPasswordElement, textReTypePasswordElement,

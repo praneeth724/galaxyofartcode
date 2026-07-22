@@ -103,102 +103,94 @@
                                     <br>
 
                                     <!-- select,insert,delete,update-->
-                                    <div class="row mt-1">
+                                    <div class="row mt-1 row-cols-2 row-cols-md-4 g-3">
 
                                         <div class="col">
-                                            <label class="form-label fw-bold me-4">Select : <span
-                                                    class="text-danger">*</span></label>
-                                        </div>
-                                        <div class=" col-2 border rounded px-3 py-2"
-                                            style="height: 38px; display: flex; align-items: center; background-color: rgb(255, 255, 255);">
-
-                                            <div class="d-flex align-items-center">
-                                                <div class="form-check form-switch form-check-inline">
-                                                    <input type="checkbox" id="chkSelect" class="form-check-input"
-                                                        onchange="if (chkSelect.checked){
-                                                            lblSelect.innerText = 'Granted';
-                                                            privilage.privi_select = true;
-                                                        } else{
-                                                            lblSelect.innerText = 'Not-Granted';
-                                                            privilage.privi_select = false;
-                                                        }">
-
-                                                    <label for="chkSelect" class="form-check-label"
-                                                        id="lblSelect"></label>
+                                            <div class="privilage-toggle-box">
+                                                <label for="chkSelect" class="form-label fw-bold d-block mb-2">Select
+                                                    <span class="text-danger">*</span></label>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <div class="form-check form-switch m-0">
+                                                        <input type="checkbox" id="chkSelect" class="form-check-input"
+                                                            onchange="if (chkSelect.checked){
+                                                                lblSelect.innerText = 'Granted';
+                                                                lblSelect.className = 'privilage-status-badge text-success';
+                                                                privilage.privi_select = true;
+                                                            } else{
+                                                                lblSelect.innerText = 'Not Granted';
+                                                                lblSelect.className = 'privilage-status-badge text-muted';
+                                                                privilage.privi_select = false;
+                                                            }">
+                                                    </div>
+                                                    <span id="lblSelect" class="privilage-status-badge text-muted"></span>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="col">
-                                            <label class="form-label fw-bold me-4">Insert : <span
-                                                    class="text-danger">*</span></label>
-                                        </div>
-                                        <div class=" col-2 border rounded px-3 py-2"
-                                            style="height: 38px; display: flex; align-items: center; background-color: rgb(255, 255, 255);">
-
-                                            <div class="d-flex align-items-center">
-                                                <div class="form-check form-switch form-check-inline">
-                                                    <input type="checkbox" id="chkInsert" class="form-check-input"
-                                                        onchange="if (chkInsert.checked){
-                                                            lblInsert.innerText = 'Granted';
-                                                            privilage.privi_insert = true;  
-                                                        } else{
-                                                            lblInsert.innerText = 'Not-Granted';
-                                                            privilage.privi_insert = false;
-                                                        }">
-                                                    <label for="chkInsert" class="form-check-label"
-                                                        id="lblInsert"></label>
+                                            <div class="privilage-toggle-box">
+                                                <label for="chkInsert" class="form-label fw-bold d-block mb-2">Insert
+                                                    <span class="text-danger">*</span></label>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <div class="form-check form-switch m-0">
+                                                        <input type="checkbox" id="chkInsert" class="form-check-input"
+                                                            onchange="if (chkInsert.checked){
+                                                                lblInsert.innerText = 'Granted';
+                                                                lblInsert.className = 'privilage-status-badge text-success';
+                                                                privilage.privi_insert = true;
+                                                            } else{
+                                                                lblInsert.innerText = 'Not Granted';
+                                                                lblInsert.className = 'privilage-status-badge text-muted';
+                                                                privilage.privi_insert = false;
+                                                            }">
+                                                    </div>
+                                                    <span id="lblInsert" class="privilage-status-badge text-muted"></span>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="col">
-                                            <label class="form-label fw-bold me-4">Update : <span
-                                                    class="text-danger">*</span></label>
-                                        </div>
-                                        <div class=" col-2 border rounded px-3 py-2"
-                                            style="height: 38px; display: flex; align-items: center; background-color: rgb(255, 255, 255);">
-
-                                            <div class="d-flex align-items-center">
-                                                <div class="form-check form-switch form-check-inline">
-                                                    <input type="checkbox" id="chkUpdate" class="form-check-input"
-                                                        onchange="if (chkUpdate.checked){
-                                                            lblUpdate.innerText = 'Granted';
-                                                            privilage.privi_update = true;
-                                                        } else{
-                                                            lblUpdate.innerText = 'Not-Granted';
-                                                            privilage.privi_update = false;
-                                                        }">
-                                                    <label for="chkUpdate" class="form-check-label"
-                                                        id="lblUpdate"></label>
+                                            <div class="privilage-toggle-box">
+                                                <label for="chkUpdate" class="form-label fw-bold d-block mb-2">Update
+                                                    <span class="text-danger">*</span></label>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <div class="form-check form-switch m-0">
+                                                        <input type="checkbox" id="chkUpdate" class="form-check-input"
+                                                            onchange="if (chkUpdate.checked){
+                                                                lblUpdate.innerText = 'Granted';
+                                                                lblUpdate.className = 'privilage-status-badge text-success';
+                                                                privilage.privi_update = true;
+                                                            } else{
+                                                                lblUpdate.innerText = 'Not Granted';
+                                                                lblUpdate.className = 'privilage-status-badge text-muted';
+                                                                privilage.privi_update = false;
+                                                            }">
+                                                    </div>
+                                                    <span id="lblUpdate" class="privilage-status-badge text-muted"></span>
                                                 </div>
                                             </div>
                                         </div>
-
 
                                         <div class="col">
-                                            <label class="form-label fw-bold me-4">Delete : <span
-                                                    class="text-danger">*</span></label>
-                                        </div>
-                                        <div class="col-2 border rounded px-3 py-2"
-                                            style="height: 38px; display: flex; align-items: center; background-color: rgb(255, 255, 255);">
-
-                                            <div class="d-flex align-items-center">
-                                                <div class="form-check form-switch form-check-inline ">
-                                                    <input type="checkbox" id="chkDelete" class="form-check-input"
-                                                        onchange="if (chkDelete.checked){
-                                                            lblDelete.innerText = 'Granted';
-                                                            privilage.privi_delete = true;
-                                                        } else{
-                                                            lblDelete.innerText = 'Not-Granted';
-                                                            privilage.privi_delete = false;
-                                                          
-                                                        }">
-                                                    <label for="chkDelete" class="form-check-label"
-                                                        id="lblDelete"></label>
+                                            <div class="privilage-toggle-box">
+                                                <label for="chkDelete" class="form-label fw-bold d-block mb-2">Delete
+                                                    <span class="text-danger">*</span></label>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <div class="form-check form-switch m-0">
+                                                        <input type="checkbox" id="chkDelete" class="form-check-input"
+                                                            onchange="if (chkDelete.checked){
+                                                                lblDelete.innerText = 'Granted';
+                                                                lblDelete.className = 'privilage-status-badge text-success';
+                                                                privilage.privi_delete = true;
+                                                            } else{
+                                                                lblDelete.innerText = 'Not Granted';
+                                                                lblDelete.className = 'privilage-status-badge text-muted';
+                                                                privilage.privi_delete = false;
+                                                            }">
+                                                    </div>
+                                                    <span id="lblDelete" class="privilage-status-badge text-muted"></span>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
 

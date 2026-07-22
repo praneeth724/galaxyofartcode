@@ -1,5 +1,7 @@
 package lk.galaxyofart;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,4 +23,6 @@ public class DashboardSummary {
     private Long newCustomersLast10Days;
     private Long pendingInvoices;
     private Long lowStockItems;
+    private List<String> revenueTrendLabels;
+    private List<Double> revenueTrendValues;
 }

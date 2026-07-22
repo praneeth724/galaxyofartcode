@@ -112,14 +112,64 @@ body {
     background: linear-gradient(135deg, #ffb347, #ffcc33);
 }
 
+.revenue-trend-wrap {
+    min-width: 280px;
+}
+
+.bar-chart-track {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 10px;
+    height: 160px;
+    padding-top: 24px;
+}
+
+.bar-chart-bar {
+    flex: 1;
+    min-height: 4px;
+    border-radius: 6px 6px 2px 2px;
+    background: linear-gradient(180deg, #ff6a88, #ff4fa0);
+    position: relative;
+    transition: 0.3s ease;
+}
+
+.bar-chart-bar.is-today {
+    background: linear-gradient(180deg, #6a5cff, #8f6eff);
+}
+
+.bar-chart-bar .bar-value {
+    position: absolute;
+    top: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    font-weight: 600;
+    color: #4b4b57;
+    white-space: nowrap;
+}
+
+.bar-chart-labels {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.bar-chart-labels span {
+    flex: 1;
+    text-align: center;
+    font-size: 11px;
+    color: #9a9a9a;
+}
+
 .traffic-circle {
     width: 220px;
     height: 220px;
     border-radius: 50%;
-    background: conic-gradient(#dd659d 0% 55%,
-            #3010b0 55% 88%,
-            #af6133 88% 100%);
+    background: conic-gradient(#dcdcdc 0% 100%);
     position: relative;
+    transition: background 0.4s ease;
 }
 
 .traffic-circle::before {
